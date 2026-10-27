@@ -98,11 +98,52 @@ The first version re-transcribed partial sentences whenever Whisper was idle. On
 
 ## 5. Browser end-to-end test
 
-`tests/e2e.cjs` launches two headless Chromium browsers with fake cameras. Their microphones play recorded English and Hindi speech, and both join the same room. The test checks that:
-1. the peer-to-peer WebRTC video connects on both sides (about 1 s), and
-2. each side receives the other's speech as a final caption, translated into its own language.
+`tests/e2e.cjs` launches two headless Chromium browsers with fake cameras. Their microphones play the recordings from `tests/mic_scenario.py` (English and Hindi speech mixed with typing, a cough, fan hum and silence), and both join the same room. The test checks that:
+1. the peer-to-peer WebRTC video connects on both sides (about 1 s),
+2. each side receives the other's speech as a final caption, translated into its own language,
+3. the captions match what was really said (the sentences in the `.json` next to each `.wav`), and
+4. the "hearing you…" indicator lights up while the person speaks.
 
-It passes against a local run and against the Docker image built from this repo's `Dockerfile` (started with `HF_HUB_OFFLINE=1` to prove the models are baked in). In that test both fake microphones talk non-stop at the same time, which is the worst case. English captions then waited up to about 5 s behind a Hindi transcription, because one Whisper worker serves the whole server (`ASR_WORKERS=1`). Normal turn-taking conversation does not hit this. On 8+ vCPU, set `ASR_WORKERS=2`.
+`AUTO=1` makes both people use *I speak: Auto-detect*. It passes against a local run and against the Docker image built from this repo's `Dockerfile` (started with `HF_HUB_OFFLINE=1` to prove the models are baked in). The worst case, with both fake microphones talking non-stop at the same time, is reported in section 6.
+
+## 6. Realistic microphone test
+
+The FLEURS clips above are clean read speech. A real laptop microphone also records keyboard typing, coughs, fan hum, long silences and room tone, and in a first round of real-microphone testing these produced captions that looked like random sentences. Two causes were found: the old energy-based VAD counted keyboard typing as speech (and merged two sentences into one caption), and a wrong *I speak* setting made Whisper write nonsense. The fixes are the Silero VAD, Auto-detect with a wrong-language hint, and warming up LibreTranslate at startup.
+
+**Method.** `tests/mic_scenario.py` builds a recording with Piper TTS: 5 known sentences (English or Hindi) mixed with keyboard typing, a cough, 120 Hz fan hum, long silences and -55 dBFS room tone. `tests/caption_check.py` streams it to the server like a browser (16 kHz PCM, 100 ms frames, real time) and classifies every final caption as:
+- **correct**: matches a spoken sentence (WER ≤ 35 %),
+- **garbled**: appears at the right moment but the words are mostly wrong,
+- **invented**: nothing was said at that time (typing, cough, hum, silence), so it is a hallucination.
+
+On the VAD itself: Silero scored speech at 0.8–0.96 and keyboard, cough and fan hum at 0.21 or less, and costs 0.12 ms per 32 ms frame.
+
+| Scenario | Correct | Invented | Notes |
+|---|---|---|---|
+| English, language fixed, one speaker | 5/5 | 0 | |
+| Hindi, language fixed, one speaker | 5/5 | 0 | Before the VAD change: 3/5, because typing merged two sentences. The first captions also arrived about 13 s late because LibreTranslate was cold. |
+| English, Auto-detect, one speaker | 5/5 | – | Captions about 1.7–2.0 s after speech |
+| Hindi, Auto-detect, one speaker | 5/5 | – | |
+| **Wrong language** (English speech, Hindi selected) | **0/5** | – | Nonsense such as "Torrent I and You Sour Sourts". The wrong-language hint fired after the first sentence (97 % English). |
+
+**Worst case: both people talking at exactly the same time** (Auto-detect, server only, no browsers on the server). With `ASR_WORKERS=2` and 2 threads each, the two speakers are transcribed in parallel instead of queueing:
+
+| Speaker | Correct | Caption latency |
+|---|---|---|
+| English | 5/5 | 2.1–2.4 s |
+| Hindi | 5/5 | mostly 3.9–4.4 s (one sentence took 9 s, caused by Whisper's temperature-fallback retry) |
+
+**Why 2 workers x 2 threads** (4 vCPU, Whisper compute time per sentence):
+
+| Model | 4 threads | 2 threads | Two run in parallel, 2 threads each |
+|---|---|---|---|
+| `base`, English | 0.86 s | 1.07 s | 0.77 s |
+| `small`, Hindi | 2.45 s | 2.39 s | 2.52 s |
+
+These models barely speed up beyond 2 threads, so `ASR_WORKERS=2` with `WHISPER_THREADS` = CPUs / workers fills the CPU with almost no extra latency.
+
+**Browser end-to-end** (`tests/e2e.cjs`, 2 headless Chromium on the same 4-vCPU box, both talking simultaneously, Auto-detect): English 5/5 and Hindi 5/5 captions correct, and the "hearing you…" indicator lit for both. Latency was higher than in the server-only test (English 3–5.7 s, Hindi 6–11 s) because the two browsers' 720p video encoding competes with Whisper for the same 4 cores. In real use the browsers run on the users' own devices.
+
+Note that the latency tables in section 3 were measured before these changes, with the old VAD and a fixed language.
 
 ## How to reproduce
 
@@ -113,4 +154,13 @@ python bench/fetch_fleurs.py --n 25
 WHISPER_MODEL=small LT_URL=http://localhost:5000 python -m bench.accuracy --pairs en-hi,hi-en,en-es,es-en
 # in another shell: start the server, then
 python -m bench.latency --url ws://localhost:8000 --pairs en-hi,hi-en,en-es,es-en --n 10
+```
+
+For the realistic microphone test (section 6), install `piper-tts` and download the voices `en_US-lessac-medium` and `hi_IN-pratham-medium` from <https://huggingface.co/rhasspy/piper-voices>, then:
+
+```bash
+python tests/mic_scenario.py --voice voices/en_US-lessac-medium.onnx --lang en --out mic_en.wav
+python tests/mic_scenario.py --voice voices/hi_IN-pratham-medium.onnx --lang hi --out mic_hi.wav
+python tests/caption_check.py --url ws://localhost:8000 --wav mic_en.wav [--speaker-lang auto|hi] [--caption-lang hi]
+AUTO=1 node tests/e2e.cjs http://localhost:8000 mic_en.wav mic_hi.wav
 ```
