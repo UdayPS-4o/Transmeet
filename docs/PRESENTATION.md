@@ -154,9 +154,19 @@ sequenceDiagram
 *Notes:* If asked "why a single domain", the answer is simpler TLS, no CORS, and the WebSocket and API share the page's origin.
 
 ### Slide 12. Results
-<!-- RESULTS: filled from docs/BENCHMARKS.md -->
+All measured on a CPU-only 4-vCPU VM. Details are in docs/BENCHMARKS.md.
 
-- (Planned content: ASR WER/CER per language and model; MT BLEU/chrF for reference text vs ASR output; end-to-end caption latency mean/p50/p95 per pair; latency breakdown by stage.)
+| Metric | English | Spanish | Hindi |
+|---|---|---|---|
+| ASR WER, `base` / `small` | 7.3 % / 4.7 % | 10.9 % / 5.1 % | 103 % / 53.9 % (CER 25 %) |
+| ASR speed (`base` / `small`) | 12× / 5× faster than real time | 13× / 5× | 6× / 2.2× |
+| Caption latency, end of speech → screen (mean) | en→hi **1.1 s**, en→es **1.1 s** | es→en **1.8 s** | hi→en 5.9 s (p50 4.4 s) |
+| Same on only 2 vCPU | 1.3–1.4 s | 2.3 s | 6.9 s |
+| MT BLEU, perfect transcript / live cascade | en→hi 22.6 / 23.0 | es→en 33.2 / 24.3 | hi→en 25.3 / 4.6 |
+
+- Latency budget: about 0.6 s is the deliberate VAD pause, about 0.6–0.9 s Whisper, and about 0.4 s LibreTranslate
+- An adaptive interim budget cut queueing from 1.4 s to 0 s for Hindi
+- RAM: 2.1 GB total. No GPU.
 
 *Notes:* Method in one breath: FLEURS test set, 25 sentences per language, jiwer for WER, sacreBLEU for BLEU and chrF, live latency measured by two WebSocket clients. State the small sample size yourself.
 
