@@ -43,11 +43,11 @@
         <p class="intro">Video calls with live, translated captions. Everything runs on this server — no third-party cloud APIs.</p>
 
         <label class="field">Your name
-          <input id="name" maxlength="40" placeholder="e.g. Priya" required>
+          <input id="name" maxlength="40" placeholder="e.g. Priya (optional)">
         </label>
         <label class="field">Room
           <span class="field-row">
-            <input id="room" class="mono" maxlength="40" pattern="[a-zA-Z0-9\-]+" required>
+            <input id="room" class="mono" maxlength="40" pattern="[a-zA-Z0-9\-]*" placeholder="blank = main room">
             <button type="button" id="newRoom" class="icon-btn" title="New random room" aria-label="New random room"></button>
           </span>
         </label>

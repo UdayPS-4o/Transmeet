@@ -15,7 +15,7 @@ WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")          # tiny | base | smal
 # Per-language overrides, e.g. "hi=small": small models are poor at some languages,
 # so a bigger model can be used just for those speakers while others stay fast.
 WHISPER_MODEL_BY_LANG = dict(
-    item.split("=", 1) for item in _list("WHISPER_MODEL_BY_LANG", "") if "=" in item)
+    item.split("=", 1) for item in _list("WHISPER_MODEL_BY_LANG", "hi=small") if "=" in item)
 WHISPER_COMPUTE = os.getenv("WHISPER_COMPUTE", "int8")      # int8 is the fastest choice on CPU
 WHISPER_DEVICE = os.getenv("WHISPER_DEVICE", "cpu")         # cpu | cuda
 # Two workers so both people in a call are transcribed at the same time instead of

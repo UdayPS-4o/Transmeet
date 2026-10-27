@@ -45,7 +45,10 @@ const randomRoom = () => {
 };
 const langName = (code) => code === "auto" ? "Auto-detect"
   : (state.config.languages.find((l) => l.code === code) || {}).name || code;
-const inviteLink = () => `${location.origin}${location.pathname}?room=${encodeURIComponent(state.room)}`;
+// A blank room code joins the shared "main" room, so a demo needs no typing at all.
+const DEFAULT_ROOM = "main";
+const inviteLink = () => location.origin + location.pathname +
+  (state.room === DEFAULT_ROOM ? "" : `?room=${encodeURIComponent(state.room)}`);
 const copyInvite = async () => {
   try { await navigator.clipboard.writeText(inviteLink()); toast("Invite link copied"); }
   catch { prompt("Copy this link:", inviteLink()); }
@@ -70,7 +73,7 @@ function setToggle(btn, on, iconOn, iconOff) {
 async function init() {
   state.config = await (await fetch("api/config")).json();
   const params = new URLSearchParams(location.search);
-  $("room").value = params.get("room") || randomRoom();
+  $("room").value = params.get("room") || "";
   $("name").value = load("name") || "";
   const browserLang = (navigator.language || "en").slice(0, 2);
   const knownLang = state.config.languages.some((l) => l.code === browserLang) ? browserLang : "en";
@@ -106,7 +109,7 @@ const initial = (name) => (name || "").trim().charAt(0).toUpperCase();
 
 function setMyInitial() {
   // shown in place of your video while the camera is off
-  for (const id of ["previewOff", "localAvatar"]) $(id).firstElementChild.dataset.initial = initial($("name").value) || "·";
+  for (const id of ["previewOff", "localAvatar"]) $(id).firstElementChild.dataset.initial = initial($("name").value || state.name) || "·";
 }
 
 function showCamOff(off) {
@@ -188,11 +191,12 @@ function toggleCam() {
 // ------------------------------------------------------------------ call setup
 async function join() {
   const name = $("name").value.trim();
-  const room = $("room").value.trim().toLowerCase().replace(/[^a-z0-9-]/g, "");
-  if (!name || !room) return;
+  const room = $("room").value.trim().toLowerCase().replace(/[^a-z0-9-]/g, "") || DEFAULT_ROOM;
+  const shownName = name || "Guest";
   save("name", name); save("lang", $("lang").value); save("captionLang", $("captionLang").value);
   state.room = room;
-  history.replaceState(null, "", `?room=${encodeURIComponent(room)}`);
+  state.name = shownName;
+  history.replaceState(null, "", room === DEFAULT_ROOM ? location.pathname : `?room=${encodeURIComponent(room)}`);
   $("joinBtn").disabled = true;
 
   await startAudioCapture();
@@ -311,7 +315,7 @@ function connect() {
   setConn("Connecting", "warn");
 
   ws.onopen = () => {
-    ws.send(JSON.stringify({ type: "join", name: load("name"), lang: $("langCall").value, captionLang: $("captionLangCall").value }));
+    ws.send(JSON.stringify({ type: "join", name: state.name, lang: $("langCall").value, captionLang: $("captionLangCall").value }));
     clearInterval(state.pingTimer);
     state.pingTimer = setInterval(() => send({ type: "ping" }), 20000);
   };
