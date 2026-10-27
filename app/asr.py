@@ -70,8 +70,9 @@ class Transcriber:
         seconds = len(audio) / 16000
         segments, _ = self.models[self.model_name(language)].transcribe(
             audio,
-            # Nobody says more than ~40 tokens per second (Devanagari is token-hungry).
-            # The cap stops rare decoding loops from tying up the CPU for many seconds.
+            # Stop decoding loops from tying up the CPU. Reference Hindi text averages
+            # ~12 tokens/s (FLEURS), but Whisper's misspelt Devanagari needs more:
+            # caps of 20/s and 30/s raised Hindi WER from 50% to 61% / 54%, so 40/s.
             max_new_tokens=min(440, int(40 * seconds) + 16),
             language=language or None,
             task="transcribe",
