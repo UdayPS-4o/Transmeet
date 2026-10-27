@@ -103,6 +103,7 @@ Notes:
 | `LANGUAGES` | `en,hi,es,fr,de` | Offered languages. Also the languages LibreTranslate loads. |
 | `LT_URL` / `LT_API_KEY` | `http://libretranslate:5000` | LibreTranslate endpoint |
 | `MAX_PEERS` | `2` | People per room |
+| `LOG_TRANSCRIPTS` | `false` | Write caption text to server logs (off by default for privacy) |
 | `STUN_URLS`, `TURN_URLS`, `TURN_USERNAME`, `TURN_CREDENTIAL` | Google STUN | ICE servers |
 
 ## Project structure

@@ -34,6 +34,9 @@ LT_URL = os.getenv("LT_URL", "http://libretranslate:5000").rstrip("/")
 LT_API_KEY = os.getenv("LT_API_KEY", "")
 LANGUAGES = _list("LANGUAGES", "en,hi,es,fr,de")
 
+# --- Privacy ---
+LOG_TRANSCRIPTS = _bool("LOG_TRANSCRIPTS", False)            # write caption text to server logs
+
 # --- Calls / WebRTC ---
 MAX_PEERS = int(os.getenv("MAX_PEERS", "2"))
 STUN_URLS = _list("STUN_URLS", "stun:stun.l.google.com:19302,stun:stun1.l.google.com:19302")

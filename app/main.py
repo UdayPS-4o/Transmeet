@@ -158,7 +158,8 @@ async def process_final(peer: Peer, n: int, utt: Utterance) -> None:
         STATS.append({**timings, "src": peer.lang, "model": asr.model_name(peer.lang),
                       "targets": sorted(k for k in translations if k != peer.lang)})
         log.info("[%s] %s (%s): %s | asr %dms mt %dms total %dms", peer.room.id, peer.name,
-                 peer.lang, text, timings["asrMs"], timings["mtMs"], timings["totalMs"])
+                 peer.lang, text if config.LOG_TRANSCRIPTS else f"<{len(text)} chars>",
+                 timings["asrMs"], timings["mtMs"], timings["totalMs"])
         await deliver(peer, n, text, translations, final=True, timings=timings)
 
 
