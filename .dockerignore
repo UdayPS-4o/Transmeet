@@ -1,0 +1,6 @@
+.git
+**/__pycache__
+bench
+docs
+*.md
+.env

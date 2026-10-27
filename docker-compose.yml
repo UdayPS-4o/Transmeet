@@ -1,0 +1,51 @@
+# Transmeet: deployable as-is on Dokploy (Docker Compose app) or with plain
+# `docker compose up`. Only the `transmeet` service is public. Point your one
+# domain at it on port 8000. LibreTranslate stays on the private network.
+services:
+  transmeet:
+    build:
+      context: .
+      args:
+        WHISPER_MODEL: ${WHISPER_MODEL:-base}
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      WHISPER_MODEL: ${WHISPER_MODEL:-base}       # tiny | base | small (better Hindi) | medium
+      WHISPER_THREADS: ${WHISPER_THREADS:-0}
+      BEAM_SIZE: ${BEAM_SIZE:-1}
+      SILENCE_MS: ${SILENCE_MS:-600}
+      INTERIM: ${INTERIM:-true}
+      LANGUAGES: ${LANGUAGES:-en,hi,es,fr,de}
+      LT_URL: http://libretranslate:5000
+      TURN_URLS: ${TURN_URLS:-}
+      TURN_USERNAME: ${TURN_USERNAME:-}
+      TURN_CREDENTIAL: ${TURN_CREDENTIAL:-}
+    volumes:
+      - whisper-models:/models
+    depends_on:
+      - libretranslate
+
+  libretranslate:
+    image: libretranslate/libretranslate:v1.6.2
+    restart: unless-stopped
+    # the image defaults to "--host *", which fails on IPv4-only servers
+    command: ["--host", "0.0.0.0"]
+    expose:
+      - "5000"
+    environment:
+      LT_LOAD_ONLY: ${LANGUAGES:-en,hi,es,fr,de}
+      LT_THREADS: ${LT_THREADS:-2}
+      LT_DISABLE_WEB_UI: "true"
+    volumes:
+      # language models are downloaded once on first start (about 1–2 min)
+      - lt-models:/home/libretranslate/.local
+    healthcheck:
+      test: ["CMD-SHELL", "./venv/bin/python scripts/healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      start_period: 300s
+
+volumes:
+  whisper-models:
+  lt-models:

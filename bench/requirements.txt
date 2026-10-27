@@ -1,0 +1,6 @@
+jiwer
+sacrebleu
+websockets
+httpx
+huggingface_hub
+numpy

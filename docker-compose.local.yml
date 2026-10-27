@@ -1,0 +1,6 @@
+# Local run: docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
+# then open http://localhost:8000 (browsers allow camera/mic on localhost without HTTPS).
+services:
+  transmeet:
+    ports:
+      - "8000:8000"

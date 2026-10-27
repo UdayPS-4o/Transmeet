@@ -1,0 +1,438 @@
+// Transmeet client: lobby, WebRTC call, microphone streaming and caption rendering.
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+const state = {
+  config: null,
+  stream: null,          // local camera + mic
+  ws: null,
+  myId: null,
+  room: null,
+  peer: null,            // { id, name, lang, captionLang }
+  pc: null,              // RTCPeerConnection
+  pendingIce: [],
+  audioCtx: null,
+  leaving: false,
+  latencies: [],
+  transcript: [],        // { time, name, mine, text, translated, src, tgt }
+  captionsOn: true,
+};
+
+const ICON = {
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>',
+  micOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 9v2a3 3 0 0 0 5.1 2.1M15 9.3V6a3 3 0 0 0-5.9-.8M5 11a7 7 0 0 0 11.6 5.3M19 11a7 7 0 0 1-.4 2.3M12 18v3M3 3l18 18"/></svg>',
+  cam: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>',
+  camOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 16v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2m4 0h5a1 1 0 0 1 1 1v3.3l5-3.3v10M3 3l18 18"/></svg>',
+};
+
+// ------------------------------------------------------------------ helpers
+function toast(text, ms = 2200) {
+  const t = $("toast");
+  t.textContent = text;
+  t.classList.add("show");
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => t.classList.remove("show"), ms);
+}
+const randomRoom = () => {
+  const w = ["blue", "red", "swift", "calm", "bright", "lunar", "amber", "nova", "cedar", "delta"];
+  return `${w[Math.random() * w.length | 0]}-${w[Math.random() * w.length | 0]}-${Math.random().toString(36).slice(2, 6)}`;
+};
+const langName = (code) => (state.config.languages.find((l) => l.code === code) || {}).name || code;
+const inviteLink = () => `${location.origin}${location.pathname}?room=${encodeURIComponent(state.room)}`;
+const copyInvite = async () => {
+  try { await navigator.clipboard.writeText(inviteLink()); toast("Invite link copied"); }
+  catch { prompt("Copy this link:", inviteLink()); }
+};
+const save = (k, v) => { try { localStorage.setItem("tm." + k, v); } catch {} };
+const load = (k) => { try { return localStorage.getItem("tm." + k); } catch { return null; } };
+
+function fillSelect(sel, value) {
+  sel.innerHTML = state.config.languages.map((l) => `<option value="${l.code}">${l.name}</option>`).join("");
+  if (value) sel.value = value;
+}
+
+function setToggle(btn, on, iconOn, iconOff) {
+  btn.classList.toggle("on", on);
+  if (iconOn) btn.innerHTML = on ? iconOn : iconOff;
+}
+
+// ------------------------------------------------------------------ lobby
+async function init() {
+  state.config = await (await fetch("api/config")).json();
+  const params = new URLSearchParams(location.search);
+  $("room").value = params.get("room") || randomRoom();
+  $("name").value = load("name") || "";
+  const browserLang = (navigator.language || "en").slice(0, 2);
+  const defLang = load("lang") || (state.config.languages.some((l) => l.code === browserLang) ? browserLang : "en");
+  fillSelect($("lang"), defLang);
+  fillSelect($("captionLang"), load("captionLang") || defLang);
+  $("lang").onchange = () => { $("captionLang").value = $("lang").value; };
+  $("newRoom").onclick = () => { $("room").value = randomRoom(); };
+  if (!state.config.translator) $("lobbyMsg").textContent = "Translator is still loading. Captions will be untranslated until it is ready.";
+
+  setToggle($("pvMic"), true, ICON.mic, ICON.micOff);
+  setToggle($("pvCam"), true, ICON.cam, ICON.camOff);
+  $("pvMic").onclick = () => toggleMic($("pvMic"));
+  $("pvCam").onclick = () => toggleCam($("pvCam"));
+  $("joinForm").onsubmit = (e) => { e.preventDefault(); join(); };
+
+  $("joinBtn").disabled = true;            // enabled once camera/mic are ready
+  if (await startMedia()) $("joinBtn").disabled = false;
+}
+
+async function startMedia() {
+  const audio = { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 };
+  try {
+    state.stream = await navigator.mediaDevices.getUserMedia({ audio, video: { width: 1280, height: 720 } });
+  } catch (e) {
+    try {
+      state.stream = await navigator.mediaDevices.getUserMedia({ audio });
+      $("lobbyMsg").textContent = "No camera available: joining with audio only.";
+      $("previewOff").classList.remove("hidden");
+    } catch (e2) {
+      $("lobbyMsg").textContent = location.protocol === "https:" || location.hostname === "localhost"
+        ? "Microphone access is required. Allow it in the browser and reload."
+        : "Browsers only allow mic/camera on HTTPS (or localhost). Open this site over https://";
+      return false;
+    }
+  }
+  $("preview").srcObject = state.stream;
+  levelMeter();
+  return true;
+}
+
+function levelMeter() {
+  const ctx = new AudioContext();
+  const an = ctx.createAnalyser();
+  an.fftSize = 512;
+  ctx.createMediaStreamSource(state.stream).connect(an);
+  const data = new Float32Array(an.fftSize);
+  const tick = () => {
+    if ($("lobby").classList.contains("hidden")) { ctx.close(); return; }
+    an.getFloatTimeDomainData(data);
+    const rms = Math.sqrt(data.reduce((s, v) => s + v * v, 0) / data.length);
+    $("meterBar").style.width = Math.min(100, rms * 400) + "%";
+    requestAnimationFrame(tick);
+  };
+  tick();
+}
+
+function toggleMic(btn) {
+  const t = state.stream?.getAudioTracks()[0];
+  if (!t) return;
+  t.enabled = !t.enabled;
+  for (const b of [$("pvMic"), $("micBtn")]) setToggle(b, t.enabled, ICON.mic, ICON.micOff);
+  if (!t.enabled) send({ type: "flush" });   // finish the sentence that was in progress
+}
+
+function toggleCam() {
+  const t = state.stream?.getVideoTracks()[0];
+  if (!t) return toast("No camera");
+  t.enabled = !t.enabled;
+  for (const b of [$("pvCam"), $("camBtn")]) setToggle(b, t.enabled, ICON.cam, ICON.camOff);
+  $("previewOff").classList.toggle("hidden", t.enabled);
+}
+
+// ------------------------------------------------------------------ call setup
+async function join() {
+  const name = $("name").value.trim();
+  const room = $("room").value.trim().toLowerCase().replace(/[^a-z0-9-]/g, "");
+  if (!name || !room) return;
+  save("name", name); save("lang", $("lang").value); save("captionLang", $("captionLang").value);
+  state.room = room;
+  history.replaceState(null, "", `?room=${encodeURIComponent(room)}`);
+  $("joinBtn").disabled = true;
+
+  await startAudioCapture();
+  $("lobby").classList.add("hidden");
+  $("call").classList.remove("hidden");
+  $("localVideo").srcObject = state.stream;
+  $("roomLabel").textContent = room;
+  fillSelect($("langCall"), $("lang").value);
+  fillSelect($("captionLangCall"), $("captionLang").value);
+  setToggle($("micBtn"), state.stream.getAudioTracks()[0]?.enabled ?? false, ICON.mic, ICON.micOff);
+  setToggle($("camBtn"), state.stream.getVideoTracks()[0]?.enabled ?? false, ICON.cam, ICON.camOff);
+  updateMtChip();
+  bindCallControls();
+  connect();
+}
+
+function bindCallControls() {
+  $("micBtn").onclick = () => toggleMic();
+  $("camBtn").onclick = () => toggleCam();
+  $("ccBtn").onclick = () => {
+    state.captionsOn = !state.captionsOn;
+    $("ccBtn").classList.toggle("on", state.captionsOn);
+    $("captions").classList.toggle("off", !state.captionsOn);
+  };
+  $("sideBtn").onclick = () => {
+    const stage = document.querySelector(".stage");
+    stage.classList.toggle("no-side");
+    $("sideBtn").classList.toggle("on", !stage.classList.contains("no-side"));
+  };
+  $("langCall").onchange = () => { save("lang", $("langCall").value); send({ type: "update", lang: $("langCall").value }); };
+  $("captionLangCall").onchange = () => {
+    save("captionLang", $("captionLangCall").value);
+    send({ type: "update", captionLang: $("captionLangCall").value });
+  };
+  $("copyLink").onclick = copyInvite;
+  $("copyLink2").onclick = copyInvite;
+  $("download").onclick = downloadTranscript;
+  $("leaveBtn").onclick = leave;
+}
+
+async function startAudioCapture() {
+  // Microphone -> AudioWorklet (16 kHz PCM) -> WebSocket -> server ASR
+  state.audioCtx = new AudioContext();
+  await state.audioCtx.audioWorklet.addModule("pcm-worklet.js");
+  const src = state.audioCtx.createMediaStreamSource(state.stream);
+  const node = new AudioWorkletNode(state.audioCtx, "pcm-capture", { numberOfInputs: 1, numberOfOutputs: 1 });
+  node.port.onmessage = (e) => {
+    if (state.ws?.readyState === WebSocket.OPEN && state.myId) state.ws.send(e.data);
+  };
+  const mute = state.audioCtx.createGain();
+  mute.gain.value = 0;               // keep the node pulled by the graph without playing it back
+  src.connect(node).connect(mute).connect(state.audioCtx.destination);
+  await state.audioCtx.resume();
+}
+
+function send(msg) {
+  if (state.ws?.readyState === WebSocket.OPEN) state.ws.send(JSON.stringify(msg));
+}
+
+function connect() {
+  const proto = location.protocol === "https:" ? "wss" : "ws";
+  const ws = new WebSocket(`${proto}://${location.host}${location.pathname.replace(/[^/]*$/, "")}ws/${state.room}`);
+  ws.binaryType = "arraybuffer";
+  state.ws = ws;
+  setConn("connecting…", "warn");
+
+  ws.onopen = () => {
+    ws.send(JSON.stringify({ type: "join", name: load("name"), lang: $("langCall").value, captionLang: $("captionLangCall").value }));
+    clearInterval(state.pingTimer);
+    state.pingTimer = setInterval(() => send({ type: "ping" }), 20000);
+  };
+  ws.onmessage = (e) => onMessage(JSON.parse(e.data));
+  ws.onclose = () => {
+    clearInterval(state.pingTimer);
+    state.myId = null;
+    closePeer();
+    if (state.leaving) return;
+    setConn("reconnecting…", "bad");
+    setTimeout(connect, 2000);
+  };
+}
+
+async function onMessage(m) {
+  switch (m.type) {
+    case "joined":
+      state.myId = m.id;
+      setConn("connected to server", "ok");
+      // the newcomer starts the WebRTC negotiation with whoever is already there
+      for (const p of m.peers) { setPeer(p); await startPeer(true); }
+      break;
+    case "peer-joined":
+      setPeer(m.peer);
+      toast(`${m.peer.name} joined (speaks ${langName(m.peer.lang)})`);
+      await startPeer(false);
+      break;
+    case "peer-updated":
+      if (m.peer.id === state.myId) break;
+      setPeer(m.peer);
+      break;
+    case "peer-left":
+      if (state.peer?.id === m.id) toast(`${state.peer.name} left`);
+      closePeer();
+      break;
+    case "signal":
+      await onSignal(m.from, m.data);
+      break;
+    case "caption":
+      onCaption(m);
+      break;
+    case "error":
+      state.leaving = true;
+      alert(m.message || m.code);
+      location.href = location.pathname;
+      break;
+  }
+}
+
+function setPeer(p) {
+  state.peer = p;
+  $("remoteName").textContent = `${p.name} · speaks ${langName(p.lang)}`;
+  $("remoteName").classList.remove("hidden");
+}
+
+function setConn(text, cls) {
+  const c = $("connState");
+  c.textContent = text;
+  c.className = `chip state ${cls}`;
+}
+
+function updateMtChip() {
+  const c = $("mtState");
+  c.textContent = state.config.translator ? `Whisper ${state.config.model} + LibreTranslate` : "translator loading…";
+  c.className = `chip ${state.config.translator ? "" : "warn"}`;
+}
+
+// ------------------------------------------------------------------ WebRTC
+async function startPeer(initiator) {
+  closePeer(true);
+  const pc = new RTCPeerConnection({ iceServers: state.config.iceServers });
+  state.pc = pc;
+  state.pendingIce = [];
+  // Only the newcomer makes offers; this fires once the tracks below are added.
+  pc.onnegotiationneeded = async () => {
+    if (!initiator) return;
+    await pc.setLocalDescription(await pc.createOffer());
+    send({ type: "signal", to: state.peer.id, data: { sdp: pc.localDescription } });
+  };
+  for (const t of state.stream.getTracks()) pc.addTrack(t, state.stream);
+
+  pc.onicecandidate = (e) => { if (e.candidate) send({ type: "signal", to: state.peer.id, data: { candidate: e.candidate } }); };
+  pc.ontrack = (e) => {
+    $("remoteVideo").srcObject = e.streams[0];
+    $("waiting").classList.add("hidden");
+  };
+  pc.onconnectionstatechange = () => {
+    const s = pc.connectionState;
+    if (s === "connected") setConn("in call · peer-to-peer", "ok");
+    else if (s === "failed") {
+      setConn("media blocked by network (captions still work)", "bad");
+      if (initiator) pc.restartIce?.();
+    } else if (s === "disconnected") setConn("peer connection unstable…", "warn");
+  };
+}
+
+async function onSignal(from, data) {
+  if (!state.pc || state.peer?.id !== from) return;
+  const pc = state.pc;
+  if (data.sdp) {
+    await pc.setRemoteDescription(data.sdp);
+    if (data.sdp.type === "offer") {
+      await pc.setLocalDescription(await pc.createAnswer());
+      send({ type: "signal", to: from, data: { sdp: pc.localDescription } });
+    }
+    for (const c of state.pendingIce.splice(0)) await pc.addIceCandidate(c).catch(() => {});
+  } else if (data.candidate) {
+    if (pc.remoteDescription) await pc.addIceCandidate(data.candidate).catch(() => {});
+    else state.pendingIce.push(data.candidate);
+  }
+}
+
+function closePeer(keepPeerInfo = false) {
+  if (state.pc) { state.pc.close(); state.pc = null; }
+  if (keepPeerInfo) return;
+  state.peer = null;
+  $("remoteVideo").srcObject = null;
+  $("waiting").classList.remove("hidden");
+  $("remoteName").classList.add("hidden");
+  if (state.myId) setConn("connected to server", "ok");
+}
+
+function leave() {
+  state.leaving = true;
+  state.ws?.close();
+  closePeer();
+  state.stream?.getTracks().forEach((t) => t.stop());
+  location.href = location.pathname;
+}
+
+// ------------------------------------------------------------------ captions
+const capEls = new Map();   // seg id -> overlay element
+const listEls = new Map();  // seg id -> transcript <li>
+
+function onCaption(m) {
+  const mine = m.speaker === state.myId;
+  const main = m.translated || m.text;
+  const showOrig = m.translated && m.translated !== m.text;
+  const failed = !m.translated && m.tgt !== m.src;   // translation was wanted but did not come back
+
+  if (m.final && !m.text) { removeCaption(m.seg); return; }
+
+  // ---- overlay
+  let el = capEls.get(m.seg);
+  if (!el) {
+    el = document.createElement("div");
+    capEls.set(m.seg, el);
+    $("captions").appendChild(el);
+    while ($("captions").children.length > 3) {
+      const first = $("captions").firstElementChild;
+      for (const [k, v] of capEls) if (v === first) capEls.delete(k);
+      first.remove();
+    }
+  }
+  el.className = `cap${mine ? " mine" : ""}${m.final ? "" : " interim"}`;
+  el.innerHTML = `<span class="who"></span><span class="main"></span>${showOrig ? '<span class="orig"></span>' : ""}`;
+  el.querySelector(".who").textContent = mine ? "You" : m.name;
+  el.querySelector(".main").textContent = main + (m.final ? "" : " …");
+  if (showOrig) el.querySelector(".orig").textContent = `${langName(m.src)}: ${m.text}`;
+  clearTimeout(el.fadeTimer);
+  el.fadeTimer = setTimeout(() => {
+    el.classList.add("fade");
+    setTimeout(() => { el.remove(); capEls.delete(m.seg); }, 500);
+  }, m.final ? 7000 : 4000);
+
+  // ---- transcript
+  let li = listEls.get(m.seg);
+  if (!li) {
+    li = document.createElement("li");
+    listEls.set(m.seg, li);
+    $("transcript").appendChild(li);
+  }
+  li.className = `${mine ? "mine" : ""} ${m.final ? "" : "interim"}`;
+  const time = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  li.innerHTML = `<div class="meta"><b></b><span>${time}</span></div><div class="t"></div>` +
+    (showOrig ? '<div class="o"></div>' : "") + (m.final && m.timings ? '<div class="lat"></div>' : "");
+  li.querySelector("b").textContent = `${mine ? "You" : m.name} · ${langName(m.src)}`;
+  li.querySelector(".t").textContent = main + (failed ? "  (translation unavailable)" : "");
+  if (showOrig) li.querySelector(".o").textContent = m.text;
+  if (m.final && m.timings) {
+    const t = m.timings;
+    li.querySelector(".lat").textContent =
+      `${(t.totalMs / 1000).toFixed(2)}s after speech = pause ${t.vadMs} + queue ${t.queueMs} + ASR ${t.asrMs} + MT ${t.mtMs} ms · ${(t.audioMs / 1000).toFixed(1)}s audio`;
+  }
+  const list = $("transcript");
+  if (list.scrollHeight - list.scrollTop - list.clientHeight < 120) list.scrollTop = list.scrollHeight;
+
+  if (m.final) {
+    listEls.delete(m.seg);
+    state.transcript.push({ time, name: mine ? "You" : m.name, src: m.src, text: m.text, translated: m.translated, tgt: m.tgt });
+    if (m.timings) {
+      state.latencies.push(m.timings.totalMs);
+      const avg = state.latencies.reduce((a, b) => a + b, 0) / state.latencies.length;
+      $("latencyChip").textContent = `avg caption latency ${(avg / 1000).toFixed(2)}s (${state.latencies.length})`;
+    }
+  }
+}
+
+function removeCaption(seg) {
+  capEls.get(seg)?.remove();
+  capEls.delete(seg);
+  listEls.get(seg)?.remove();
+  listEls.delete(seg);
+}
+
+function downloadTranscript() {
+  const lines = state.transcript.map((r) =>
+    `[${r.time}] ${r.name} (${r.src}): ${r.text}` + (r.translated && r.translated !== r.text ? `\n           → (${r.tgt}) ${r.translated}` : ""));
+  const blob = new Blob([`Transmeet transcript · room ${state.room} · ${new Date().toLocaleString()}\n\n${lines.join("\n")}\n`], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `transmeet-${state.room}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// re-check translator status occasionally so the chip turns green once LibreTranslate is up
+setInterval(async () => {
+  if (!state.config || state.config.translator || $("call").classList.contains("hidden")) return;
+  try {
+    const c = await (await fetch("api/config")).json();
+    state.config.translator = c.translator;
+    updateMtChip();
+  } catch {}
+}, 10000);
+
+init();
