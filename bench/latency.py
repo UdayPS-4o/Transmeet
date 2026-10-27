@@ -7,8 +7,9 @@ Two WebSocket clients join one room, exactly like two browsers would:
     python -m bench.latency --url ws://localhost:8000 --pairs en-hi,hi-en --n 10
 
 latency = arrival of the final caption at B - moment the last audio frame was sent.
-It therefore includes the server's SILENCE_MS wait, plus whatever silence the wav
-itself ends with. The server's own timings (vad/asr/mt) come along in the message.
+Clips are trimmed of silence first, so this is end-of-speech -> caption on screen
+(minus browser capture/render time). It includes the server's SILENCE_MS wait.
+The server's own timings (vad/queue/asr/mt) come along in the message.
 """
 import argparse
 import asyncio
@@ -30,9 +31,21 @@ TIMEOUT_S = 20          # give up waiting for a final caption after this long
 
 
 def load_pcm(path: str) -> bytes:
+    """Read a clip and trim its leading/trailing silence (keeping 100 ms), so that
+    'last frame sent' really is 'end of speech'. FLEURS clips often end with a
+    second of silence, which the server would (correctly) finalise before the
+    file ends and make the measurement meaningless."""
     with wave.open(str(ROOT / path)) as w:
         assert w.getframerate() == 16000 and w.getsampwidth() == 2, "expected 16 kHz PCM16"
-        return w.readframes(w.getnframes())          # already little-endian int16
+        pcm = np.frombuffer(w.readframes(w.getnframes()), dtype="<i2")
+    frames = pcm[: len(pcm) // 480 * 480].reshape(-1, 480).astype(np.float32) / 32768
+    rms = np.sqrt((frames ** 2).mean(axis=1))
+    loud = np.where(rms > max(0.01, 0.1 * rms.max()))[0]
+    if len(loud):
+        start = max(0, (loud[0] - 3) * 480)
+        end = min(len(pcm), (loud[-1] + 4) * 480)
+        pcm = pcm[start:end]
+    return pcm.tobytes()
 
 
 async def stream_real_time(ws, pcm: bytes) -> float:
@@ -70,6 +83,8 @@ async def join(url: str, room: str, name: str, lang: str, caption_lang: str):
 
 
 async def one_utterance(a_ws, a_id: str, queue: asyncio.Queue, pcm: bytes) -> dict:
+    while not queue.empty():                 # late messages from the previous utterance
+        queue.get_nowait()
     t_start = time.monotonic()
     t_end = await stream_real_time(a_ws, pcm)                    # t_speech_end
     await stream_real_time(a_ws, bytes(int(TAIL_S * 16000) * 2))  # 1.5 s of zeros, also real time
@@ -132,7 +147,7 @@ def summarise(rows: list[dict]) -> dict:
     if ok:
         lat = np.array([r["latency_ms"] for r in ok])
         out.update(mean_ms=lat.mean(), p50_ms=np.percentile(lat, 50), p95_ms=np.percentile(lat, 95))
-        for key in ("vadMs", "asrMs", "mtMs", "totalMs"):
+        for key in ("vadMs", "queueMs", "asrMs", "mtMs", "totalMs"):
             out[f"server_{key}"] = float(np.mean([r["timings"].get(key, 0) for r in ok]))
         out["mean_interims"] = float(np.mean([r["interims"] for r in ok]))
     return out
@@ -140,17 +155,19 @@ def summarise(rows: list[dict]) -> dict:
 
 def to_markdown(model: str, info: dict, results: dict) -> str:
     L = [f"# Live latency: Whisper `{model}`", "", f"Server: {info}", "",
-         "| pair | ok | empty | timeout | e2e mean ms | p50 | p95 | vad ms | asr ms | mt ms | server total ms | interims/utt |",
-         "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+         "| pair | ok | empty | timeout | e2e mean ms | p50 | p95 | vad ms | queue ms | asr ms | mt ms | server total ms | interims/utt |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for pair, r in results.items():
         if r["ok"]:
             L.append(f"| {pair} | {r['ok']}/{r['n']} | {r['empty']} | {r['timeouts']} | {r['mean_ms']:.0f} | "
-                     f"{r['p50_ms']:.0f} | {r['p95_ms']:.0f} | {r['server_vadMs']:.0f} | {r['server_asrMs']:.0f} | "
+                     f"{r['p50_ms']:.0f} | {r['p95_ms']:.0f} | {r['server_vadMs']:.0f} | {r['server_queueMs']:.0f} | {r['server_asrMs']:.0f} | "
                      f"{r['server_mtMs']:.0f} | {r['server_totalMs']:.0f} | {r['mean_interims']:.1f} |")
         else:
-            L.append(f"| {pair} | 0/{r['n']} | {r['empty']} | {r['timeouts']} | - | - | - | - | - | - | - | - |")
-    L += ["", "e2e = final caption arrival at the listener - last audio frame sent (includes SILENCE_MS "
-          "and any trailing silence in the wav)."]
+            L.append(f"| {pair} | 0/{r['n']} | {r['empty']} | {r['timeouts']} | - | - | - | - | - | - | - | - | - |")
+    L += ["", "e2e = final caption arrival at the listener - end of speech (clips are silence-trimmed; "
+          "includes the SILENCE_MS pause the VAD needs to decide the sentence ended).",
+          "mt ms can be ~0: the last interim caption usually already translated the same text, "
+          "so the final hits the translation cache."]
     return "\n".join(L) + "\n"
 
 
