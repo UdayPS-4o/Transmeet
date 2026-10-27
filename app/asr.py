@@ -58,8 +58,12 @@ class Transcriber:
         return text, time.perf_counter() - t
 
     def _run(self, audio: np.ndarray, language: str, final: bool) -> str:
+        seconds = len(audio) / 16000
         segments, _ = self.models[self.model_name(language)].transcribe(
             audio,
+            # Nobody says more than ~40 tokens per second (Devanagari is token-hungry).
+            # The cap stops rare decoding loops from tying up the CPU for many seconds.
+            max_new_tokens=min(440, int(40 * seconds) + 16),
             language=language or None,
             task="transcribe",
             beam_size=config.BEAM_SIZE,

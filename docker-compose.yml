@@ -5,13 +5,12 @@ services:
   transmeet:
     build:
       context: .
-      args:
-        WHISPER_MODEL: ${WHISPER_MODEL:-base}
     restart: unless-stopped
     expose:
       - "8000"
     environment:
-      WHISPER_MODEL: ${WHISPER_MODEL:-base}       # tiny | base | small (better Hindi) | medium
+      WHISPER_MODEL: ${WHISPER_MODEL:-base}                 # tiny | base | small | medium
+      WHISPER_MODEL_BY_LANG: ${WHISPER_MODEL_BY_LANG-hi=small}  # base is unusable for Hindi
       WHISPER_THREADS: ${WHISPER_THREADS:-0}
       BEAM_SIZE: ${BEAM_SIZE:-1}
       SILENCE_MS: ${SILENCE_MS:-600}

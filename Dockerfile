@@ -8,11 +8,13 @@ WORKDIR /srv
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Bake the default Whisper model into the image so the first call works offline
-# and starts fast. Other sizes (set WHISPER_MODEL) download on first start into
+# Bake the default Whisper models into the image so the first call works offline
+# and starts fast. Any other size you configure is downloaded on first start into
 # the /models volume.
-ARG WHISPER_MODEL=base
-RUN python -c "from faster_whisper import WhisperModel; WhisperModel('${WHISPER_MODEL}', device='cpu', compute_type='int8', download_root='/models')"
+ARG WHISPER_PRELOAD="base small"
+RUN for m in ${WHISPER_PRELOAD}; do \
+      python -c "from faster_whisper import WhisperModel; WhisperModel('$m', device='cpu', compute_type='int8', download_root='/models')"; \
+    done
 
 COPY app ./app
 

@@ -102,6 +102,9 @@ async def run_pair(args, src: str, tgt: str, manifest: dict) -> dict:
     b_ws, _ = await join(args.url, room, "bench-listener", tgt, tgt)
     queue: asyncio.Queue = asyncio.Queue()
     task = asyncio.create_task(reader(b_ws, queue))
+    # The speaker also receives its own captions. They must be read, or the client
+    # stops reading the socket, misses the server's pings and gets disconnected.
+    drain = asyncio.create_task(reader(a_ws, asyncio.Queue()))
     ids = [i for i in manifest if src in manifest[i]][: args.n + args.warmup]
     rows = []
     try:
@@ -114,6 +117,7 @@ async def run_pair(args, src: str, tgt: str, manifest: dict) -> dict:
             print(f"  {src}-{tgt} {k + 1}/{len(ids)}{' (warm-up)' if warm else ''}: {lat}")
     finally:
         task.cancel()
+        drain.cancel()
         await a_ws.close()
         await b_ws.close()
     return summarise(rows)
