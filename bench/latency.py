@@ -45,7 +45,13 @@ def load_pcm(path: str) -> bytes:
         start = max(0, (loud[0] - 3) * 480)
         end = min(len(pcm), (loud[-1] + 4) * 480)
         pcm = pcm[start:end]
-    return pcm.tobytes()
+    # Simulate the browser's autoGainControl: some FLEURS recordings sit at about
+    # -56 dBFS, far quieter than any real call audio after AGC.
+    x = pcm.astype(np.float32)
+    speech_rms = np.sqrt(np.mean(x[np.abs(x) > 0.1 * np.abs(x).max()] ** 2)) if len(x) else 0
+    if speech_rms > 0:
+        x *= min(30.0, 0.1 * 32768 / speech_rms)        # aim for ~-20 dBFS speech
+    return np.clip(x, -32768, 32767).astype("<i2").tobytes()
 
 
 async def stream_real_time(ws, pcm: bytes) -> float:

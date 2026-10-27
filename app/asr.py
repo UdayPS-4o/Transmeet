@@ -37,6 +37,7 @@ class Transcriber:
                      config.WHISPER_COMPUTE, time.perf_counter() - t)
         self.pool = ThreadPoolExecutor(max_workers=config.ASR_WORKERS, thread_name_prefix="asr")
         self.busy = 0
+        self.rtf = {name: 0.3 for name in self.models}     # running estimate of compute s per audio s
 
     @staticmethod
     def model_name(language: str) -> str:
@@ -52,10 +53,18 @@ class Transcriber:
         finally:
             self.busy -= 1
 
+    def estimate(self, seconds: float, language: str) -> float:
+        """Expected compute time (s) to transcribe `seconds` of audio in `language`."""
+        return self.rtf[self.model_name(language)] * seconds
+
     def _timed(self, audio: np.ndarray, language: str, final: bool) -> tuple[str, float]:
         t = time.perf_counter()
         text = self._run(audio, language, final)
-        return text, time.perf_counter() - t
+        took = time.perf_counter() - t
+        if len(audio) >= 16000:
+            name = self.model_name(language)
+            self.rtf[name] += 0.2 * (took / (len(audio) / 16000) - self.rtf[name])
+        return text, took
 
     def _run(self, audio: np.ndarray, language: str, final: bool) -> str:
         seconds = len(audio) / 16000

@@ -15,7 +15,7 @@ import numpy as np
 SAMPLE_RATE = 16000
 FRAME = 480                 # 30 ms at 16 kHz
 FRAME_MS = 30
-MIN_RMS = 0.008             # absolute floor so digital silence never counts as speech
+MIN_RMS = 0.004             # absolute floor (-48 dBFS) so digital silence never counts as speech
 START_FRAMES = 3            # 90 ms of voice needed to open an utterance
 
 

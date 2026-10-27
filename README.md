@@ -100,6 +100,7 @@ Notes:
 | `SILENCE_MS` | `600` | Pause that ends a sentence. Lower is faster but cuts more often. |
 | `MAX_SEGMENT_S` | `10` | Long monologues are cut at this length. |
 | `INTERIM` / `INTERIM_MS` | `true` / `1200` | Live partial captions and how often to refresh them |
+| `INTERIM_BUDGET_MS` | `1000` | Skip an interim whose estimated Whisper time exceeds this (protects final-caption latency on slow models) |
 | `LANGUAGES` | `en,hi,es,fr,de` | Offered languages. Also the languages LibreTranslate loads. |
 | `LT_URL` / `LT_API_KEY` | `http://libretranslate:5000` | LibreTranslate endpoint |
 | `MAX_PEERS` | `2` | People per room |

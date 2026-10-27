@@ -28,6 +28,7 @@ SILENCE_MS = int(os.getenv("SILENCE_MS", "600"))            # pause that ends an
 MAX_SEGMENT_S = float(os.getenv("MAX_SEGMENT_S", "10"))     # force-cut long monologues
 INTERIM = _bool("INTERIM", True)                            # live "typing" captions while speaking
 INTERIM_MS = int(os.getenv("INTERIM_MS", "1200"))
+INTERIM_BUDGET_MS = int(os.getenv("INTERIM_BUDGET_MS", "1000"))  # skip interims costlier than this
 
 # --- Machine translation (LibreTranslate) ---
 LT_URL = os.getenv("LT_URL", "http://libretranslate:5000").rstrip("/")

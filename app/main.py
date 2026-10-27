@@ -117,6 +117,10 @@ def maybe_interim(peer: Peer) -> None:
     audio = peer.seg.current_audio()
     if audio is None:
         return
+    # On a slow model (e.g. Hindi on `small`) re-transcribing a long sentence would
+    # delay its final caption, so interims stop once they get too expensive.
+    if asr.estimate(len(audio) / SAMPLE_RATE, peer.lang) * 1000 > config.INTERIM_BUDGET_MS:
+        return
     peer.last_interim = now
     peer.interim_busy = True
     asyncio.create_task(process_interim(peer, peer.seq + 1, audio))
