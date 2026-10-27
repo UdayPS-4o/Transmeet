@@ -5,71 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transmeet</title>
   <meta name="description" content="Video calls with live translated captions, fully self-hosted.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b8def'/%3E%3Cpath d='M8 11h10M13 11v11M17 17h7M20.5 17v6' stroke='white' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#141518">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23f6d243'/%3E%3Cpath d='M8 11h10M13 11v11M17 17h7M20.5 17v6' stroke='%23141518' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="currentColor"/>
+      <path d="M8 11h10M13 11v11M17 17h7M20.5 17v6" stroke="#141518" stroke-width="2.6" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
   <!-- ======================= LOBBY ======================= -->
   <main id="lobby" class="lobby">
-    <section class="lobby-card">
-      <div class="brand">
-        <span class="logo" aria-hidden="true">T</span>
-        <div>
-          <h1>Transmeet</h1>
-          <p class="tag">Video calls with live, translated captions. Fully self-hosted.</p>
+    <header class="masthead">
+      <h1 class="brand"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>Transmeet</h1>
+      <p class="masthead-note">Runs on this server. No cloud APIs.</p>
+    </header>
+
+    <div class="lobby-grid">
+      <div class="preview">
+        <video id="preview" autoplay playsinline muted></video>
+        <div id="previewOff" class="preview-off hidden">Camera off</div>
+        <div class="meter" title="Microphone level"><span id="meterBar"></span></div>
+        <p class="preview-cap"><span id="previewCap">The other person's words appear here, in English.</span></p>
+        <div class="preview-controls">
+          <button id="pvMic" class="round on" title="Microphone" aria-label="Microphone"></button>
+          <button id="pvCam" class="round on" title="Camera" aria-label="Camera"></button>
         </div>
       </div>
 
-      <div class="lobby-grid">
-        <div class="preview">
-          <video id="preview" autoplay playsinline muted></video>
-          <div id="previewOff" class="preview-off hidden">Camera off</div>
-          <div class="meter"><span id="meterBar"></span></div>
-          <div class="preview-controls">
-            <button id="pvMic" class="round on" title="Microphone"></button>
-            <button id="pvCam" class="round on" title="Camera"></button>
-          </div>
+      <form id="joinForm" class="join-form" autocomplete="off">
+        <div class="route">
+          <label class="route-part">I speak
+            <select id="lang"></select>
+          </label>
+          <span class="route-arrow" aria-hidden="true">↓</span>
+          <label class="route-part">Show captions in
+            <select id="captionLang"></select>
+          </label>
         </div>
 
-        <form id="joinForm" class="join-form" autocomplete="off">
-          <label>Microphone
-            <select id="micSelect"></select>
-            <span id="micHint" class="fine">Speak now: the green bar on the video should move.</span>
-          </label>
+        <div class="fields">
           <label>Your name
             <input id="name" maxlength="40" placeholder="e.g. Priya" required>
           </label>
-          <label>Room code
+          <label>Room
             <div class="row">
-              <input id="room" maxlength="40" pattern="[a-zA-Z0-9-]+" required>
-              <button type="button" id="newRoom" class="ghost" title="New random room">↻</button>
+              <input id="room" class="mono" maxlength="40" pattern="[a-zA-Z0-9-]+" required>
+              <button type="button" id="newRoom" class="ghost icon" title="Pick a new room name" aria-label="Pick a new room name"></button>
             </div>
           </label>
-          <div class="row two">
-            <label>I speak
-              <select id="lang"></select>
-            </label>
-            <label>Show captions in
-              <select id="captionLang"></select>
-            </label>
-          </div>
-          <button id="joinBtn" class="primary" type="submit">Join call</button>
-          <p id="lobbyMsg" class="msg"></p>
-          <p class="fine">Speech is transcribed by Whisper and translated by LibreTranslate on
-            <em>this</em> server. No third-party cloud APIs.</p>
-        </form>
-      </div>
-    </section>
+          <label>Microphone
+            <select id="micSelect"></select>
+            <span id="micHint" class="fine">Say something. The green bar on the video should move.</span>
+          </label>
+        </div>
+
+        <button id="joinBtn" class="primary" type="submit">Join call</button>
+        <p id="lobbyMsg" class="msg" role="status"></p>
+      </form>
+    </div>
   </main>
 
   <!-- ======================= CALL ======================= -->
   <main id="call" class="call hidden">
     <header class="topbar">
-      <div class="brand small"><span class="logo" aria-hidden="true">T</span><b>Transmeet</b></div>
-      <button id="copyLink" class="chip" title="Copy invite link">Room <b id="roomLabel"></b> · copy link</button>
-      <span id="connState" class="chip state">connecting…</span>
-      <span id="mtState" class="chip"></span>
-      <span id="latencyChip" class="chip" title="Average time from end of speech to caption">latency –</span>
+      <svg class="mark small" aria-label="Transmeet"><use href="#mark"/></svg>
+      <span class="room-name">Room <b id="roomLabel" class="mono"></b></span>
+      <button id="copyLink" class="ghost small" title="Copy invite link">Copy invite link</button>
+      <span id="connState" class="status">Connecting…</span>
     </header>
 
     <section class="stage">
@@ -77,47 +84,57 @@
         <div class="remote-wrap">
           <video id="remoteVideo" autoplay playsinline></video>
           <div id="waiting" class="waiting">
-            <div class="pulse"></div>
-            <p>Waiting for someone to join…</p>
+            <p class="waiting-title">Waiting for the other person</p>
+            <p class="fine">Send them the invite link. Your own captions already work, so you can speak to test them.</p>
             <button id="copyLink2" class="ghost">Copy invite link</button>
-            <p class="fine">Your own captions still work here, so speak to test them.</p>
           </div>
           <div id="remoteName" class="name-tag hidden"></div>
           <div id="banner" class="banner hidden" role="status">
             <span id="bannerText"></span>
             <button id="bannerBtn" class="ghost small hidden"></button>
-            <button id="bannerClose" class="banner-x" title="Dismiss">✕</button>
+            <button id="bannerClose" class="banner-x" title="Dismiss" aria-label="Dismiss">✕</button>
           </div>
           <div id="captions" class="captions" aria-live="polite"></div>
         </div>
         <div class="local-wrap">
           <video id="localVideo" autoplay playsinline muted></video>
           <div class="name-tag">You</div>
-          <div id="hearing" class="hearing hidden"><i></i>hearing you…</div>
+          <div id="hearing" class="hearing hidden"><i></i>Hearing you</div>
         </div>
       </div>
 
       <aside id="sidebar" class="sidebar">
         <div class="side-head">
           <h2>Transcript</h2>
-          <button id="download" class="ghost small" title="Download transcript">⤓ .txt</button>
+          <button id="download" class="ghost small" title="Download transcript as a text file">Download</button>
         </div>
         <ol id="transcript" class="transcript"></ol>
+        <div class="side-foot">
+          <span id="mtState"></span>
+          <span id="latencyChip" title="Average time from the end of a sentence to its caption">No captions yet</span>
+        </div>
       </aside>
     </section>
 
     <footer class="controls">
-      <button id="micBtn" class="round on" title="Mute / unmute"></button>
-      <button id="camBtn" class="round on" title="Camera on / off"></button>
-      <button id="ccBtn" class="round on" title="Show / hide captions">CC</button>
-      <label class="ctl">I speak <select id="langCall"></select></label>
-      <label class="ctl">Captions <select id="captionLangCall"></select></label>
-      <button id="sideBtn" class="round on" title="Transcript panel">☰</button>
-      <button id="leaveBtn" class="round danger" title="Leave call">✕</button>
+      <div class="control-group">
+        <button id="micBtn" class="round on" title="Mute / unmute" aria-label="Microphone"></button>
+        <button id="camBtn" class="round on" title="Camera on / off" aria-label="Camera"></button>
+        <button id="ccBtn" class="round on cc" title="Show / hide captions" aria-label="Captions">CC</button>
+      </div>
+      <div class="control-group route-mini">
+        <label class="ctl">I speak <select id="langCall"></select></label>
+        <span class="route-arrow" aria-hidden="true">→</span>
+        <label class="ctl">Captions <select id="captionLangCall"></select></label>
+      </div>
+      <div class="control-group">
+        <button id="sideBtn" class="round on" title="Show / hide transcript" aria-label="Transcript"></button>
+        <button id="leaveBtn" class="leave" title="Leave call">Leave</button>
+      </div>
     </footer>
   </main>
 
-  <div id="toast" class="toast"></div>
+  <div id="toast" class="toast" role="status"></div>
   <script src="app.js"></script>
 </body>
 </html>

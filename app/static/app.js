@@ -27,6 +27,8 @@ const ICON = {
   micOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 9v2a3 3 0 0 0 5.1 2.1M15 9.3V6a3 3 0 0 0-5.9-.8M5 11a7 7 0 0 0 11.6 5.3M19 11a7 7 0 0 1-.4 2.3M12 18v3M3 3l18 18"/></svg>',
   cam: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg>',
   camOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 16v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2m4 0h5a1 1 0 0 1 1 1v3.3l5-3.3v10M3 3l18 18"/></svg>',
+  panel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16M18 8h-1M18 11h-1"/></svg>',
+  shuffle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4h-4"/></svg>',
 };
 
 // ------------------------------------------------------------------ helpers
@@ -75,9 +77,15 @@ async function init() {
   const defLang = load("lang") || "auto";      // auto-detect unless the person picked a language before
   fillSelect($("lang"), defLang, true);
   fillSelect($("captionLang"), load("captionLang") || (defLang === "auto" ? knownLang : defLang));
-  $("lang").onchange = () => { if ($("lang").value !== "auto") $("captionLang").value = $("lang").value; };
+  $("lang").onchange = () => {
+    if ($("lang").value !== "auto") $("captionLang").value = $("lang").value;
+    updatePreviewCap();
+  };
+  $("captionLang").onchange = updatePreviewCap;
+  updatePreviewCap();
+  $("newRoom").innerHTML = ICON.shuffle;
   $("newRoom").onclick = () => { $("room").value = randomRoom(); };
-  if (!state.config.translator) $("lobbyMsg").textContent = "Translator is still loading. Captions will be untranslated until it is ready.";
+  if (!state.config.translator) $("lobbyMsg").textContent = "Translator is loading. Captions stay untranslated until it's ready.";
 
   setToggle($("pvMic"), true, ICON.mic, ICON.micOff);
   setToggle($("pvCam"), true, ICON.cam, ICON.camOff);
@@ -93,6 +101,11 @@ async function init() {
     state.stream?.getTracks().forEach((t) => t.stop());
     $("joinBtn").disabled = !(await startMedia($("micSelect").value));
   };
+}
+
+function updatePreviewCap() {
+  // a sample subtitle on the camera preview, in the language captions will be shown in
+  $("previewCap").textContent = `The other person's words appear here, in ${langName($("captionLang").value)}.`;
 }
 
 async function listMics() {
@@ -112,12 +125,12 @@ async function startMedia(micId) {
   } catch (e) {
     try {
       state.stream = await navigator.mediaDevices.getUserMedia({ audio });
-      $("lobbyMsg").textContent = "No camera available: joining with audio only.";
+      $("lobbyMsg").textContent = "No camera found. You'll join with audio only.";
       $("previewOff").classList.remove("hidden");
     } catch (e2) {
       $("lobbyMsg").textContent = location.protocol === "https:" || location.hostname === "localhost"
-        ? "Microphone access is required. Allow it in the browser and reload."
-        : "Browsers only allow mic/camera on HTTPS (or localhost). Open this site over https://";
+        ? "Transmeet needs your microphone. Allow access in the browser, then reload."
+        : "Browsers only allow the microphone and camera over HTTPS. Open this page with https://";
       return false;
     }
   }
@@ -159,7 +172,7 @@ function toggleMic(btn) {
 
 function toggleCam() {
   const t = state.stream?.getVideoTracks()[0];
-  if (!t) return toast("No camera");
+  if (!t) return toast("No camera found");
   t.enabled = !t.enabled;
   for (const b of [$("pvCam"), $("camBtn")]) setToggle(b, t.enabled, ICON.cam, ICON.camOff);
   $("previewOff").classList.toggle("hidden", t.enabled);
@@ -184,6 +197,7 @@ async function join() {
   fillSelect($("captionLangCall"), $("captionLang").value);
   setToggle($("micBtn"), state.stream.getAudioTracks()[0]?.enabled ?? false, ICON.mic, ICON.micOff);
   setToggle($("camBtn"), state.stream.getVideoTracks()[0]?.enabled ?? false, ICON.cam, ICON.camOff);
+  $("sideBtn").innerHTML = ICON.panel;
   updateMtChip();
   bindCallControls();
   connect();
@@ -284,7 +298,7 @@ function connect() {
   const ws = new WebSocket(`${proto}://${location.host}${location.pathname.replace(/[^/]*$/, "")}ws/${state.room}`);
   ws.binaryType = "arraybuffer";
   state.ws = ws;
-  setConn("connecting…", "warn");
+  setConn("Connecting…", "warn");
 
   ws.onopen = () => {
     ws.send(JSON.stringify({ type: "join", name: load("name"), lang: $("langCall").value, captionLang: $("captionLangCall").value }));
@@ -297,7 +311,7 @@ function connect() {
     state.myId = null;
     closePeer();
     if (state.leaving) return;
-    setConn("reconnecting…", "bad");
+    setConn("Reconnecting…", "bad");
     setTimeout(connect, 2000);
   };
 }
@@ -306,7 +320,7 @@ async function onMessage(m) {
   switch (m.type) {
     case "joined":
       state.myId = m.id;
-      setConn("connected to server", "ok");
+      setConn("Connected", "ok");
       // the newcomer starts the WebRTC negotiation with whoever is already there
       for (const p of m.peers) { setPeer(p); await startPeer(true); }
       break;
@@ -359,13 +373,15 @@ function setPeer(p) {
 function setConn(text, cls) {
   const c = $("connState");
   c.textContent = text;
-  c.className = `chip state ${cls}`;
+  c.className = `status ${cls}`;
+  c.title = text;
 }
 
 function updateMtChip() {
   const c = $("mtState");
-  c.textContent = state.config.translator ? `Whisper ${state.config.model} + LibreTranslate` : "translator loading…";
-  c.className = `chip ${state.config.translator ? "" : "warn"}`;
+  c.textContent = state.config.translator ? `Whisper ${state.config.model} + LibreTranslate`
+    : "Translator is loading. Captions stay untranslated until it's ready.";
+  c.className = state.config.translator ? "" : "warn";
 }
 
 // ------------------------------------------------------------------ WebRTC
@@ -389,11 +405,11 @@ async function startPeer(initiator) {
   };
   pc.onconnectionstatechange = () => {
     const s = pc.connectionState;
-    if (s === "connected") setConn("in call · peer-to-peer", "ok");
+    if (s === "connected") setConn("In call", "ok");
     else if (s === "failed") {
-      setConn("media blocked by network (captions still work)", "bad");
+      setConn("Video blocked by the network. Captions still work.", "bad");
       if (initiator) pc.restartIce?.();
-    } else if (s === "disconnected") setConn("peer connection unstable…", "warn");
+    } else if (s === "disconnected") setConn("Connection unstable…", "warn");
   };
 }
 
@@ -421,7 +437,7 @@ function closePeer(keepPeerInfo = false) {
   $("waiting").classList.remove("hidden");
   $("remoteName").classList.add("hidden");
   $("remoteName").classList.remove("talking");
-  if (state.myId) setConn("connected to server", "ok");
+  if (state.myId) setConn("Connected", "ok");
 }
 
 function leave() {
@@ -479,12 +495,12 @@ function onCaption(m) {
   li.innerHTML = `<div class="meta"><b></b><span>${time}</span></div><div class="t"></div>` +
     (showOrig ? '<div class="o"></div>' : "") + (m.final && m.timings ? '<div class="lat"></div>' : "");
   li.querySelector("b").textContent = `${mine ? "You" : m.name} · ${langName(m.src)}`;
-  li.querySelector(".t").textContent = main + (failed ? "  (translation unavailable)" : "");
+  li.querySelector(".t").textContent = main + (failed ? "  (not translated)" : "");
   if (showOrig) li.querySelector(".o").textContent = m.text;
   if (m.final && m.timings) {
     const t = m.timings;
     li.querySelector(".lat").textContent =
-      `${(t.totalMs / 1000).toFixed(2)}s after speech = pause ${t.vadMs} + queue ${t.queueMs} + ASR ${t.asrMs} + MT ${t.mtMs} ms · ${(t.audioMs / 1000).toFixed(1)}s audio`;
+      `${(t.totalMs / 1000).toFixed(2)} s = pause ${t.vadMs} + queue ${t.queueMs} + ASR ${t.asrMs} + MT ${t.mtMs} ms · ${(t.audioMs / 1000).toFixed(1)} s audio`;
   }
   const list = $("transcript");
   if (list.scrollHeight - list.scrollTop - list.clientHeight < 120) list.scrollTop = list.scrollHeight;
@@ -495,7 +511,8 @@ function onCaption(m) {
     if (m.timings) {
       state.latencies.push(m.timings.totalMs);
       const avg = state.latencies.reduce((a, b) => a + b, 0) / state.latencies.length;
-      $("latencyChip").textContent = `avg caption latency ${(avg / 1000).toFixed(2)}s (${state.latencies.length})`;
+      const n = state.latencies.length;
+      $("latencyChip").textContent = `Average delay ${(avg / 1000).toFixed(1)} s over ${n} caption${n === 1 ? "" : "s"}`;
     }
   }
 }
@@ -518,7 +535,7 @@ function downloadTranscript() {
   URL.revokeObjectURL(a.href);
 }
 
-// re-check translator status occasionally so the chip turns green once LibreTranslate is up
+// re-check translator status occasionally so the pipeline note updates once LibreTranslate is up
 setInterval(async () => {
   if (!state.config || state.config.translator || $("call").classList.contains("hidden")) return;
   try {
