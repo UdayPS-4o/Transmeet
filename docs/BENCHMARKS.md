@@ -65,7 +65,18 @@ Interim captions appear while the person is still speaking: about 2–3 per sent
 
 The VAD pause (`SILENCE_MS=600`) is a deliberate design cost: the system has to hear 0.6 s of silence before it knows a sentence has ended. Lowering it makes captions faster but splits sentences at natural pauses.
 
-<!-- 2CPU -->
+### 2 vCPU (smallest viable server)
+
+This run used the same machine and code, with Transmeet and LibreTranslate both pinned to the same 2 cores.
+
+| Pair | Success | Mean | p50 | p95 | ASR | MT | Interims / sentence |
+|---|---|---|---|---|---|---|---|
+| English → Hindi | 9/10* | **1.37 s** | 1.37 s | 2.17 s | 0.91 s | 0.34 s | 1.4 |
+| English → Spanish | 10/10 | **1.27 s** | 1.50 s | 1.95 s | 0.99 s | 0.36 s | 1.2 |
+| Spanish → English | 10/10 | **2.35 s** | 2.23 s | 2.90 s | 1.02 s | 0.74 s | 1.0 |
+| Hindi → English (`small`) | 9/10 | 6.92 s | 5.64 s | 15.3 s | 8.58 s | 0.65 s | 0.1 |
+
+With half the cores, English and Spanish captions are only about 0.2–0.5 s slower. The adaptive budget simply shows fewer live interim captions. Hindi is usable on 2 vCPU but slow. For Hindi, use 4+ vCPU, or 8 vCPU with `hi=medium` for better accuracy.
 
 ### Before and after the interim budget (4 vCPU)
 
@@ -81,9 +92,9 @@ The first version re-transcribed partial sentences whenever Whisper was idle. On
 
 | Component | RAM (measured) | Disk |
 |---|---|---|
-| Transmeet server with Whisper `base` + `small` loaded | ~1.0 GB | image ~1.6 GB (models baked in) |
+| Transmeet server with Whisper `base` + `small` loaded | ~1.0 GB | image 2.1 GB (both models baked in) |
 | LibreTranslate, 5 languages (en, hi, es, fr, de) | ~1.1 GB | image ~2 GB + ~1.1 GB language models |
-| **Total** | **~2.1 GB** | ~4.7 GB |
+| **Total** | **~2.1 GB** | ~5.2 GB |
 
 ## 5. Browser end-to-end test
 
@@ -91,7 +102,7 @@ The first version re-transcribed partial sentences whenever Whisper was idle. On
 1. the peer-to-peer WebRTC video connects on both sides (about 1 s), and
 2. each side receives the other's speech as a final caption, translated into its own language.
 
-It passes against the Docker deployment and a local run.
+It passes against a local run and against the Docker image built from this repo's `Dockerfile` (started with `HF_HUB_OFFLINE=1` to prove the models are baked in). In that test both fake microphones talk non-stop at the same time, which is the worst case. English captions then waited up to about 5 s behind a Hindi transcription, because one Whisper worker serves the whole server (`ASR_WORKERS=1`). Normal turn-taking conversation does not hit this. On 8+ vCPU, set `ASR_WORKERS=2`.
 
 ## How to reproduce
 

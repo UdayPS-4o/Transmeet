@@ -1,4 +1,4 @@
-# Live latency: Whisper `base`
+# Live latency: Whisper `base` (4 vCPU)
 
 Server: {'model': 'base', 'silenceMs': 600, 'beam': 1, 'translator_online': True}
 

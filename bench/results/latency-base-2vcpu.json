@@ -1,0 +1,752 @@
+{
+ "model": "base",
+ "server": {
+  "model": "base",
+  "silenceMs": 600,
+  "beam": 1,
+  "translator_online": true
+ },
+ "url": "ws://localhost:8000",
+ "pairs": {
+  "en-hi": {
+   "n": 10,
+   "ok": 9,
+   "empty": 1,
+   "timeouts": 0,
+   "no_translation": 0,
+   "utterances": [
+    {
+     "status": "ok",
+     "latency_ms": 1648.9518979997229,
+     "text": "Blogs can also help improve student writing, while students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+     "translated": "ब्लॉग भी छात्र लेखन में सुधार में मदद कर सकते हैं, जबकि छात्र अक्सर मैला व्याकरण और वर्तनी के साथ अपने ब्लॉग अनुभव शुरू करते हैं, आम तौर पर दर्शकों की उपस्थिति बदल जाती है।",
+     "interims": 2,
+     "timings": {
+      "audioMs": 8190,
+      "vadMs": 599,
+      "queueMs": 1,
+      "asrMs": 993,
+      "mtMs": 753,
+      "totalMs": 2345
+     },
+     "id": "1990",
+     "warmup": false
+    },
+    {
+     "status": "empty",
+     "latency_ms": 208.1125240001711,
+     "text": "",
+     "translated": null,
+     "interims": 0,
+     "timings": {
+      "audioMs": 900,
+      "vadMs": 600,
+      "queueMs": 2,
+      "asrMs": 5,
+      "mtMs": 0,
+      "totalMs": 607
+     },
+     "id": "1876",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2181.424209999932,
+     "text": "and even to extortion.",
+     "translated": "और यहां तक कि बहिष्कार करने के लिए।",
+     "interims": 2,
+     "timings": {
+      "audioMs": 2040,
+      "vadMs": 600,
+      "queueMs": 639,
+      "asrMs": 941,
+      "mtMs": 0,
+      "totalMs": 2180
+     },
+     "id": "1694",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 397.38698299970565,
+     "text": "With two years of the end of the war, the former allies were now enemies and the Cold War began.",
+     "translated": "युद्ध के अंत के दो वर्षों के साथ, पूर्व सहयोगी अब दुश्मन थे और शीत युद्ध शुरू हुआ।",
+     "interims": 1,
+     "timings": {
+      "audioMs": 5250,
+      "vadMs": 600,
+      "queueMs": 1,
+      "asrMs": 950,
+      "mtMs": 445,
+      "totalMs": 1996
+     },
+     "id": "1808",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1803.274622000572,
+     "text": "So, it's likely that the notation was added simply as the label.",
+     "translated": "इसलिए, यह संभावना है कि नोटेशन को केवल लेबल के रूप में जोड़ा गया था।",
+     "interims": 1,
+     "timings": {
+      "audioMs": 4290,
+      "vadMs": 702,
+      "queueMs": 1,
+      "asrMs": 848,
+      "mtMs": 351,
+      "totalMs": 1902
+     },
+     "id": "1772",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 466.85975000036706,
+     "text": "This is called the Chemicals pH. You can make an indicator using red cabbage juice.",
+     "translated": "इसे रसायन पीएच कहा जाता है। आप लाल गोभी के रस का उपयोग करके एक सूचक बना सकते हैं।",
+     "interims": 1,
+     "timings": {
+      "audioMs": 4500,
+      "vadMs": 599,
+      "queueMs": 1,
+      "asrMs": 851,
+      "mtMs": 314,
+      "totalMs": 1764
+     },
+     "id": "1792",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1022.0181969998521,
+     "text": "The hot chocolate is up to Belgian standards. Freed uses are pricey but excellent.",
+     "translated": "गर्म चॉकलेट बेल्जियम मानकों तक है। फ्रीड का उपयोग मूल्यवान लेकिन उत्कृष्ट हैं।",
+     "interims": 1,
+     "timings": {
+      "audioMs": 5460,
+      "vadMs": 601,
+      "queueMs": 1,
+      "asrMs": 872,
+      "mtMs": 247,
+      "totalMs": 1720
+     },
+     "id": "1720",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1365.5572299994674,
+     "text": "Nothing can be seen other than the clear, beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+     "translated": "कुछ भी स्पष्ट, सुंदर आकाश ऊपर और आसपास के पहाड़ों के अलावा अन्य नहीं देखा जा सकता है। इस दुनिया में बहुत कम देखा जा सकता है या गुफा के अंदर से सुना जा सकता है।",
+     "interims": 1,
+     "timings": {
+      "audioMs": 8700,
+      "vadMs": 601,
+      "queueMs": 1,
+      "asrMs": 1034,
+      "mtMs": 428,
+      "totalMs": 2064
+     },
+     "id": "1841",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2147.3984389995167,
+     "text": "In just two weeks the Americans and free France forces had liberated southern France and were churning towards Germany.",
+     "translated": "सिर्फ दो सप्ताह में अमेरिकी और मुक्त फ्रांस बलों ने दक्षिणी फ्रांस को मुक्त कर दिया था और जर्मनी की ओर संघर्ष कर रहे थे।",
+     "interims": 2,
+     "timings": {
+      "audioMs": 8700,
+      "vadMs": 601,
+      "queueMs": 1,
+      "asrMs": 1020,
+      "mtMs": 525,
+      "totalMs": 2146
+     },
+     "id": "1702",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1300.0868020008056,
+     "text": "multiple times.",
+     "translated": "कई बार।",
+     "interims": 2,
+     "timings": {
+      "audioMs": 3240,
+      "vadMs": 700,
+      "queueMs": 1,
+      "asrMs": 698,
+      "mtMs": 0,
+      "totalMs": 1398
+     },
+     "id": "1689",
+     "warmup": false
+    }
+   ],
+   "mean_ms": 1370.3286812222157,
+   "p50_ms": 1365.5572299994674,
+   "p95_ms": 2167.813901599766,
+   "server_vadMs": 622.5555555555555,
+   "server_queueMs": 71.88888888888889,
+   "server_asrMs": 911.8888888888889,
+   "server_mtMs": 340.3333333333333,
+   "server_totalMs": 1946.111111111111,
+   "mean_interims": 1.4444444444444444
+  },
+  "hi-en": {
+   "n": 10,
+   "ok": 9,
+   "empty": 0,
+   "timeouts": 1,
+   "no_translation": 0,
+   "utterances": [
+    {
+     "status": "ok",
+     "latency_ms": 16040.341807999539,
+     "text": "बलोग से चात्र लेकन में स्तुदार करने में भी मदद्यों सकती है जहाँ चात्र अपने बलोग अनुवग की सुर्वात अक्सर बेतर तीब वैकरन और",
+     "translated": "It can also help to shun the chatra from Balog in Lecan, where the nature of your Balog Anuvag is often random vackeran and",
+     "interims": 1,
+     "timings": {
+      "audioMs": 9990,
+      "vadMs": 0,
+      "queueMs": 1,
+      "asrMs": 22413,
+      "mtMs": 725,
+      "totalMs": 23139
+     },
+     "id": "1990",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 6991.617737000524,
+     "text": "उतरी मेरी एंज एमरजन्ची प्रबन्दन कार्यालाए की ओर से कहा गया की राश़् में नुखसान की कोई सुछना प्राप्त नहीं हूँई ती",
+     "translated": "My Anj Emerghanchi Prabandan said on the part of the work that I am not able to reconcile in the way I am not able to reconcile any of the vices",
+     "interims": 0,
+     "timings": {
+      "audioMs": 8790,
+      "vadMs": 701,
+      "queueMs": 6,
+      "asrMs": 5300,
+      "mtMs": 1082,
+      "totalMs": 7089
+     },
+     "id": "1876",
+     "warmup": false
+    },
+    {
+     "status": "timeout",
+     "id": "1694",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 6013.3982520001155,
+     "text": "लड़ाई के आखरी दो सालो में पहले के साथी अब धुष्पन बन गय ते और शीट युद्ध की शुर्वात हो चुकी ती",
+     "translated": "In the last two years of the battle, the first fellow can now become a zeal and the sway of the sheet war",
+     "interims": 0,
+     "timings": {
+      "audioMs": 8940,
+      "vadMs": 601,
+      "queueMs": 1,
+      "asrMs": 4797,
+      "mtMs": 613,
+      "totalMs": 6012
+     },
+     "id": "1808",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 4988.201721999758,
+     "text": "इसलिये यह माना जा रहा है कि नोटेशन को सरफ एक लेवल के रूप में जोडा गया था.",
+     "translated": "Therefore it was believed that the notation was surrendered as a level surf.",
+     "interims": 0,
+     "timings": {
+      "audioMs": 4320,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 4237,
+      "mtMs": 349,
+      "totalMs": 5287
+     },
+     "id": "1772",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 5639.618070999859,
+     "text": "इसे केमिकल का पीज कहा जाता है आप लाल गोभी के जूस को अस्तमाल कर के एक संके तक बना सकते हैं",
+     "translated": "It is called the brew of the chemical. You can make red cabbage juice up to one of the bucks",
+     "interims": 0,
+     "timings": {
+      "audioMs": 6840,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 4568,
+      "mtMs": 467,
+      "totalMs": 5738
+     },
+     "id": "1792",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 3479.437821999454,
+     "text": "प्रुबका जुस माइंगा है, लेकिन बहुद अच्छा है.",
+     "translated": "Prubka Jus is Mainga, but multita is good.",
+     "interims": 0,
+     "timings": {
+      "audioMs": 4260,
+      "vadMs": 600,
+      "queueMs": 1,
+      "asrMs": 3599,
+      "mtMs": 378,
+      "totalMs": 4578
+     },
+     "id": "1720",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2503.6740909999935,
+     "text": "उपर साव, वाता वरन, सुन्दर आस्मान और आस्पास के कही पहाडो के अलावा और कुज़ भी नहीं ज़र आता है. इसलिये एस गुफा के अंदर से दुल्गा",
+     "translated": "In addition to the Pahado, the name of the Lord, the beautiful Ashman and the surroundings, and there is no bliss. Therefore the s will from the inside of the cave",
+     "interims": 0,
+     "timings": {
+      "audioMs": 9990,
+      "vadMs": 0,
+      "queueMs": 1,
+      "asrMs": 6095,
+      "mtMs": 706,
+      "totalMs": 6802
+     },
+     "id": "1841",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2457.702665999932,
+     "text": "केवल दो हवतो में आमेरीकियो और फूरी फ्रेंच भलो ने दक्षनी फ्रान्स को मुखत कर दिया था.",
+     "translated": "The only two Hawto faced the Dakshini France by the Amarikio and Furi French Bhalo.",
+     "interims": 0,
+     "timings": {
+      "audioMs": 7170,
+      "vadMs": 599,
+      "queueMs": 1,
+      "asrMs": 4740,
+      "mtMs": 715,
+      "totalMs": 6055
+     },
+     "id": "1702",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 14205.221649000123,
+     "text": "यूरब एक एसा महादव है, जो आप़क्या क्रुद चोटा है, लेकिन इस में कैई सवत्न्ट्र देस है, समझन्या परिस्तेति में कैई देस हुँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँँ",
+     "translated": "You are an Esra Mahadav, what you have to hurt, but there is a cancerous body in the sense of comprehension",
+     "interims": 0,
+     "timings": {
+      "audioMs": 9990,
+      "vadMs": 0,
+      "queueMs": 12,
+      "asrMs": 21476,
+      "mtMs": 815,
+      "totalMs": 22304
+     },
+     "id": "1689",
+     "warmup": false
+    }
+   ],
+   "mean_ms": 6924.3570908888105,
+   "p50_ms": 5639.618070999859,
+   "p95_ms": 15306.293744399773,
+   "server_vadMs": 433.6666666666667,
+   "server_queueMs": 2.7777777777777777,
+   "server_asrMs": 8580.555555555555,
+   "server_mtMs": 650.0,
+   "server_totalMs": 9667.111111111111,
+   "mean_interims": 0.1111111111111111
+  },
+  "en-es": {
+   "n": 10,
+   "ok": 10,
+   "empty": 0,
+   "timeouts": 0,
+   "no_translation": 0,
+   "utterances": [
+    {
+     "status": "ok",
+     "latency_ms": 1719.8714310006835,
+     "text": "Blogs can also help improve student writing, while students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+     "translated": "Los blogs también pueden ayudar a mejorar la escritura de los estudiantes, mientras que los estudiantes a menudo comienzan su experiencia de blog con gramática y ortografía descuidada, la presencia de un público generalmente cambia eso.",
+     "interims": 2,
+     "timings": {
+      "audioMs": 8190,
+      "vadMs": 599,
+      "queueMs": 1,
+      "asrMs": 1024,
+      "mtMs": 794,
+      "totalMs": 2418
+     },
+     "id": "1990",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 29.870477999793366,
+     "text": "The Northern Mariana's Emergency Management Office said that there were no damages reported in the nation.",
+     "translated": "Manejo de Emergencia de la Mariana del Norte La oficina dijo que no había daños reportados en la nación.",
+     "interims": 2,
+     "timings": {
+      "audioMs": 8550,
+      "vadMs": 600,
+      "queueMs": 1,
+      "asrMs": 944,
+      "mtMs": 283,
+      "totalMs": 1828
+     },
+     "id": "1876",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1637.7285119997396,
+     "text": "and even to extortion.",
+     "translated": "e incluso para la extorsión.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 2040,
+      "vadMs": 601,
+      "queueMs": 1,
+      "asrMs": 841,
+      "mtMs": 193,
+      "totalMs": 1636
+     },
+     "id": "1694",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 457.55819699934364,
+     "text": "With two years of the end of the war, the former allies were now enemies and the Cold War began.",
+     "translated": "Con dos años del fin de la guerra, los antiguos aliados eran ahora enemigos y la Guerra Fría comenzó.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 5250,
+      "vadMs": 600,
+      "queueMs": 1,
+      "asrMs": 1035,
+      "mtMs": 420,
+      "totalMs": 2056
+     },
+     "id": "1808",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1851.2512759998572,
+     "text": "So, it's likely that the notation was added simply as the label.",
+     "translated": "Así que es probable que la notación se agregara simplemente como la etiqueta.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 4290,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 913,
+      "mtMs": 335,
+      "totalMs": 1949
+     },
+     "id": "1772",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 556.8855520004945,
+     "text": "This is called the Chemicals pH. You can make an indicator using red cabbage juice.",
+     "translated": "Esto se llama PH de los químicos. Puede hacer un indicador usando jugo de repollo rojo.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 4500,
+      "vadMs": 601,
+      "queueMs": 1,
+      "asrMs": 967,
+      "mtMs": 287,
+      "totalMs": 1855
+     },
+     "id": "1792",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1388.1056629998056,
+     "text": "The hot chocolate is up to Belgian standards. Freed uses are pricey but excellent.",
+     "translated": "El chocolate caliente depende de los estándares belgas. Los usos liberados son caros pero excelentes.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 5460,
+      "vadMs": 600,
+      "queueMs": 1,
+      "asrMs": 1186,
+      "mtMs": 299,
+      "totalMs": 2086
+     },
+     "id": "1720",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1428.060582999933,
+     "text": "Nothing can be seen other than the clear, beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+     "translated": "Nada se puede ver más allá del claro y hermoso cielo por encima y las muchas montañas circundantes. Muy poco de este mundo se puede ver o escuchar desde dentro de la cueva.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 8700,
+      "vadMs": 600,
+      "queueMs": 1,
+      "asrMs": 1116,
+      "mtMs": 410,
+      "totalMs": 2126
+     },
+     "id": "1841",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2021.3916419997986,
+     "text": "In just two weeks the Americans and free France forces had liberated southern France and were churning towards Germany.",
+     "translated": "En sólo dos semanas, las fuerzas estadounidenses y francas de Francia habían liberado al sur de Francia y se dirigían hacia Alemania.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 8700,
+      "vadMs": 602,
+      "queueMs": 1,
+      "asrMs": 996,
+      "mtMs": 421,
+      "totalMs": 2020
+     },
+     "id": "1702",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 1573.3722380000472,
+     "text": "multiple times.",
+     "translated": "múltiples veces.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 3240,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 866,
+      "mtMs": 105,
+      "totalMs": 1672
+     },
+     "id": "1689",
+     "warmup": false
+    }
+   ],
+   "mean_ms": 1266.4095571999496,
+   "p50_ms": 1500.7164104999902,
+   "p95_ms": 1944.8284772998247,
+   "server_vadMs": 620.5,
+   "server_queueMs": 1.0,
+   "server_asrMs": 988.8,
+   "server_mtMs": 354.7,
+   "server_totalMs": 1964.6,
+   "mean_interims": 1.2
+  },
+  "es-en": {
+   "n": 10,
+   "ok": 10,
+   "empty": 0,
+   "timeouts": 0,
+   "no_translation": 0,
+   "utterances": [
+    {
+     "status": "ok",
+     "latency_ms": 1961.9279710004776,
+     "text": "Esto es generalmente cambia ante la presencia de una audiencia.",
+     "translated": "This is usually changed in the presence of an audience.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 3270,
+      "vadMs": 702,
+      "queueMs": 1,
+      "asrMs": 887,
+      "mtMs": 471,
+      "totalMs": 2060
+     },
+     "id": "1990",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2527.6301619996957,
+     "text": "La agencia de Mérgencias de las Varianas del Norte indicó que no hubo registro de daños en el territorio nacional.",
+     "translated": "The Mérgencias de las Varianas del Norte agency indicated that there was no record of damage on the national territory.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 7050,
+      "vadMs": 601,
+      "queueMs": 1,
+      "asrMs": 1046,
+      "mtMs": 978,
+      "totalMs": 2626
+     },
+     "id": "1876",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2112.835597999947,
+     "text": "por una amplia variada de motivos desde negligencia hasta uso e incluso extorsión",
+     "translated": "for a wide range of reasons from negligence to use and even extortion",
+     "interims": 1,
+     "timings": {
+      "audioMs": 5340,
+      "vadMs": 700,
+      "queueMs": 1,
+      "asrMs": 965,
+      "mtMs": 544,
+      "totalMs": 2211
+     },
+     "id": "1694",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2663.363536000361,
+     "text": "A dos años del final de la guerra, los que eran aliados ahora eran enemigos y la guerra fría comenzó.",
+     "translated": "Two years after the end of the war, those who were allies were now enemies and the cold war began.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 6300,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 1126,
+      "mtMs": 934,
+      "totalMs": 2762
+     },
+     "id": "1808",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2348.935658999835,
+     "text": "Por tanto, es probable que la notación haya sido agregada tan solo como un ratulo.",
+     "translated": "Therefore, the notation is likely to have been added only as a ratulo.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 5160,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 917,
+      "mtMs": 829,
+      "totalMs": 2448
+     },
+     "id": "1772",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2223.893653000232,
+     "text": "Esto se denomina PH de una sustancia química. Usted puede elaborar un indicador de PH utilizando jugo de col roja.",
+     "translated": "This is called a chemical PH. You can make a PH indicator using red cabbage juice.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 8160,
+      "vadMs": 700,
+      "queueMs": 1,
+      "asrMs": 1056,
+      "mtMs": 663,
+      "totalMs": 2421
+     },
+     "id": "1792",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2245.052106000003,
+     "text": "El chocolate caliente está la altura de los estándares velgas. Los jugos frutales son costosos pero deliciosos.",
+     "translated": "Hot chocolate is the height of the Velgas standards. The fruit juices are expensive but delicious.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 6420,
+      "vadMs": 702,
+      "queueMs": 1,
+      "asrMs": 1085,
+      "mtMs": 557,
+      "totalMs": 2344
+     },
+     "id": "1720",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2221.955326999705,
+     "text": "Desde la interior de esta cueva se puede ver cuyo ir muy poco de este mundo.",
+     "translated": "From the inside of this cave you can see whose going very little of this world.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 4470,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 924,
+      "mtMs": 695,
+      "totalMs": 2320
+     },
+     "id": "1841",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 3099.742707000587,
+     "text": "En apenas dos semanas, las fuerzas norteamericanas y las de la Francia libre habrían logrado la diversión del Sur de Francia y seguían rumbo a Alemania.",
+     "translated": "In just two weeks, the American forces and those of free France would have achieved the fun of South France and were on their way to Germany.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 8310,
+      "vadMs": 699,
+      "queueMs": 1,
+      "asrMs": 1213,
+      "mtMs": 1284,
+      "totalMs": 3197
+     },
+     "id": "1702",
+     "warmup": false
+    },
+    {
+     "status": "ok",
+     "latency_ms": 2058.3571320003102,
+     "text": "que gestionar solicitudes de visa y controles de pasaporte varias veces.",
+     "translated": "to manage visa applications and passport controls several times.",
+     "interims": 1,
+     "timings": {
+      "audioMs": 4590,
+      "vadMs": 701,
+      "queueMs": 1,
+      "asrMs": 985,
+      "mtMs": 470,
+      "totalMs": 2157
+     },
+     "id": "1689",
+     "warmup": false
+    }
+   ],
+   "mean_ms": 2346.3693851001153,
+   "p50_ms": 2234.4728795001174,
+   "p95_ms": 2903.372080050485,
+   "server_vadMs": 690.8,
+   "server_queueMs": 1.0,
+   "server_asrMs": 1020.4,
+   "server_mtMs": 742.5,
+   "server_totalMs": 2454.6,
+   "mean_interims": 1.0
+  }
+ }
+}

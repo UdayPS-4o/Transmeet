@@ -2,7 +2,7 @@
 
 **WebRTC video calls with live speech translation and captions. Fully self-hosted, runs on CPU.**
 
-Two people join a room. Each picks the language they speak and the language they want captions in. As someone talks, their speech is transcribed by Whisper and translated by LibreTranslate. The caption appears on the other person's screen about 1–3 seconds after they stop speaking. Everything runs on your own server: no paid APIs, no GPU, and no audio leaves the machine.
+Two people join a room. Each picks the language they speak and the language they want captions in. As someone talks, their speech is transcribed by Whisper and translated by LibreTranslate. The caption appears on the other person's screen about 1–2 seconds after they stop speaking (measured on a 4-vCPU server with no GPU). Everything runs on your own server: no paid APIs, no GPU, and no audio leaves the machine.
 
 ```
  Browser A (speaks English)                                   Browser B (reads Hindi)
@@ -40,17 +40,19 @@ Defaults: English, Hindi, Spanish, French, German (`LANGUAGES=en,hi,es,fr,de`). 
 
 ## Does it run without a GPU?
 
-Yes. Transmeet is designed for CPU. Whisper runs through CTranslate2 with int8 quantisation, and LibreTranslate (Argos) is CPU-only. The figures below were measured on a 4-vCPU server; full tables are in [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
+Yes. Transmeet is designed for CPU. Whisper runs through CTranslate2 with int8 quantisation, and LibreTranslate (Argos) is CPU-only. These numbers were **measured** on a cloud VM with no GPU. Latency is from end of speech to the caption on the other screen; full tables are in [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
 
-| Server | Setting | What to expect |
-|---|---|---|
-| **2 vCPU / 4 GB** | `WHISPER_MODEL=base`, `LANGUAGES=en,es` (2–3 langs) | Usable demo. Captions about 2–3 s after speech. |
-| **4 vCPU / 8 GB** (recommended) | `base` + `WHISPER_MODEL_BY_LANG=hi=small` | Smooth 1:1 call including Hindi. |
-| 8 vCPU / 16 GB | `small` for everyone | Best accuracy that is still comfortably real time. |
+| Server | English/Spanish captions | Hindi → English captions | Verdict |
+|---|---|---|---|
+| **2 vCPU / 4 GB** | 1.3–2.3 s | ~7 s (p50 5.6 s) | Fine for a demo with European languages. Hindi works but is slow. |
+| **4 vCPU / 8 GB** (recommended) | 1.1–1.8 s | ~6 s (p50 4.4 s) | Smooth for the default `base` + `hi=small` setup |
+| 8 vCPU / 16 GB | – (not measured) | – | Room for `hi=medium` (Hindi WER 54 % → 37 %) or `small` for everyone |
 
-RAM, roughly: Transmeet with `base` uses about 0.5 GB, plus about 1 GB more for `small`. LibreTranslate uses about 1.5–2 GB with 5 languages. Docker images are about 1.2 GB (Transmeet) and about 2 GB (LibreTranslate), plus about 1 GB of downloaded language models.
+Measured RAM: about 1.0 GB for Transmeet with `base` and `small` loaded, and about 1.1 GB for LibreTranslate with 5 languages, so about **2.1 GB in total**. Disk is about 5 GB (Transmeet image 2.1 GB with models baked in, LibreTranslate image about 2 GB, and its language models 1.1 GB).
 
-A GPU is optional. Set `WHISPER_DEVICE=cuda` and `WHISPER_COMPUTE=float16` on a CUDA host to use a larger model such as `medium` in real time. This also needs a CUDA base image.
+Measured accuracy (FLEURS, word error rate): English 7.3 % (`base`) or 4.7 % (`small`), Spanish 10.9 % or 5.1 %, German 15.3 % or 8.0 %, Hindi 54 % (`small`; character error rate 25 %). On short everyday sentences, English/Spanish captions are essentially correct. Hindi captions are understandable but imperfect.
+
+A GPU is optional. With `WHISPER_DEVICE=cuda`, `WHISPER_COMPUTE=float16` and a CUDA base image, `medium` or `large-v3` run in real time.
 
 ## Quick start (local)
 
@@ -153,6 +155,7 @@ Results are in [docs/BENCHMARKS.md](docs/BENCHMARKS.md). Comparable systems are 
 - Captions are sentence-level. True simultaneous translation, which emits words before the sentence ends (e.g. SimulStreaming), needs much more compute.
 - Accuracy depends on model size. Low-resource languages need `small` or larger.
 - Rooms are held in memory, so run one server replica.
+- One Whisper worker is shared by everyone. If both people talk over each other, one caption waits for the other. Set `ASR_WORKERS=2` on 8+ cores.
 - Possible extensions: TTS voice-over of translations, speaker diarisation, and saving meeting minutes.
 
 ## Licence
