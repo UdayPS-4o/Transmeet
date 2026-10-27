@@ -33,8 +33,9 @@ class Transcriber:
             )
             lang = next((l for l, m in config.WHISPER_MODEL_BY_LANG.items() if m == name), "en")
             self._run(np.zeros(16000, dtype=np.float32), lang, final=True)   # warm-up
-            log.info("Whisper '%s' (%s/%s) ready in %.1fs", name, config.WHISPER_DEVICE,
-                     config.WHISPER_COMPUTE, time.perf_counter() - t)
+            log.info("Whisper '%s' (%s/%s, %d workers x %d threads) ready in %.1fs", name,
+                     config.WHISPER_DEVICE, config.WHISPER_COMPUTE, config.ASR_WORKERS,
+                     config.WHISPER_THREADS, time.perf_counter() - t)
         self.pool = ThreadPoolExecutor(max_workers=config.ASR_WORKERS, thread_name_prefix="asr")
         self.busy = 0
         self.rtf = {name: 0.3 for name in self.models}     # running estimate of compute s per audio s
@@ -52,6 +53,27 @@ class Transcriber:
             return await loop.run_in_executor(self.pool, self._timed, audio, language, final)
         finally:
             self.busy -= 1
+
+    async def detect_language(self, audio: np.ndarray) -> tuple[str, float]:
+        """Which language does this sound like? Uses the default (fastest) model.
+        Whisper pads every input to 30 s, so this costs ~0.5 s on CPU whatever the length."""
+        loop = asyncio.get_running_loop()
+        lang, prob, _ = await loop.run_in_executor(
+            self.pool, lambda: self.models[config.WHISPER_MODEL].detect_language(audio))
+        return lang, prob
+
+    async def pick_language(self, audio: np.ndarray) -> tuple[str, float]:
+        """Most likely language among the ones this server offers (for "Auto-detect").
+        Whisper often hears Hindi as Urdu (same spoken language, different script),
+        so Urdu's probability is counted as Hindi."""
+        loop = asyncio.get_running_loop()
+        _, _, probs = await loop.run_in_executor(
+            self.pool, lambda: self.models[config.WHISPER_MODEL].detect_language(audio))
+        scores = dict(probs)
+        if "hi" in config.LANGUAGES:
+            scores["hi"] = scores.get("hi", 0) + scores.pop("ur", 0)
+        best = max(config.LANGUAGES, key=lambda l: scores.get(l, 0))
+        return best, scores.get(best, 0.0)
 
     def estimate(self, seconds: float, language: str) -> float:
         """Expected compute time (s) to transcribe `seconds` of audio in `language`."""

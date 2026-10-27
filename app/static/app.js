@@ -16,6 +16,10 @@ const state = {
   latencies: [],
   transcript: [],        // { time, name, mine, text, translated, src, tgt }
   captionsOn: true,
+  level: 0,              // current mic level (RMS), updated by the meter
+  heardAt: 0,            // last time the mic level looked like a voice
+  chunksSent: 0,         // audio chunks sent to the server (watchdog)
+  meterCtx: null,
 };
 
 const ICON = {
@@ -37,7 +41,8 @@ const randomRoom = () => {
   const w = ["blue", "red", "swift", "calm", "bright", "lunar", "amber", "nova", "cedar", "delta"];
   return `${w[Math.random() * w.length | 0]}-${w[Math.random() * w.length | 0]}-${Math.random().toString(36).slice(2, 6)}`;
 };
-const langName = (code) => (state.config.languages.find((l) => l.code === code) || {}).name || code;
+const langName = (code) => code === "auto" ? "Auto-detect"
+  : (state.config.languages.find((l) => l.code === code) || {}).name || code;
 const inviteLink = () => `${location.origin}${location.pathname}?room=${encodeURIComponent(state.room)}`;
 const copyInvite = async () => {
   try { await navigator.clipboard.writeText(inviteLink()); toast("Invite link copied"); }
@@ -46,9 +51,12 @@ const copyInvite = async () => {
 const save = (k, v) => { try { localStorage.setItem("tm." + k, v); } catch {} };
 const load = (k) => { try { return localStorage.getItem("tm." + k); } catch { return null; } };
 
-function fillSelect(sel, value) {
-  sel.innerHTML = state.config.languages.map((l) => `<option value="${l.code}">${l.name}</option>`).join("");
+function fillSelect(sel, value, withAuto = false) {
+  // "Auto-detect" lets Whisper work out the spoken language each sentence (~0.5 s slower on CPU)
+  const opts = (withAuto ? [{ code: "auto", name: "Auto-detect" }] : []).concat(state.config.languages);
+  sel.innerHTML = opts.map((l) => `<option value="${l.code}">${l.name}</option>`).join("");
   if (value) sel.value = value;
+  if (!sel.value) sel.selectedIndex = withAuto ? 1 : 0;
 }
 
 function setToggle(btn, on, iconOn, iconOff) {
@@ -63,10 +71,11 @@ async function init() {
   $("room").value = params.get("room") || randomRoom();
   $("name").value = load("name") || "";
   const browserLang = (navigator.language || "en").slice(0, 2);
-  const defLang = load("lang") || (state.config.languages.some((l) => l.code === browserLang) ? browserLang : "en");
-  fillSelect($("lang"), defLang);
-  fillSelect($("captionLang"), load("captionLang") || defLang);
-  $("lang").onchange = () => { $("captionLang").value = $("lang").value; };
+  const knownLang = state.config.languages.some((l) => l.code === browserLang) ? browserLang : "en";
+  const defLang = load("lang") || "auto";      // auto-detect unless the person picked a language before
+  fillSelect($("lang"), defLang, true);
+  fillSelect($("captionLang"), load("captionLang") || (defLang === "auto" ? knownLang : defLang));
+  $("lang").onchange = () => { if ($("lang").value !== "auto") $("captionLang").value = $("lang").value; };
   $("newRoom").onclick = () => { $("room").value = randomRoom(); };
   if (!state.config.translator) $("lobbyMsg").textContent = "Translator is still loading. Captions will be untranslated until it is ready.";
 
@@ -77,11 +86,27 @@ async function init() {
   $("joinForm").onsubmit = (e) => { e.preventDefault(); join(); };
 
   $("joinBtn").disabled = true;            // enabled once camera/mic are ready
-  if (await startMedia()) $("joinBtn").disabled = false;
+  if (await startMedia(load("mic"))) $("joinBtn").disabled = false;
+  await listMics();
+  $("micSelect").onchange = async () => {
+    save("mic", $("micSelect").value);
+    state.stream?.getTracks().forEach((t) => t.stop());
+    $("joinBtn").disabled = !(await startMedia($("micSelect").value));
+  };
 }
 
-async function startMedia() {
+async function listMics() {
+  // device labels are only visible after permission was granted, so do this after getUserMedia
+  const mics = (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind === "audioinput");
+  const current = state.stream?.getAudioTracks()[0]?.getSettings().deviceId;
+  $("micSelect").innerHTML = mics.map((d, i) =>
+    `<option value="${d.deviceId}">${(d.label || `Microphone ${i + 1}`).replace(/</g, "&lt;")}</option>`).join("");
+  if (current) $("micSelect").value = current;
+}
+
+async function startMedia(micId) {
   const audio = { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 };
+  if (micId) audio.deviceId = { ideal: micId };
   try {
     state.stream = await navigator.mediaDevices.getUserMedia({ audio, video: { width: 1280, height: 720 } });
   } catch (e) {
@@ -102,18 +127,25 @@ async function startMedia() {
 }
 
 function levelMeter() {
-  const ctx = new AudioContext();
+  // Shows the live mic level: a bar in the lobby and a green ring on the mic button in the call.
+  state.meterCtx?.close();
+  const ctx = state.meterCtx = new AudioContext();
   const an = ctx.createAnalyser();
-  an.fftSize = 512;
+  an.fftSize = 1024;
   ctx.createMediaStreamSource(state.stream).connect(an);
   const data = new Float32Array(an.fftSize);
   const tick = () => {
-    if ($("lobby").classList.contains("hidden")) { ctx.close(); return; }
+    if (ctx.state === "closed") return;
     an.getFloatTimeDomainData(data);
     const rms = Math.sqrt(data.reduce((s, v) => s + v * v, 0) / data.length);
-    $("meterBar").style.width = Math.min(100, rms * 400) + "%";
+    const lvl = Math.min(1, rms * 6);
+    state.level = rms;
+    if (rms > 0.01) state.heardAt = performance.now();
+    $("meterBar").style.width = lvl * 100 + "%";
+    $("micBtn").style.setProperty("--lvl", lvl.toFixed(2));
     requestAnimationFrame(tick);
   };
+  ctx.resume();
   tick();
 }
 
@@ -148,7 +180,7 @@ async function join() {
   $("call").classList.remove("hidden");
   $("localVideo").srcObject = state.stream;
   $("roomLabel").textContent = room;
-  fillSelect($("langCall"), $("lang").value);
+  fillSelect($("langCall"), $("lang").value, true);
   fillSelect($("captionLangCall"), $("captionLang").value);
   setToggle($("micBtn"), state.stream.getAudioTracks()[0]?.enabled ?? false, ICON.mic, ICON.micOff);
   setToggle($("camBtn"), state.stream.getVideoTracks()[0]?.enabled ?? false, ICON.cam, ICON.camOff);
@@ -179,6 +211,50 @@ function bindCallControls() {
   $("copyLink2").onclick = copyInvite;
   $("download").onclick = downloadTranscript;
   $("leaveBtn").onclick = leave;
+  $("bannerClose").onclick = () => hideBanner(true);
+  startWatchdog();
+}
+
+// ------------------------------------------------------------------ banner + mic watchdog
+function showBanner(key, text, button, onClick) {
+  if (state.dismissed?.has(key)) return;
+  state.bannerKey = key;
+  $("bannerText").textContent = text;
+  $("bannerBtn").classList.toggle("hidden", !button);
+  $("bannerBtn").textContent = button || "";
+  $("bannerBtn").onclick = () => { onClick?.(); hideBanner(); };
+  $("banner").classList.remove("hidden");
+}
+
+function hideBanner(dismiss = false, key = null) {
+  if (key && state.bannerKey !== key) return;
+  if (dismiss) (state.dismissed ||= new Set()).add(state.bannerKey);
+  state.bannerKey = null;
+  $("banner").classList.add("hidden");
+}
+
+function startWatchdog() {
+  // Explains, in plain words, why no captions appear for you.
+  const joinedAt = performance.now();
+  let lastChunks = 0;
+  setInterval(() => {
+    const mic = state.stream?.getAudioTracks()[0];
+    const now = performance.now();
+    const flowing = state.chunksSent > lastChunks;
+    lastChunks = state.chunksSent;
+    if (!state.myId) return;
+    if (!mic || mic.readyState === "ended") {
+      showBanner("nomic", "Your microphone was disconnected. Reload the page to pick it again.");
+    } else if (!mic.enabled) {
+      showBanner("muted", "You are muted, so nothing you say is captioned.", "Unmute", () => toggleMic());
+    } else if (!flowing) {
+      showBanner("noflow", "Your microphone audio isn't reaching the server. Check your connection or reload.");
+    } else if (now - Math.max(state.heardAt, joinedAt) > 10000) {
+      showBanner("silent", "We can't hear anything from your microphone. Is the right mic selected and not muted in your system settings?");
+    } else if (["muted", "noflow", "silent", "nomic"].includes(state.bannerKey)) {
+      hideBanner();
+    }
+  }, 2000);
 }
 
 async function startAudioCapture() {
@@ -188,7 +264,10 @@ async function startAudioCapture() {
   const src = state.audioCtx.createMediaStreamSource(state.stream);
   const node = new AudioWorkletNode(state.audioCtx, "pcm-capture", { numberOfInputs: 1, numberOfOutputs: 1 });
   node.port.onmessage = (e) => {
-    if (state.ws?.readyState === WebSocket.OPEN && state.myId) state.ws.send(e.data);
+    if (state.ws?.readyState === WebSocket.OPEN && state.myId) {
+      state.ws.send(e.data);
+      state.chunksSent++;
+    }
   };
   const mute = state.audioCtx.createGain();
   mute.gain.value = 0;               // keep the node pulled by the graph without playing it back
@@ -233,7 +312,7 @@ async function onMessage(m) {
       break;
     case "peer-joined":
       setPeer(m.peer);
-      toast(`${m.peer.name} joined (speaks ${langName(m.peer.lang)})`);
+      toast(`${m.peer.name} joined` + (m.peer.lang === "auto" ? "" : ` (speaks ${langName(m.peer.lang)})`));
       await startPeer(false);
       break;
     case "peer-updated":
@@ -250,6 +329,19 @@ async function onMessage(m) {
     case "caption":
       onCaption(m);
       break;
+    case "speaking":
+      if (m.id === state.myId) $("hearing").classList.toggle("hidden", !m.speaking);
+      else $("remoteName").classList.toggle("talking", m.speaking);
+      break;
+    case "lang-hint":
+      showBanner("lang", `You selected ${langName(m.selected)}, but it sounds like you are speaking ` +
+        `${langName(m.detected)}. Captions will be wrong until this matches.`, `Switch to ${langName(m.detected)}`, () => {
+        $("langCall").value = m.detected;
+        save("lang", m.detected);
+        send({ type: "update", lang: m.detected });
+        toast(`Now transcribing you as ${langName(m.detected)}`);
+      });
+      break;
     case "error":
       state.leaving = true;
       alert(m.message || m.code);
@@ -260,7 +352,7 @@ async function onMessage(m) {
 
 function setPeer(p) {
   state.peer = p;
-  $("remoteName").textContent = `${p.name} · speaks ${langName(p.lang)}`;
+  $("remoteName").textContent = p.lang === "auto" ? `${p.name} · language auto-detected` : `${p.name} · speaks ${langName(p.lang)}`;
   $("remoteName").classList.remove("hidden");
 }
 
@@ -328,6 +420,7 @@ function closePeer(keepPeerInfo = false) {
   $("remoteVideo").srcObject = null;
   $("waiting").classList.remove("hidden");
   $("remoteName").classList.add("hidden");
+  $("remoteName").classList.remove("talking");
   if (state.myId) setConn("connected to server", "ok");
 }
 

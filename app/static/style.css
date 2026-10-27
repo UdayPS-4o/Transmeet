@@ -66,6 +66,8 @@ label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
 .round svg { width: 22px; height: 22px; }
 .round:not(.on) { background: #3a2023; border-color: #6b302c; color: #ffb4ae; }
 .round.danger { background: var(--bad); border-color: var(--bad); color: white; }
+/* live microphone level: a green ring that grows with your voice */
+#micBtn.on { box-shadow: 0 0 0 calc(var(--lvl, 0) * 9px) #3fb97f66; transition: box-shadow .08s; }
 
 /* ---------- lobby ---------- */
 .lobby { min-height: 100%; display: grid; place-items: center; padding: 24px 16px; }
@@ -111,6 +113,20 @@ label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
   position: absolute; left: 10px; top: 10px; background: #000a; padding: 3px 10px; border-radius: 999px;
   font-size: 12px;
 }
+.hearing {
+  position: absolute; left: 10px; bottom: 10px; background: #0b3b26e6; color: #8ff0bf; font-size: 12px;
+  padding: 3px 10px; border-radius: 999px; display: flex; gap: 6px; align-items: center;
+}
+.hearing i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .3; } }
+.name-tag.talking::after { content: " · speaking…"; color: var(--ok); }
+.banner {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 3; width: min(92%, 640px);
+  background: #3a2d12f2; border: 1px solid #6b5420; color: #ffe2a8; border-radius: 10px;
+  padding: 9px 12px; display: flex; gap: 10px; align-items: center; font-size: 14px;
+}
+.banner span { flex: 1; }
+.banner-x { color: inherit; opacity: .7; }
 .waiting {
   position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px;
   text-align: center; padding: 20px;

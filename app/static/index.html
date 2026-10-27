@@ -32,6 +32,10 @@
         </div>
 
         <form id="joinForm" class="join-form" autocomplete="off">
+          <label>Microphone
+            <select id="micSelect"></select>
+            <span id="micHint" class="fine">Speak now: the green bar on the video should move.</span>
+          </label>
           <label>Your name
             <input id="name" maxlength="40" placeholder="e.g. Priya" required>
           </label>
@@ -79,11 +83,17 @@
             <p class="fine">Your own captions still work here, so speak to test them.</p>
           </div>
           <div id="remoteName" class="name-tag hidden"></div>
+          <div id="banner" class="banner hidden" role="status">
+            <span id="bannerText"></span>
+            <button id="bannerBtn" class="ghost small hidden"></button>
+            <button id="bannerClose" class="banner-x" title="Dismiss">✕</button>
+          </div>
           <div id="captions" class="captions" aria-live="polite"></div>
         </div>
         <div class="local-wrap">
           <video id="localVideo" autoplay playsinline muted></video>
           <div class="name-tag">You</div>
+          <div id="hearing" class="hearing hidden"><i></i>hearing you…</div>
         </div>
       </div>
 
