@@ -35,6 +35,8 @@ const ICON = {
   panel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16M18 8h-1M18 11h-1"/></svg>',
   shuffle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4h-4"/></svg>',
   voice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  orig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 11v2"/></svg>',
+  origOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 11v2M3 3l18 18"/></svg>',
   voiceOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m16 9 5 6M21 9l-5 6"/></svg>',
   screen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M9 10l3-3 3 3M12 7v6"/></svg>',
   gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>',
@@ -97,6 +99,15 @@ async function init() {
   $("voiceLobby").onchange = () => save("voice", $("voiceLobby").checked ? "1" : "0");
   $("onlyLobby").checked = !!state.prefs.translationOnly;
   $("onlyLobby").onchange = () => { state.prefs.translationOnly = $("onlyLobby").checked; savePrefs(); };
+  $("muteLobby").checked = !!state.prefs.muteOriginal;
+  $("muteLobby").onchange = () => {
+    state.prefs.muteOriginal = $("muteLobby").checked;
+    savePrefs();
+    if ($("muteLobby").checked) { $("voiceLobby").checked = true; save("voice", "1"); }   // else nothing would be heard
+  };
+  $("voiceLobby").addEventListener("change", () => {
+    if (!$("voiceLobby").checked && $("muteLobby").checked) { $("muteLobby").checked = false; state.prefs.muteOriginal = false; savePrefs(); }
+  });
   if (!Object.keys(state.config.tts || {}).length && !("speechSynthesis" in window)) {
     $("voiceLobby").closest(".check").classList.add("hidden");   // nothing could speak
   }
@@ -236,6 +247,7 @@ async function join() {
   state.speech.ctx = new AudioContext();     // created on the Join click, so playback is allowed
   state.speech.out = await echoSafeOutput(state.speech.ctx);
   setVoice($("voiceLobby").checked, false);
+  setMuteOriginal(!!state.prefs.muteOriginal, false);
   $("voiceBtn").title = "Speak translations aloud (S)";
   $("shareBtn").innerHTML = ICON.screen;
   $("settingsBtn").innerHTML = ICON.gear;
@@ -271,6 +283,7 @@ function bindCallControls() {
   $("download").onclick = downloadTranscript;
   $("downloadSrt").onclick = downloadSrt;
   $("voiceBtn").onclick = () => setVoice(!state.voiceOn);
+  $("origBtn").onclick = () => setMuteOriginal(!state.prefs.muteOriginal);
   $("shareBtn").onclick = toggleShare;
   $("settingsBtn").onclick = () => toggleSettings();
   $("chatForm").onsubmit = (e) => {
@@ -663,7 +676,8 @@ function onCaption(m) {
     // language there is nothing to translate, so their real voice is enough.
     // A typed message has no voice of its own, so it is read out even in the same language.
     // When they send only the translated voice, read them out even in a shared language.
-    if (state.voiceOn && !mine && (m.chat || (m.translated && m.tgt !== m.src) || state.remoteVoice === false)) {
+    // (muted real voice: read out everything, even in a language we share)
+    if (state.voiceOn && !mine && (m.chat || (m.translated && m.tgt !== m.src) || state.remoteVoice === false || state.prefs.muteOriginal)) {
       speak({ seg: m.seg, text: main, lang: sayLang });
     }
   }
@@ -727,7 +741,7 @@ function downloadSrt() {
 }
 
 // ------------------------------------------------------------------ settings
-const PREF_DEFAULTS = { rate: 1, duck: 0.2, pauseMic: false, translationOnly: false, capSize: "m", showOrig: true, romanize: false, voices: {} };
+const PREF_DEFAULTS = { rate: 1, duck: 0.2, pauseMic: false, translationOnly: false, muteOriginal: false, capSize: "m", showOrig: true, romanize: false, voices: {} };
 
 function loadPrefs() {
   let saved = {};
@@ -743,6 +757,7 @@ function bindSettings() {
   $("pauseMic").checked = P.pauseMic;
   $("translationOnly").checked = P.translationOnly;
   $("translationOnly").onchange = () => setTranslationOnly($("translationOnly").checked);
+  for (const b of $("hearMode").children) b.onclick = () => setHearMode(b.dataset.v);
   if (P.translationOnly) $("localTag").textContent = "You · translation only";
   $("showOrig").checked = P.showOrig;
   $("romanize").checked = P.romanize;
@@ -803,9 +818,40 @@ function setVoice(on, announce = true) {
   b.classList.toggle("on", on);
   b.innerHTML = on ? ICON.voice : ICON.voiceOff;
   b.setAttribute("aria-pressed", on);
-  if (!on) stopSpeech();
+  if (!on) {
+    stopSpeech();
+    if (state.prefs.muteOriginal) setMuteOriginal(false, false);   // never leave the call silent
+  }
   state.speech.ctx?.resume();
+  updateHearMode();
   if (announce) toast(on ? `Their words will be read aloud in ${langName($("captionLangCall").value)}` : "Translated voice off");
+}
+
+function setMuteOriginal(on, announce = true) {
+  // listener side: mute the other person's real voice and hear only the translated voice
+  state.prefs.muteOriginal = on;
+  savePrefs();
+  $("remoteVideo").muted = on;
+  const b = $("origBtn");
+  b.classList.toggle("on", !on);
+  b.innerHTML = on ? ICON.origOff : ICON.orig;
+  b.setAttribute("aria-pressed", !on);
+  if (on && !state.voiceOn) setVoice(true, false);        // the translation is all that is left to hear
+  updateHearMode();
+  if (announce) toast(on ? "Their real voice is muted: you hear only the translation" : "Their real voice is on");
+}
+
+function setHearMode(mode) {
+  if (mode === "original") { setMuteOriginal(false, false); setVoice(false, false); }
+  else if (mode === "translated") setMuteOriginal(true, false);     // also turns the translated voice on
+  else { setMuteOriginal(false, false); setVoice(true, false); }
+  toast({ original: "You hear their real voice only", translated: "You hear only the translation",
+          both: "You hear their real voice, with the translation on top" }[mode]);
+}
+
+function updateHearMode() {
+  const mode = state.prefs.muteOriginal ? "translated" : state.voiceOn ? "both" : "original";
+  for (const b of $("hearMode").children) b.classList.toggle("on", b.dataset.v === mode);
 }
 
 function speak(item) {
@@ -977,7 +1023,7 @@ function onShortcut(e) {
   if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest?.("input, select, textarea")) return;
   const act = {
     m: () => toggleMic(), v: () => toggleCam(), c: () => $("ccBtn").click(),
-    s: () => setVoice(!state.voiceOn), t: () => $("sideBtn").click(), escape: () => toggleSettings(false),
+    s: () => setVoice(!state.voiceOn), o: () => setMuteOriginal(!state.prefs.muteOriginal), t: () => $("sideBtn").click(), escape: () => toggleSettings(false),
   }[e.key.toLowerCase()];
   if (act) { e.preventDefault(); act(); }
 }

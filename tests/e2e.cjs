@@ -6,6 +6,8 @@
 //   node tests/e2e.cjs http://localhost:8000 mic_en.wav mic_hi.wav
 //   AUTO=1 node tests/e2e.cjs ...      (both people use "I speak: Auto-detect")
 //   VOICE=1 node tests/e2e.cjs ...     (both turn on the translated voice; checks /api/tts)
+//   MUTE_B=1 node tests/e2e.cjs ...    (Bob mutes Alice's real voice and hears only the translation;
+//                                       also clicks through the Original / Translated / Both modes)
 //   ONLY_A=1 node tests/e2e.cjs ...    (Alice sends only her translated voice; Bob must get no
 //                                       real audio from her and hear the translation anyway)
 //   URL_B=https://192.168.1.20:8443 node tests/e2e.cjs http://localhost:8000 ...  (Bob uses another address)
@@ -69,6 +71,7 @@ async function person(name, lang, captionLang, wav, base = url) {
   }, [id, on]);
   await tick("#voiceLobby", !!process.env.VOICE);
   await tick("#onlyLobby", !!(process.env.ONLY_A && name === "Alice"));
+  await tick("#muteLobby", !!(process.env.MUTE_B && name === "Bob"));
   await page.click("#joinBtn:not([disabled])");
   await page.waitForSelector("#call:not(.hidden)");
   // remember whether the "hearing you…" indicator ever lit up
@@ -133,6 +136,33 @@ async function transcriptOf(p) {
         console.log(`${matched.size}/${sc.sentences.length} spoken sentences captioned correctly (need ${need})`);
         if (matched.size < need) ok = false;
       }
+    }
+    if (process.env.MUTE_B) {
+      const hear = () => bob.page.evaluate(() => ({
+        muted: document.querySelector("#remoteVideo").muted, voice: state.voiceOn,
+        mode: [...document.querySelectorAll("#hearMode button.on")].map((b) => b.dataset.v).join(),
+      }));
+      const check = (label, got, want) => {
+        const good = got.muted === want.muted && got.voice === want.voice && got.mode === want.mode;
+        console.log(`${good ? "✓" : "✗"} ${label}: real voice ${got.muted ? "muted" : "on"}, translated voice ${got.voice ? "on" : "off"}, mode ${got.mode}`);
+        if (!good) ok = false;
+      };
+      check("Bob starts in Translated mode", await hear(), { muted: true, voice: true, mode: "translated" });
+      const spoken = bob.tts.filter((t) => t.status === 200).length;
+      console.log(`${spoken ? "✓" : "✗"} Bob heard ${spoken} translations spoken while the real voice was muted`);
+      if (!spoken) ok = false;
+      const aliceMuted = await alice.page.evaluate(() => document.querySelector("#remoteVideo").muted);
+      console.log(`${aliceMuted ? "✗" : "✓"} Alice (not muting) still hears Bob's real voice`);
+      if (aliceMuted) ok = false;
+      await bob.page.click("#origBtn");                                  // footer button: real voice back on
+      check("after clicking the real-voice button", await hear(), { muted: false, voice: true, mode: "both" });
+      await bob.page.click("#settingsBtn");
+      await bob.page.click('#hearMode [data-v="original"]');
+      check("Settings -> Original", await hear(), { muted: false, voice: false, mode: "original" });
+      await bob.page.click('#hearMode [data-v="translated"]');
+      check("Settings -> Translated", await hear(), { muted: true, voice: true, mode: "translated" });
+      await bob.page.click("#voiceBtn");                                 // turning the voice off must unmute the real one
+      check("voice off while muted -> never silent", await hear(), { muted: false, voice: false, mode: "original" });
     }
     if (process.env.ONLY_A) {
       // audio bytes each side received over WebRTC: Bob should get (almost) none from Alice

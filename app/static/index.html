@@ -66,6 +66,11 @@
           <span>Speak translations aloud<small id="voiceLobbyNote">The other person's words are read out in your caption language, like an interpreter.</small></span>
         </label>
         <label class="check">
+          <input type="checkbox" id="muteLobby">
+          <span class="switch" aria-hidden="true"></span>
+          <span>Mute their real voice<small>Hear only the translation, not the original speech.</small></span>
+        </label>
+        <label class="check">
           <input type="checkbox" id="onlyLobby">
           <span class="switch" aria-hidden="true"></span>
           <span>Send only my translated voice<small>They hear the translation of what you say, not your real voice.</small></span>
@@ -132,6 +137,7 @@
           <button id="camBtn" class="round on" title="Camera on / off" aria-label="Camera"></button>
           <button id="ccBtn" class="round on cc" title="Show / hide captions (C)" aria-label="Captions">CC</button>
           <button id="voiceBtn" class="round voice" title="Speak translations aloud (S)" aria-label="Translated voice"></button>
+          <button id="origBtn" class="round on orig" title="Their real voice: on / muted (O)" aria-label="Their real voice"></button>
           <div class="lang-pill">
             <select id="langCall" aria-label="I speak"></select>
             <span class="pair-arrow" aria-hidden="true">→</span>
@@ -144,6 +150,13 @@
         </footer>
 
         <div id="settings" class="settings hidden" role="dialog" aria-label="Settings">
+          <h3>What I hear</h3>
+          <div class="row">Hear
+            <span class="seg" id="hearMode" role="radiogroup">
+              <button type="button" data-v="original">Original</button><button type="button" data-v="translated">Translated</button><button type="button" data-v="both">Both</button>
+            </span>
+          </div>
+          <p class="hint">Translated mutes their real voice and reads everything they say aloud in your language.</p>
           <h3>Your voice</h3>
           <label class="check small">
             <input type="checkbox" id="translationOnly">
@@ -187,7 +200,7 @@
             <button class="pill-btn" type="submit">Save</button>
           </form>
           <p class="hint">Helps the recogniser spell names and jargon. Shared with everyone in the room.</p>
-          <p class="hint mono">Keys: M mic · V camera · C captions · S voice · T transcript</p>
+          <p class="hint mono">Keys: M mic · V camera · C captions · S voice · O their voice · T transcript</p>
         </div>
       </div>
 
