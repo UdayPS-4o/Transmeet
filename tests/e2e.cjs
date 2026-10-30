@@ -6,6 +6,8 @@
 //   node tests/e2e.cjs http://localhost:8000 mic_en.wav mic_hi.wav
 //   AUTO=1 node tests/e2e.cjs ...      (both people use "I speak: Auto-detect")
 //   VOICE=1 node tests/e2e.cjs ...     (both turn on the translated voice; checks /api/tts)
+//   ONLY_A=1 node tests/e2e.cjs ...    (Alice sends only her translated voice; Bob must get no
+//                                       real audio from her and hear the translation anyway)
 //   URL_B=https://192.168.1.20:8443 node tests/e2e.cjs http://localhost:8000 ...  (Bob uses another address)
 //
 // If a .json file sits next to a .wav (written by tests/mic_scenario.py), the test
@@ -62,9 +64,11 @@ async function person(name, lang, captionLang, wav, base = url) {
     const res = await req.response();
     tts.push({ status: res.status(), ms: Number(res.headers()["x-tts-ms"] || 0), total: req.timing().responseEnd });
   });
-  if (process.env.VOICE) {
-    await page.evaluate(() => { const c = document.querySelector("#voiceLobby"); c.checked = true; c.dispatchEvent(new Event("change")); });
-  }
+  const tick = (id, on) => page.evaluate(([id, on]) => {
+    const c = document.querySelector(id); c.checked = on; c.dispatchEvent(new Event("change"));
+  }, [id, on]);
+  await tick("#voiceLobby", !!process.env.VOICE);
+  await tick("#onlyLobby", !!(process.env.ONLY_A && name === "Alice"));
   await page.click("#joinBtn:not([disabled])");
   await page.waitForSelector("#call:not(.hidden)");
   // remember whether the "hearing you…" indicator ever lit up
@@ -129,6 +133,23 @@ async function transcriptOf(p) {
         console.log(`${matched.size}/${sc.sentences.length} spoken sentences captioned correctly (need ${need})`);
         if (matched.size < need) ok = false;
       }
+    }
+    if (process.env.ONLY_A) {
+      // audio bytes each side received over WebRTC: Bob should get (almost) none from Alice
+      const rx = (p) => p.page.evaluate(async () => {
+        let n = 0;
+        (await state.pc.getStats()).forEach((r) => { if (r.type === "inbound-rtp" && r.kind === "audio") n += r.bytesReceived; });
+        return n;
+      });
+      const [fromBob, fromAlice] = [await rx(alice), await rx(bob)];
+      const quiet = fromAlice < fromBob / 20;
+      console.log(`${quiet ? "✓" : "✗"} Alice's real voice not sent: Bob received ${fromAlice} audio bytes, Alice received ${fromBob}`);
+      const auto = await bob.page.evaluate(() => state.voiceOn);
+      const spoken = bob.tts.filter((t) => t.status === 200).length;
+      console.log(`${auto && spoken ? "✓" : "✗"} Bob's translated voice turned itself on (${auto}) and spoke ${spoken} translations`);
+      const tag = await bob.page.$eval("#remoteName", (t) => t.textContent);
+      console.log(`  Bob sees: ${tag.trim()}`);
+      if (!quiet || !auto || !spoken) ok = false;
     }
     if (process.env.VOICE) {
       for (const p of [alice, bob]) {

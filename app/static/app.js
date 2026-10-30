@@ -93,8 +93,10 @@ async function init() {
   fillSelect($("captionLang"), load("captionLang") || (defLang === "auto" ? knownLang : defLang));
   $("lang").onchange = () => { if ($("lang").value !== "auto") $("captionLang").value = $("lang").value; };
   loadPrefs();
-  $("voiceLobby").checked = load("voice") === "1";
+  $("voiceLobby").checked = load("voice") !== "0";   // on unless this person turned it off
   $("voiceLobby").onchange = () => save("voice", $("voiceLobby").checked ? "1" : "0");
+  $("onlyLobby").checked = !!state.prefs.translationOnly;
+  $("onlyLobby").onchange = () => { state.prefs.translationOnly = $("onlyLobby").checked; savePrefs(); };
   if (!Object.keys(state.config.tts || {}).length && !("speechSynthesis" in window)) {
     $("voiceLobby").closest(".check").classList.add("hidden");   // nothing could speak
   }
@@ -439,7 +441,8 @@ function setPeer(p) {
   const tag = $("remoteName");
   tag.innerHTML = '<span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span></span><span class="lang"></span>';
   tag.children[1].textContent = p.name;
-  tag.children[2].textContent = `· ${p.lang === "auto" ? "auto-detect" : langName(p.lang)}`;
+  tag.children[2].textContent = `· ${p.lang === "auto" ? "auto-detect" : langName(p.lang)}` +
+    (state.remoteVoice === false ? " · translation only" : "");
   tag.classList.remove("hidden");
   $("remoteAvatar").firstElementChild.dataset.initial = initial(p.name) || "·";
   updateRemoteAvatar();
@@ -452,8 +455,33 @@ function updateRemoteAvatar() {
 }
 
 function sendCamState() {
-  // tell the other side when the camera goes off; a disabled track would otherwise just show black
-  if (state.peer) send({ type: "signal", to: state.peer.id, data: { cam: !!(state.screen || state.stream?.getVideoTracks()[0]?.enabled) } });
+  // tell the other side when the camera goes off (a disabled track would otherwise just show
+  // black) and whether they get my real voice or only the translation
+  if (state.peer) send({ type: "signal", to: state.peer.id, data: {
+    cam: !!(state.screen || state.stream?.getVideoTracks()[0]?.enabled), voice: !state.prefs.translationOnly } });
+}
+
+function setTranslationOnly(on) {
+  // Interpreter mode for the speaker: my real voice is not sent to the other person at all,
+  // they hear only the translated voice. The server still gets the mic (a separate path),
+  // so captions and translations carry on as usual.
+  state.prefs.translationOnly = on;
+  savePrefs();
+  $("translationOnly").checked = on;
+  state.audioSender?.replaceTrack(on ? null : state.stream.getAudioTracks()[0] || null);
+  sendCamState();
+  $("localTag").textContent = on ? "You · translation only" : "You";
+  toast(on ? "They now hear only the translation, not your real voice" : "They hear your real voice again");
+}
+
+function setRemoteVoice(on) {
+  state.remoteVoice = on;
+  if (state.peer) setPeer(state.peer);
+  // they send no real voice, so without the translated voice I would hear nothing
+  if (!on && !state.voiceOn) {
+    setVoice(true, false);
+    toast(`${state.peer?.name || "They"} sends only the translated voice, so it is read aloud for you`);
+  }
 }
 
 function setConn(label, cls, detail = "") {
@@ -484,7 +512,11 @@ async function startPeer(initiator) {
     send({ type: "signal", to: state.peer.id, data: { sdp: pc.localDescription } });
   };
   for (const t of state.stream.getTracks()) {
-    pc.addTrack(t.kind === "video" && state.screen ? state.screen.getVideoTracks()[0] : t, state.stream);
+    const sender = pc.addTrack(t.kind === "video" && state.screen ? state.screen.getVideoTracks()[0] : t, state.stream);
+    if (t.kind === "audio") {
+      state.audioSender = sender;
+      if (state.prefs.translationOnly) sender.replaceTrack(null);   // see setTranslationOnly
+    }
   }
   sendCamState();
 
@@ -506,7 +538,11 @@ async function startPeer(initiator) {
 
 async function onSignal(from, data) {
   if ("cam" in data) {
-    if (state.peer?.id === from) { state.remoteCam = data.cam; updateRemoteAvatar(); }
+    if (state.peer?.id === from) {
+      state.remoteCam = data.cam;
+      updateRemoteAvatar();
+      if ("voice" in data && data.voice !== state.remoteVoice) setRemoteVoice(data.voice);
+    }
     return;
   }
   if (!state.pc || state.peer?.id !== from) return;
@@ -533,6 +569,7 @@ function closePeer(keepPeerInfo = false) {
   $("remoteName").classList.add("hidden");
   $("remoteName").classList.remove("talking");
   state.remoteCam = undefined;
+  state.remoteVoice = undefined;
   $("remoteAvatar").classList.add("hidden");
   if (state.myId) setConn("Ready", "warn", "waiting for peer");
 }
@@ -625,7 +662,10 @@ function onCaption(m) {
     // interpreter mode: read the other person's words aloud in my language. If we share a
     // language there is nothing to translate, so their real voice is enough.
     // A typed message has no voice of its own, so it is read out even in the same language.
-    if (state.voiceOn && !mine && (m.chat || (m.translated && m.tgt !== m.src))) speak({ seg: m.seg, text: main, lang: sayLang });
+    // When they send only the translated voice, read them out even in a shared language.
+    if (state.voiceOn && !mine && (m.chat || (m.translated && m.tgt !== m.src) || state.remoteVoice === false)) {
+      speak({ seg: m.seg, text: main, lang: sayLang });
+    }
   }
 }
 
@@ -687,7 +727,7 @@ function downloadSrt() {
 }
 
 // ------------------------------------------------------------------ settings
-const PREF_DEFAULTS = { rate: 1, duck: 0.2, pauseMic: false, capSize: "m", showOrig: true, romanize: false, voices: {} };
+const PREF_DEFAULTS = { rate: 1, duck: 0.2, pauseMic: false, translationOnly: false, capSize: "m", showOrig: true, romanize: false, voices: {} };
 
 function loadPrefs() {
   let saved = {};
@@ -701,6 +741,9 @@ function bindSettings() {
   $("voiceRate").value = P.rate;
   $("duck").value = P.duck;
   $("pauseMic").checked = P.pauseMic;
+  $("translationOnly").checked = P.translationOnly;
+  $("translationOnly").onchange = () => setTranslationOnly($("translationOnly").checked);
+  if (P.translationOnly) $("localTag").textContent = "You · translation only";
   $("showOrig").checked = P.showOrig;
   $("romanize").checked = P.romanize;
   const outputs = () => {
@@ -861,6 +904,11 @@ async function echoSafeOutput(ctx) {
     await b.setRemoteDescription(a.localDescription);
     await b.setLocalDescription(await b.createAnswer());
     await a.setRemoteDescription(b.localDescription);
+    // if the loopback doesn't connect (or its audio can't start), the voice would go
+    // nowhere, so fall back to the speakers directly
+    for (let t = 0; b.connectionState !== "connected" && t < 30; t++) await new Promise((r) => setTimeout(r, 100));
+    if (b.connectionState !== "connected") throw new Error(`loopback ${b.connectionState}`);
+    await el.play();
     state.speech.loopback = { a, b, el };
     return dest;
   } catch (e) {

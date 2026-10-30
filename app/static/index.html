@@ -61,9 +61,14 @@
           </label>
         </div>
         <label class="check">
-          <input type="checkbox" id="voiceLobby">
+          <input type="checkbox" id="voiceLobby" checked>
           <span class="switch" aria-hidden="true"></span>
           <span>Speak translations aloud<small id="voiceLobbyNote">The other person's words are read out in your caption language, like an interpreter.</small></span>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="onlyLobby">
+          <span class="switch" aria-hidden="true"></span>
+          <span>Send only my translated voice<small>They hear the translation of what you say, not your real voice.</small></span>
         </label>
 
         <button id="joinBtn" class="join" type="submit">
@@ -117,7 +122,7 @@
             <video id="localVideo" autoplay playsinline muted></video>
             <div id="localAvatar" class="avatar-wrap hidden"><span class="avatar plain" data-initial></span></div>
             <div class="tile-label">
-              <span id="hearing" class="bars level hidden" aria-hidden="true"><i></i><i></i><i></i><i></i></span>You
+              <span id="hearing" class="bars level hidden" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="localTag">You</span>
             </div>
           </div>
         </div>
@@ -139,6 +144,12 @@
         </footer>
 
         <div id="settings" class="settings hidden" role="dialog" aria-label="Settings">
+          <h3>Your voice</h3>
+          <label class="check small">
+            <input type="checkbox" id="translationOnly">
+            <span class="switch" aria-hidden="true"></span>
+            <span>Send only my translated voice<small>The other person hears the translation, not your real voice. Captions keep working.</small></span>
+          </label>
           <h3>Translated voice</h3>
           <label class="row">Voice
             <select id="voiceSelect"></select>
