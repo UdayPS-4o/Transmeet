@@ -144,6 +144,12 @@ async function transcriptOf(p) {
       }
     }
     for (const p of [alice, bob]) {
+      // the transcript must still show the newest caption without scrolling by hand
+      const gap = await p.page.$eval("#transcript", (l) => Math.round(l.scrollHeight - l.scrollTop - l.clientHeight));
+      console.log(`${gap < 5 ? "✓" : "✗"} ${p.name}: transcript follows the newest caption (${gap}px from the bottom)`);
+      if (gap >= 5) ok = false;
+    }
+    for (const p of [alice, bob]) {
       const heard = await p.page.evaluate(() => window.__heard);
       const banner = await p.page.$eval("#banner", (b) => b.classList.contains("hidden") ? "" : b.textContent.trim());
       console.log(`${heard ? "✓" : "✗"} ${p.name}: "hearing you" indicator ${heard ? "lit up" : "never shown"}` +

@@ -241,6 +241,7 @@ async function join() {
   if (!navigator.mediaDevices.getDisplayMedia) $("shareBtn").classList.add("hidden");
   bindCallControls();
   bindSettings();
+  bindTranscriptScroll();
   connect();
 }
 
@@ -605,8 +606,7 @@ function onCaption(m) {
       `</span>${(t.totalMs / 1000).toFixed(2)}s`;
     lat.title = `pause ${t.vadMs} + queue ${t.queueMs} + ASR ${t.asrMs} + MT ${t.mtMs} ms · ${(t.audioMs / 1000).toFixed(1)} s of audio`;
   }
-  const list = $("transcript");
-  if (list.scrollHeight - list.scrollTop - list.clientHeight < 120) list.scrollTop = list.scrollHeight;
+  followTranscript(mine);
 
   if (m.final) {
     listEls.delete(m.seg);
@@ -627,6 +627,32 @@ function onCaption(m) {
     // A typed message has no voice of its own, so it is read out even in the same language.
     if (state.voiceOn && !mine && (m.chat || (m.translated && m.tgt !== m.src))) speak({ seg: m.seg, text: main, lang: sayLang });
   }
+}
+
+// The transcript follows new captions unless you scrolled up to read; then a
+// "New captions" button appears instead of yanking the list away from you.
+state.follow = true;
+function followTranscript(mine) {
+  const list = $("transcript");
+  if (state.follow || mine) {
+    list.scrollTop = list.scrollHeight;
+    state.follow = true;
+  } else {
+    $("newCaps").classList.remove("hidden");
+  }
+}
+
+function bindTranscriptScroll() {
+  const list = $("transcript");
+  list.onscroll = () => {
+    state.follow = list.scrollHeight - list.scrollTop - list.clientHeight < 40;
+    if (state.follow) $("newCaps").classList.add("hidden");
+  };
+  $("newCaps").onclick = () => {
+    state.follow = true;
+    list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+    $("newCaps").classList.add("hidden");
+  };
 }
 
 function removeCaption(seg) {

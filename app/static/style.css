@@ -291,14 +291,14 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   content: "Captions from both of you collect here, with each sentence's original wording and timing.";
   display: block; padding: 20px 0; color: var(--dim); font-size: 13px; line-height: 1.55;
 }
-.transcript li { padding: 20px 0 22px; border-bottom: 1px solid var(--line); }
+.transcript li { padding: 12px 0 13px; border-bottom: 1px solid var(--line); }
 .transcript li.interim { opacity: .55; }
-.transcript .meta { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.transcript .meta { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 6px; }
 .transcript .meta b { color: var(--amber); font-weight: 500; }
 .transcript .mine .meta b { color: var(--text); }
 .transcript .t { font-size: 16px; font-weight: 500; line-height: 1.4; }
 .transcript .o { font-size: 15px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
-.lat { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+.lat { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-family: var(--mono); font-size: 11px; color: var(--text-2); }
 .lat .bar { flex: 1; display: flex; gap: 2px; height: 3px; }
 .lat .bar span { display: block; min-width: 2px; border-radius: 1px; }
 
@@ -381,7 +381,13 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
 .transcript .say:hover { color: var(--text); }
 .transcript .say svg { width: 13px; height: 13px; vertical-align: -2px; }
 .transcript li.speaking .t { color: var(--amber); }
-.sidebar { grid-template-rows: auto auto minmax(0, 1fr) auto; }
+.sidebar { grid-template-rows: auto auto minmax(0, 1fr) auto; position: relative; }
+/* shown when you scrolled up and new captions arrived below */
+.new-caps {
+  position: absolute; left: 50%; bottom: 84px; transform: translateX(-50%); z-index: 2;
+  padding: 7px 14px; border-radius: 999px; background: var(--amber); color: var(--bg);
+  font-size: 12.5px; font-weight: 600; box-shadow: 0 6px 18px #0007; white-space: nowrap;
+}
 .chat { display: flex; gap: 8px; padding: 14px 0 18px; border-top: 1px solid var(--line); }
 .chat input {
   flex: 1; min-width: 0; background: transparent; border: 1px solid var(--line-2); border-radius: 999px;

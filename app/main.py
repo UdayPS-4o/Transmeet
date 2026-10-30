@@ -86,7 +86,8 @@ class Peer:
         self.name, self.lang, self.caption_lang = name, lang, caption_lang
         self.seg = Segmenter(config.SILENCE_MS, config.MAX_SEGMENT_S)
         self.send_lock = asyncio.Lock()
-        self.final_lock = asyncio.Lock()     # keeps this speaker's finals in order
+        self.pending: list[tuple[int, Utterance]] = []   # finished sentences not yet transcribed
+        self.draining = False                # a drain_finals task is working through `pending`
         self.seq = 0                         # number of the utterance in progress
         self.finalized = 0                   # highest utterance number already finalised
         self.interim_busy = False
@@ -124,7 +125,7 @@ def handle_audio(peer: Peer, payload: bytes) -> None:
     pcm = np.frombuffer(payload[: len(payload) // 2 * 2], dtype="<i2").astype(np.float32) / 32768.0
     for utt in peer.seg.push(pcm):
         peer.seq += 1
-        asyncio.create_task(process_final(peer, peer.seq, utt))
+        queue_final(peer, peer.seq, utt)
     if peer.seg.in_speech != peer.speaking:
         # lets the UI show "hearing you…" / "Priya is speaking…" the moment speech starts
         peer.speaking = peer.seg.in_speech
@@ -137,7 +138,7 @@ def handle_audio(peer: Peer, payload: bytes) -> None:
 def maybe_interim(peer: Peer) -> None:
     """Schedule a quick partial transcription so captions appear while the person talks.
     Skipped when every Whisper worker is busy: finals always take priority on a small CPU."""
-    if not config.INTERIM or peer.interim_busy or asr.busy >= config.ASR_WORKERS:
+    if not config.INTERIM or peer.interim_busy or peer.pending or asr.busy >= config.ASR_WORKERS:
         return
     now = time.monotonic()
     if now - peer.last_interim < config.INTERIM_MS / 1000 or now - peer.seg.started_at < 1.0:
@@ -170,48 +171,87 @@ async def process_interim(peer: Peer, n: int, audio: np.ndarray, src: str) -> No
         peer.interim_busy = False
 
 
-async def process_final(peer: Peer, n: int, utt: Utterance) -> None:
-    async with peer.final_lock:
-        detect_s = 0.0
-        src = peer.lang
-        if src == "auto":
-            t = time.monotonic()
-            src, prob = await asr.pick_language(utt.audio)
-            # very short or unclear sentences ("ok", "haan") are easy to misjudge:
-            # keep the language this person has been speaking
-            if peer.auto_lang and (prob < 0.6 or utt.audio.size < 1.5 * SAMPLE_RATE):
-                src = peer.auto_lang
-            peer.auto_lang = src
-            detect_s = time.monotonic() - t
-        text, asr_s = await asr.transcribe(utt.audio, src, final=True, hotwords=peer.room.vocab)
-        asr_s += detect_s
-        t_asr = time.monotonic()
-        translations = await translate_for_room(peer, text, src) if text else {}
-        t_mt = time.monotonic()
-        peer.finalized = max(peer.finalized, n)
-        ms = lambda s: round(s * 1000)  # noqa: E731
-        timings = {
-            "audioMs": ms(len(utt.audio) / SAMPLE_RATE),
-            "vadMs": ms(utt.cut_at - utt.speech_end),             # pause needed to detect end of sentence
-            "queueMs": ms(t_asr - utt.cut_at - asr_s),             # waiting for a free Whisper worker
-            "asrMs": ms(asr_s),                                    # Whisper compute (+ language detection)
-            "mtMs": ms(t_mt - t_asr),                              # LibreTranslate
-            "totalMs": ms(t_mt - utt.speech_end),                  # end of speech -> caption sent
-        }
-        if not text:
-            # still tell clients so a dangling interim caption is cleared
-            await deliver(peer, n, "", src, {}, final=True, timings=timings)
-            return
-        STATS.append({**timings, "src": src, "model": asr.model_name(src),
-                      "targets": sorted(k for k in translations if k != src)})
-        log.info("[%s] %s (%s%s): %s | asr %dms mt %dms total %dms", peer.room.id, peer.name, src,
-                 " auto" if peer.lang == "auto" else "",
-                 text if config.LOG_TRANSCRIPTS else f"<{len(text)} chars>",
-                 timings["asrMs"], timings["mtMs"], timings["totalMs"])
-        await deliver(peer, n, text, src, translations, final=True, timings=timings)
-        if peer.lang != "auto" and peer.lang_checks < 2 and utt.audio.size >= SAMPLE_RATE:
-            peer.lang_checks += 1
-            asyncio.create_task(check_language(peer, utt.audio))
+MERGE_MAX_S = 25                     # stay inside Whisper's 30 s window
+GAP = np.zeros(int(0.2 * SAMPLE_RATE), dtype=np.float32)   # silence between merged sentences
+
+
+def queue_final(peer: Peer, n: int, utt: Utterance) -> None:
+    peer.pending.append((n, utt))
+    if not peer.draining:
+        peer.draining = True
+        asyncio.create_task(drain_finals(peer))
+
+
+async def drain_finals(peer: Peer) -> None:
+    """Transcribe this speaker's sentences in order. If more sentences finished while one
+    was being transcribed (a slow or throttled machine, or many short phrases in a row),
+    they go to Whisper together as one clip. Every Whisper call has a large fixed cost
+    (it pads the audio to 30 s), so merging lets a backlog shrink instead of growing:
+    one-by-one, two-word phrases on a power-capped laptop GPU fell 28 s behind."""
+    try:
+        while peer.pending:
+            batch = [peer.pending.pop(0)]
+            size = batch[0][1].audio.size
+            while peer.pending and size + peer.pending[0][1].audio.size <= MERGE_MAX_S * SAMPLE_RATE:
+                size += peer.pending[0][1].audio.size
+                batch.append(peer.pending.pop(0))
+            await process_final(peer, batch)
+    finally:
+        peer.draining = False
+
+
+async def process_final(peer: Peer, batch: list[tuple[int, Utterance]]) -> None:
+    n = batch[-1][0]
+    first = batch[0][1]
+    audio = np.concatenate([x for _, u in batch for x in (u.audio, GAP)][:-1])
+    # Behind schedule: skip the slower second attempt at a higher temperature.
+    hurry = len(batch) > 1 or bool(peer.pending)
+    detect_s = 0.0
+    src = peer.lang
+    if src == "auto":
+        t = time.monotonic()
+        src, prob = await asr.pick_language(audio)
+        # very short or unclear sentences ("ok", "haan") are easy to misjudge:
+        # keep the language this person has been speaking
+        if peer.auto_lang and (prob < 0.6 or audio.size < 1.5 * SAMPLE_RATE):
+            src = peer.auto_lang
+        peer.auto_lang = src
+        detect_s = time.monotonic() - t
+    text, asr_s = await asr.transcribe(audio, src, final=not hurry, hotwords=peer.room.vocab)
+    asr_s += detect_s
+    t_asr = time.monotonic()
+    translations = await translate_for_room(peer, text, src) if text else {}
+    t_mt = time.monotonic()
+    peer.finalized = max(peer.finalized, n)
+    # merged sentences show as one caption: clear any live caption the earlier ones left
+    for k, _ in batch[:-1]:
+        await deliver(peer, k, "", src, {}, final=True, timings=None)
+    ms = lambda s: round(s * 1000)  # noqa: E731
+    # timed from the oldest sentence in the batch, the one that waited longest
+    timings = {
+        "audioMs": ms(audio.size / SAMPLE_RATE),
+        "vadMs": ms(first.cut_at - first.speech_end),         # pause needed to detect end of sentence
+        "queueMs": ms(t_asr - first.cut_at - asr_s),           # waiting for Whisper / earlier sentences
+        "asrMs": ms(asr_s),                                    # Whisper compute (+ language detection)
+        "mtMs": ms(t_mt - t_asr),                              # translation
+        "totalMs": ms(t_mt - first.speech_end),                # end of speech -> caption sent
+        "merged": len(batch),
+    }
+    if not text:
+        # still tell clients so a dangling interim caption is cleared
+        await deliver(peer, n, "", src, {}, final=True, timings=timings)
+        return
+    STATS.append({**timings, "src": src, "model": asr.model_name(src),
+                  "targets": sorted(k for k in translations if k != src)})
+    log.info("[%s] %s (%s%s): %s | asr %dms mt %dms total %dms%s", peer.room.id, peer.name, src,
+             " auto" if peer.lang == "auto" else "",
+             text if config.LOG_TRANSCRIPTS else f"<{len(text)} chars>",
+             timings["asrMs"], timings["mtMs"], timings["totalMs"],
+             f" ({len(batch)} sentences merged)" if len(batch) > 1 else "")
+    await deliver(peer, n, text, src, translations, final=True, timings=timings)
+    if peer.lang != "auto" and peer.lang_checks < 2 and audio.size >= SAMPLE_RATE:
+        peer.lang_checks += 1
+        asyncio.create_task(check_language(peer, audio))
 
 
 async def check_language(peer: Peer, audio: np.ndarray) -> None:
@@ -330,7 +370,7 @@ async def ws_endpoint(ws: WebSocket, room_id: str):
             elif kind == "flush" and peer:
                 for utt in peer.seg.flush():
                     peer.seq += 1
-                    asyncio.create_task(process_final(peer, peer.seq, utt))
+                    queue_final(peer, peer.seq, utt)
 
             elif kind == "ping":
                 await ws.send_text('{"type":"pong"}')
