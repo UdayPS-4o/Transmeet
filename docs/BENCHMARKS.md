@@ -145,6 +145,59 @@ These models barely speed up beyond 2 threads, so `ASR_WORKERS=2` with `WHISPER_
 
 Note that the latency tables in section 3 were measured before these changes, with the old VAD and a fixed language.
 
+## 7. Indian voices, GPU laptop and NLLB (2026-10-30)
+
+Measured on the demo laptop, an **MSI Katana 15** (Intel i5-13420H, 8 cores / 12 threads, 16 GB RAM, **NVIDIA RTX 3050 Laptop 6 GB**), with the same FLEURS test split as above but **40** sentences per language. CPU runs used 4 threads to resemble a 4-vCPU server. Raw outputs are the `accuracy-hi-*`, `accuracy-en-*` and `accuracy-gpu-*` files in [`bench/results/`](../bench/results).
+
+### Hindi speech recognition: stock Whisper vs models trained on Indian Hindi
+
+| Hindi model | Device | WER | CER | RTF | Notes |
+|---|---|---|---|---|---|
+| Whisper `small` (stock, the old default) | CPU | 56.0 % | 28.0 % | 0.55 | |
+| [collabora/faster-whisper-small-hindi](https://huggingface.co/collabora/faster-whisper-small-hindi) | CPU | 17.2 % | 8.0 % | 0.42 | ~3000 h of Indian Hindi, CC-BY-4.0 |
+| **[vasista22/whisper-hindi-small](https://huggingface.co/vasista22/whisper-hindi-small)** ([CT2](https://huggingface.co/songzewu/vasista22-whisper-hindi-small-ct2)) | CPU | **16.2 %** | **7.1 %** | **0.38** | IIT Madras SPRING Lab, Apache-2.0. **New default.** |
+| same | GPU | 16.1 % | 7.3 % | **0.08** | an 11 s sentence in 0.9 s |
+| vasista22/whisper-hindi-large-v2 (int8) | GPU | 13.5 % | 5.8 % | 0.61 | most accurate, too slow for live captions on a 3050 |
+| collabora/faster-whisper-large-v2-hindi | GPU | 15.9 % | 8.1 % | 1.02 | slower than real time |
+| Whisper `large-v3-turbo` (stock) | GPU | 30.6 % | 12.6 % | 0.10 | |
+
+Both small fine-tunes were trained on real Indian speech (All India Radio, GramVaani phone calls, ULCA, IndicVoices…) and also on the FLEURS *training* split, so their FLEURS-test numbers may be somewhat optimistic. Even so, the gap to stock Whisper is very large, and they are faster too, because they no longer get stuck in repetition loops on Hindi.
+
+**Quiet microphones.** With every Hindi clip turned down by 26 dB (a far-away laptop mic), levelling the audio before Whisper (`NORMALIZE_AUDIO=true`, the default) reduced WER from 21.8 % to 19.3 % (CER 14.8 % → 11.5 %). On clips at a normal level it changes nothing (56.0 % vs 55.7 % with stock `small`).
+
+### English and Spanish
+
+| Model | Device | English WER | Spanish WER | RTF |
+|---|---|---|---|---|
+| `base` | CPU | 7.4 % | – | 0.15 |
+| `base` | GPU | – | 11.2 % | 0.02 |
+| `small` | GPU | 5.4 % | – | 0.04 |
+| **`large-v3-turbo`** | GPU | **2.8 %** | **1.6 %** | 0.07–0.18 |
+
+On the GPU, turbo transcribes a typical sentence in about 0.6 s (int8_float16, which was faster than float16 on the 3050). The laptop GPU reached 86–88 °C and lowered its clock during long runs, which is why some runs show the higher RTF: run the demo on mains power with the fans in performance mode.
+
+### Translation: LibreTranslate vs NLLB-200 (600M distilled)
+
+Whole pipeline on the GPU laptop (turbo for English and Spanish, vasista22 `small` for Hindi). "ref" translates the human transcript, "cascade" translates what Whisper heard.
+
+| Pair | LibreTranslate BLEU ref / cascade | NLLB-600M BLEU ref / cascade | LibreTranslate chrF cascade | NLLB chrF cascade |
+|---|---|---|---|---|
+| English → Hindi | 25.8 / 25.2 | 25.8 / **26.3** | 50.3 | **53.0** |
+| Hindi → English | 27.1 / 20.0 | 40.0 / **34.2** | 49.6 | **61.1** |
+| English → Spanish | 24.0 / 24.2 | 29.9 / **26.2** | 54.8 | **57.6** |
+| Spanish → English | 30.8 / 29.0 | 37.1 / **35.8** | 60.7 | **64.1** |
+| Hindi → Spanish | 11.0 / 9.0 | 16.4 / **12.6** | 40.6 | **44.2** |
+| Spanish → Hindi | 12.9 / 12.2 | 17.0 / **16.8** | 40.5 | **43.0** |
+
+- The new Hindi model alone lifted **Hindi → English** captions from BLEU 4.6 (stock `small` + LibreTranslate, section 2) to 20.0; NLLB lifts it further to **34.2**.
+- NLLB translates Hindi ↔ Spanish directly, while LibreTranslate pivots through English.
+- NLLB took 120–360 ms per FLEURS sentence on the RTX 3050 (about 10 ms per output token) and roughly 3× that on CPU with int8, which is about as fast as LibreTranslate.
+- NLLB-200's weights are licensed CC-BY-NC-4.0 (non-commercial), so LibreTranslate stays the default for the server deployment. `docker-compose.demo.yml` uses NLLB.
+
+### Translated voice (Piper)
+
+A warm Piper `medium` voice synthesised a 1.5–2 s sentence in about 0.3 s on 2 CPU threads (while a benchmark was loading the CPU), so the spoken translation starts roughly 0.3–0.5 s after the caption. Repeated sentences come from a cache.
+
 ## How to reproduce
 
 ```bash

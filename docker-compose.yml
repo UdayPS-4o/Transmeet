@@ -10,12 +10,14 @@ services:
       - "8000"
     environment:
       WHISPER_MODEL: ${WHISPER_MODEL:-base}                 # tiny | base | small | medium
-      WHISPER_MODEL_BY_LANG: ${WHISPER_MODEL_BY_LANG-hi=small}  # base is unusable for Hindi
+      WHISPER_MODEL_BY_LANG: ${WHISPER_MODEL_BY_LANG-hi=songzewu/vasista22-whisper-hindi-small-ct2,en=small}  # Indian-trained Hindi model
       WHISPER_THREADS: ${WHISPER_THREADS:-0}
       BEAM_SIZE: ${BEAM_SIZE:-1}
       SILENCE_MS: ${SILENCE_MS:-600}
       INTERIM: ${INTERIM:-true}
       LANGUAGES: ${LANGUAGES:-en,hi,es,fr,de}
+      TTS: ${TTS:-true}                                     # translated voice (Piper)
+      TTS_VOICES: ${TTS_VOICES:-}                           # blank = built-in defaults
       LT_URL: http://libretranslate:5000
       TURN_URLS: ${TURN_URLS:-}
       TURN_USERNAME: ${TURN_USERNAME:-}

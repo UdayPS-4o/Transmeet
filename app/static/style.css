@@ -291,14 +291,14 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   content: "Captions from both of you collect here, with each sentence's original wording and timing.";
   display: block; padding: 20px 0; color: var(--dim); font-size: 13px; line-height: 1.55;
 }
-.transcript li { padding: 20px 0 22px; border-bottom: 1px solid var(--line); }
+.transcript li { padding: 12px 0 13px; border-bottom: 1px solid var(--line); }
 .transcript li.interim { opacity: .55; }
-.transcript .meta { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.transcript .meta { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 6px; }
 .transcript .meta b { color: var(--amber); font-weight: 500; }
 .transcript .mine .meta b { color: var(--text); }
 .transcript .t { font-size: 16px; font-weight: 500; line-height: 1.4; }
 .transcript .o { font-size: 15px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
-.lat { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+.lat { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-family: var(--mono); font-size: 11px; color: var(--text-2); }
 .lat .bar { flex: 1; display: flex; gap: 2px; height: 3px; }
 .lat .bar span { display: block; min-width: 2px; border-radius: 1px; }
 
@@ -309,6 +309,96 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
 }
 .toast:empty { display: none; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* toggle switches (lobby + settings) */
+.check { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; font-size: 15px; font-weight: 500; line-height: 1.35; }
+.check input { position: absolute; opacity: 0; pointer-events: none; }
+.check small { display: block; margin-top: 4px; font-size: 13px; font-weight: 400; color: var(--muted); }
+.switch {
+  flex: none; position: relative; width: 36px; height: 20px; margin-top: 1px; border-radius: 999px;
+  border: 1px solid var(--line-2); background: #1d1d1b; transition: background .15s, border-color .15s;
+}
+.switch::after {
+  content: ""; position: absolute; left: 3px; top: 3px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--muted); transition: transform .15s, background .15s;
+}
+.check input:checked + .switch { background: var(--amber); border-color: var(--amber); }
+.check input:checked + .switch::after { transform: translateX(16px); background: var(--bg); }
+.check input:focus-visible + .switch { outline: 1px solid var(--amber); outline-offset: 3px; }
+.check.small { font-size: 13.5px; }
+.check.small small { font-size: 12px; }
+
+/* translated-voice button: amber while on, animated bars while it is speaking */
+.round.voice:not(.on) { background: transparent; border-color: var(--line-2); color: var(--muted); }
+.round.voice.on { background: var(--amber); border-color: var(--amber); color: var(--bg); }
+.round.voice.playing { box-shadow: 0 0 0 6px #e9a24a2e; }
+.round.share.sharing { background: var(--text); border-color: var(--text); color: var(--bg); }
+#settingsBtn[aria-expanded="true"] { border-color: var(--muted); }
+
+.main-col { position: relative; }
+.settings {
+  position: absolute; right: 24px; bottom: 88px; z-index: 6; width: min(360px, calc(100% - 48px));
+  max-height: calc(100% - 120px); overflow-y: auto; display: grid; gap: 14px; padding: 20px 22px 18px;
+  background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 16px; box-shadow: 0 18px 50px #0008;
+}
+.settings h3 {
+  margin: 6px 0 -2px; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+.settings h3:first-child { margin-top: 0; }
+.settings .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6px 10px; font-size: 13.5px; font-weight: 500; }
+.settings .row input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--amber); }
+.settings .row output { font-family: var(--mono); font-size: 12px; color: var(--text-2); }
+.settings select {
+  background: transparent; border: 1px solid var(--line-2); border-radius: 8px; padding: 6px 10px; font-size: 13px;
+}
+.settings select option { background: var(--panel-2); }
+.seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: 8px; overflow: hidden; }
+.seg button { padding: 5px 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.seg button + button { border-left: 1px solid var(--line-2); }
+.seg button.on { background: var(--text); color: var(--bg); }
+.vocab { display: flex; gap: 8px; }
+.vocab input {
+  flex: 1; min-width: 0; background: transparent; border: 1px solid var(--line-2); border-radius: 8px; padding: 8px 10px; font-size: 13px;
+}
+.vocab .pill-btn { padding: 7px 14px; font-size: 13px; }
+.hint { margin: -6px 0 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.hint.mono { margin-top: 2px; font-size: 11px; color: var(--dim); }
+
+/* caption size (Settings → Size) */
+.captions.size-s .cap .main { font-size: clamp(20px, 2.2vw, 30px); }
+.captions.size-l .cap .main { font-size: clamp(34px, 4.2vw, 60px); }
+.captions.size-l .cap .orig { font-size: 19px; }
+.captions.no-orig .cap .orig { display: none; }
+.cap.chat .main::before { content: "✎ "; color: var(--amber); font-size: .6em; vertical-align: .25em; }
+
+/* transcript extras */
+.exports { display: flex; gap: 12px; }
+.transcript .meta .typed { color: var(--dim); }
+.transcript .say {
+  margin-left: 8px; color: var(--dim); font-family: var(--mono); font-size: 11px; vertical-align: 1px;
+}
+.transcript .say:hover { color: var(--text); }
+.transcript .say svg { width: 13px; height: 13px; vertical-align: -2px; }
+.transcript li.speaking .t { color: var(--amber); }
+.sidebar { grid-template-rows: auto auto minmax(0, 1fr) auto; position: relative; }
+/* shown when you scrolled up and new captions arrived below */
+.new-caps {
+  position: absolute; left: 50%; bottom: 84px; transform: translateX(-50%); z-index: 2;
+  padding: 7px 14px; border-radius: 999px; background: var(--amber); color: var(--bg);
+  font-size: 12.5px; font-weight: 600; box-shadow: 0 6px 18px #0007; white-space: nowrap;
+}
+.chat { display: flex; gap: 8px; padding: 14px 0 18px; border-top: 1px solid var(--line); }
+.chat input {
+  flex: 1; min-width: 0; background: transparent; border: 1px solid var(--line-2); border-radius: 999px;
+  padding: 10px 16px; font-size: 14px; outline: none;
+}
+.chat input:focus { border-color: var(--muted); }
+.chat button {
+  flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--text); color: var(--bg);
+  display: grid; place-items: center;
+}
+.chat button svg { width: 16px; height: 16px; }
 
 /* ---------- smaller screens ---------- */
 @media (max-width: 1100px) {
@@ -343,6 +433,8 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   .captions { width: calc(100% - 32px); bottom: 24px; }
   .banner { left: 10px; right: 10px; top: 46px; max-width: none; border-radius: 16px; flex-wrap: wrap; padding: 10px 10px 10px 14px; }
   .local-wrap { top: 12px; right: 12px; bottom: auto; width: 30%; }
+  .settings { right: 10px; left: 10px; width: auto; bottom: 64px; }
+  .chat { padding: 8px 0 10px; }
 }
 @media (max-width: 520px) {
   .ss-detail { display: none; }

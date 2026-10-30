@@ -1,0 +1,270 @@
+{
+ "model": "base",
+ "settings": {
+  "device": "cuda",
+  "mt": "libretranslate",
+  "mt_model": "JustFrederik/nllb-200-distilled-600M-ct2-int8",
+  "compute": "int8_float16",
+  "beam": 1,
+  "cpus": 12,
+  "by_lang": {
+   "en": "small"
+  },
+  "normalize": true,
+  "gain_db": 0.0,
+  "threads": 12,
+  "lt_url": "http://127.0.0.1:9"
+ },
+ "asr": {
+  "en": {
+   "n": 40,
+   "wer": 0.05382775119617225,
+   "mean_asr_s": 0.3237674075007817,
+   "mean_audio_s": 9.268,
+   "rtf": 0.034933902406212955,
+   "utterances": [
+    {
+     "id": "1778",
+     "ref": "Television reports show white smoke coming from the plant.",
+     "hyp": "Television reports show white smoke coming from the plant.",
+     "asr_s": 0.47
+    },
+    {
+     "id": "1953",
+     "ref": "He was subsequently relocated to Addenbrooke's Hospital in Cambridge.",
+     "hyp": "He was subsequently relocated to Addenbrook's Hospital in Cambridge.",
+     "asr_s": 0.252
+    },
+    {
+     "id": "1952",
+     "ref": "Anyone who's going to drive at high latitudes or over mountain passes should consider the possibility of snow, ice, or freezing temperatures.",
+     "hyp": "Anyone who is going to drive at hot latitudes or over mountain passes should consider the possibility of snow, ice, or freezing temperatures.",
+     "asr_s": 0.301
+    },
+    {
+     "id": "1955",
+     "ref": "MS is a disease that affects the central nervous system, which is made up of the brain, the spinal cord and the optic nerve.",
+     "hyp": "MS is a disease that affects the central nervous system, which is made up of the brain, the spinal cord, and the optic nerve.",
+     "asr_s": 0.336
+    },
+    {
+     "id": "1801",
+     "ref": "The parade of buildings that make the Hong Kong skyline has been likened to a glittering bar chart that is made apparent by the presence of the waters of Victoria Harbour.",
+     "hyp": "The parade of buildings that make the Hong Kong skyline has been likened to a glittering bar chart that is made apparent by the presence of the waters of Victoria Harbor.",
+     "asr_s": 0.421
+    },
+    {
+     "id": "1849",
+     "ref": "If you have watched the movie National Treasure, you may think a treasure map was written on the back of the Declaration of Independence.",
+     "hyp": "If you have watched the movie National Treasure, you may think a treasure map was written on the back of the Declaration of Independence.",
+     "asr_s": 0.331
+    },
+    {
+     "id": "1808",
+     "ref": "With two years of the end of the war, the former allies were now enemies and the Cold War began.",
+     "hyp": "With two years of the end of the war the former allies were now enemies and the Cold War began",
+     "asr_s": 0.283
+    },
+    {
+     "id": "1779",
+     "ref": "The announcement was made after Trump had a phone conversation with Turkish President Recep Tayyip Erdoğan.",
+     "hyp": "The announcement was made after Trump had a phone conversation with President, Turkish President Recep Tayyip Erdogan.",
+     "asr_s": 0.37
+    },
+    {
+     "id": "1984",
+     "ref": "Mass car ownership also leads to a higher incidence of accidents on the roads, which leads to the invention of new techniques in healthcare for repairing damaged bodies.",
+     "hyp": "Mass car ownership also leads to a higher incidence of accidents on the road, which leads to the invention of new techniques in healthcare for repairing damaged bodies.",
+     "asr_s": 0.344
+    },
+    {
+     "id": "1792",
+     "ref": "This is called a chemical's pH. You can make an indicator using red cabbage juice.",
+     "hyp": "This is called a chemical pH. You can make an indicator using red cabbage juice.",
+     "asr_s": 0.257
+    },
+    {
+     "id": "1741",
+     "ref": "Large areas further north are quite sparsely populated and some is nearly uninhabited wilderness.",
+     "hyp": "Large areas further north are quite sparsely populated and some is nearly uninhabited wilderness.",
+     "asr_s": 0.285
+    },
+    {
+     "id": "1884",
+     "ref": "In particular, it is claimed that one can detect whether a person is lying by interpreting micro-expressions correctly.",
+     "hyp": "In particular, it is claimed that one can detect whether a person is lying by interpreting micro expressions correctly.",
+     "asr_s": 0.284
+    },
+    {
+     "id": "1998",
+     "ref": "They have feet with scales and claws, they lay eggs, and they walk on their two back legs like a T-Rex.",
+     "hyp": "They have feet width scales and claws. They lay eggs and they walk on their two back legs like a T-Rex.",
+     "asr_s": 0.31
+    },
+    {
+     "id": "1807",
+     "ref": "Italian is also the everyday language used by most of those who work in the state while Latin is often used in religious ceremonies.",
+     "hyp": "Italian is also the everyday language used by most of those who work in the state, while Latin is often used in religious ceremonies.",
+     "asr_s": 0.331
+    },
+    {
+     "id": "1928",
+     "ref": "By 1976, thirty percent of Machu Picchu had been restored and restoration continues till today.",
+     "hyp": "By 1976, 30% of Machu Picchu has been re-distorted and restoration continues till today.",
+     "asr_s": 0.292
+    },
+    {
+     "id": "1675",
+     "ref": "All nouns, alongside the word Sie for you, always begin with a capital letter, even in the middle of a sentence.",
+     "hyp": "All nouns alongside the world say for you always begin with a capital letter even in the middle of a sentence.",
+     "asr_s": 0.296
+    },
+    {
+     "id": "1961",
+     "ref": "One of the most common methods used to illustrate the importance of socialization is to draw upon the few unfortunate cases of children who were, through neglect, misfortune, or wilful abuse, not socialized by adults while they were growing up.",
+     "hyp": "One of the most common methods used to illustrate the importance of socialization is to draw upon the unfortunate cases of children who were through neglect, misfortune, or willful abuse not socialized by adults while they were growing up.",
+     "asr_s": 0.489
+    },
+    {
+     "id": "1990",
+     "ref": "Blogs can also help improve student writing. While students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+     "hyp": "Blogs can also help improve student writing, while students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+     "asr_s": 0.357
+    },
+    {
+     "id": "1691",
+     "ref": "On some routes, the larger companies have their own planes, but for other routes and smaller firms there was a problem.",
+     "hyp": "On some routes, the larger companies have their own planes, but for other routes and smaller firms, there was a problem.",
+     "asr_s": 0.306
+    },
+    {
+     "id": "1687",
+     "ref": "Segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+     "hyp": "segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+     "asr_s": 0.274
+    },
+    {
+     "id": "1720",
+     "ref": "The hot chocolate is up to Belgian standards. Fruit juices are pricey but excellent.",
+     "hyp": "The hot chocolate is up to Belgian standards. Free juices are pricey but excellent.",
+     "asr_s": 0.256
+    },
+    {
+     "id": "1876",
+     "ref": "The Northern Marianas emergency management office said that there were no damages reported in the nation.",
+     "hyp": "The Northern Mariana's Emergency Management Office said that there were no damages reported in the nation.",
+     "asr_s": 0.3
+    },
+    {
+     "id": "1890",
+     "ref": "Most modern research telescopes are enormous facilities in remote areas with favorable atmospheric conditions.",
+     "hyp": "Most modern research telescopes are enormous facilities in remote areas with favorable atmospheric conditions.",
+     "asr_s": 0.246
+    },
+    {
+     "id": "1719",
+     "ref": "Severe weather is the generic term for any dangerous weather phenomenon with the potential to cause damage, serious social disruption, or loss of human life.",
+     "hyp": "Severe weather is the generic term for any dangerous weather phenomenon with the potential to cause damage, serious, social disruption, or loss of human life.",
+     "asr_s": 0.332
+    },
+    {
+     "id": "2006",
+     "ref": "Elements like calcium and potassium are considered metals. Of course, there are also metals like silver and gold.",
+     "hyp": "Elements like calcium and potassium are considered metals. Of course, there are also metals like silver and gold.",
+     "asr_s": 0.286
+    },
+    {
+     "id": "1823",
+     "ref": "Traffic Flow is the study of the movement of individual drivers and vehicles between two points and the interactions they make with one another.",
+     "hyp": "Traffic flow is a study of the movement of individual drivers and vehicles between two points and the interactions they make with one another.",
+     "asr_s": 0.307
+    },
+    {
+     "id": "1683",
+     "ref": "There are still many men and women alive who survived their time here, and many more who had loved ones who were murdered or worked to death there, Jews and non-Jews alike.",
+     "hyp": "There are still many men and women alive who survived their time here and many more who had loved ones who were murdered or worked to death there, Jews and non-Jews alike.",
+     "asr_s": 0.402
+    },
+    {
+     "id": "1694",
+     "ref": "Children are placed in Foster Care for a wide variety of reasons that range from neglect, to abuse, and even to extortion.",
+     "hyp": "Children are placed in foster care for a wide variety of reasons that range from neglect to abuse and even to extortion.",
+     "asr_s": 0.317
+    },
+    {
+     "id": "1791",
+     "ref": "Do not deface the site by marking or scratching graffiti into structures.",
+     "hyp": "Do not deface this type by marking or scratching or graffiting into structures.",
+     "asr_s": 0.253
+    },
+    {
+     "id": "1772",
+     "ref": "So, it is likely that the notation was added simply as a label.",
+     "hyp": "So, it is likely that the notation was added simply as the label.",
+     "asr_s": 0.244
+    },
+    {
+     "id": "1923",
+     "ref": "The strategy proved effective, cutting off vital military and civilian supplies, although this blockade violated generally accepted international law codified by several international agreements of the past two centuries.",
+     "hyp": "The strategy proved effective cutting off vital military and civilian supplies, although this blockade violated generally accepted international law, codified by several international agreements of the past two centuries.",
+     "asr_s": 0.391
+    },
+    {
+     "id": "1702",
+     "ref": "In just two weeks the Americans and Free French forces had liberated southern France and were turning towards Germany.",
+     "hyp": "In just two weeks, the Americans and Free French Forces had liberated southern France and were churning towards Germany.",
+     "asr_s": 0.297
+    },
+    {
+     "id": "1841",
+     "ref": "Nothing can be seen other than the clear, beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+     "hyp": "Nothing can be seen other than the clear beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+     "asr_s": 0.362
+    },
+    {
+     "id": "1757",
+     "ref": "Only mutations in germ-line cells can be passed on to children, while mutations elsewhere can cause cell-death or cancer.",
+     "hyp": "Only mutations in germline cells can be passed on to children, while mutations elsewhere can cause cell death or cancer.",
+     "asr_s": 0.319
+    },
+    {
+     "id": "1760",
+     "ref": "Mosasaurus was the apex predator of its time, so it feared nothing, except other mosasaurs.",
+     "hyp": "Mosas Serif was the apex predator of its time, so it feared nothing except other Mosas Serif.",
+     "asr_s": 0.301
+    },
+    {
+     "id": "1790",
+     "ref": "His work is of such recognized quality and detail that he is one of the very few \"household names\" among philatelists. Some specialize in collecting his work alone.",
+     "hyp": "His work is such recognized quality and detail that he is one of the very few household names among Philotelus. Sun specialized in collecting his work alone.",
+     "asr_s": 0.369
+    },
+    {
+     "id": "1732",
+     "ref": "The age where the events took place is commonly referred as the High Middle Ages the period of European history in the 11th, 12th, and 13th centuries (AD 1000–1300).",
+     "hyp": "The age where the events took place is commonly referred as the High Middle Ages, the period of European history in the 11th, 12th, and 13th centuries, A.D. or 1000 to 1300.",
+     "asr_s": 0.447
+    },
+    {
+     "id": "1689",
+     "ref": "Europe is a continent that is relatively small but with many independent countries. Under normal circumstances, travelling through multiple countries would mean having to go through visa applications and passport control multiple times.",
+     "hyp": "Europe is a continent that is relatively small but with many independent countries. Under normal circumstances, traveling through multiple countries would mean having to go through visa applications and passport control multiple times.",
+     "asr_s": 0.405
+    },
+    {
+     "id": "1736",
+     "ref": "Rolando Mendoza fired his M16 rifle at the tourists.",
+     "hyp": "Rolando Mendoza fire his M16 rifle at the tourist.",
+     "asr_s": 0.249
+    },
+    {
+     "id": "1692",
+     "ref": "According to Japan's nuclear agency, radioactive caesium and iodine has been identified at the plant.",
+     "hyp": "According to Japan's nuclear agency, radioactive KCM and iodine has been identified at the plant.",
+     "asr_s": 0.28
+    }
+   ]
+  }
+ },
+ "mt": {}
+}

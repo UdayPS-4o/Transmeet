@@ -28,9 +28,10 @@ os.environ.setdefault("LT_URL", "http://localhost:5000")
 os.environ.setdefault("MODEL_DIR", str(Path.home() / ".cache" / "huggingface" / "hub"))
 from app import config  # noqa: E402
 from app.asr import Transcriber  # noqa: E402
-from app.translate import Translator  # noqa: E402
+from app.translate import Translator, make_translator  # noqa: E402
 
 BENCH = Path(__file__).resolve().parent
+GAIN = 1.0                                   # set from --gain-db
 ROOT = BENCH.parent
 
 
@@ -57,7 +58,7 @@ async def run_asr(asr: Transcriber, manifest: dict, langs: list[str], n: int) ->
         total_asr = total_audio = 0.0
         ids = [i for i in manifest if lang in manifest[i]][:n]
         for k, sid in enumerate(ids, 1):
-            audio = load_wav(manifest[sid][lang]["wav"])
+            audio = load_wav(manifest[sid][lang]["wav"]) * GAIN
             hyp, dt = await asr.transcribe(audio, lang, final=True)   # dt = Whisper compute seconds
             total_asr += dt
             total_audio += len(audio) / 16000
@@ -139,8 +140,13 @@ async def main() -> None:
     ap.add_argument("--pairs", default="en-hi,hi-en,en-es,es-en")
     ap.add_argument("--n", type=int, default=1000, help="max utterances per language")
     ap.add_argument("--manifest", type=Path, default=BENCH / "data" / "manifest.json")
+    ap.add_argument("--name", help="results file name (default: the Whisper model)")
+    ap.add_argument("--gain-db", type=float, default=0.0,
+                    help="scale every clip, e.g. -26 to imitate a quiet far-field laptop mic")
     args = ap.parse_args()
 
+    global GAIN
+    GAIN = 10 ** (args.gain_db / 20)
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     langs = sorted({l for v in manifest.values() for l in v}, key=["en", "hi", "es", "fr", "de"].index)
     wanted = [tuple(p.split("-")) for p in args.pairs.split(",") if p]
@@ -154,7 +160,7 @@ async def main() -> None:
 
     mt_res = {}
     if pairs:
-        mt = Translator()
+        mt = make_translator()
         if await wait_for_translator(mt):
             missing = {l for p in pairs for l in p} - mt.available
             if missing:
@@ -166,8 +172,11 @@ async def main() -> None:
             print(f"LibreTranslate not reachable at {config.LT_URL}, skipping MT")
         await mt.close()
 
-    model = config.WHISPER_MODEL.replace("/", "_")
-    info = {"compute": config.WHISPER_COMPUTE, "beam": config.BEAM_SIZE, "cpus": os.cpu_count(),
+    model = (args.name or config.WHISPER_MODEL).replace("/", "_")
+    info = {"device": config.WHISPER_DEVICE, "mt": config.MT_ENGINE, "mt_model": config.MT_MODEL,
+            "compute": config.WHISPER_COMPUTE, "beam": config.BEAM_SIZE, "cpus": os.cpu_count(),
+            "by_lang": config.WHISPER_MODEL_BY_LANG, "normalize": config.NORMALIZE_AUDIO,
+            "gain_db": args.gain_db,
             "threads": config.WHISPER_THREADS, "lt_url": config.LT_URL}
     md = to_markdown(config.WHISPER_MODEL, info, asr_res, mt_res)
     print("\n" + md)

@@ -1,0 +1,1610 @@
+{
+ "model": "large-v3-turbo",
+ "settings": {
+  "device": "cuda",
+  "mt": "libretranslate",
+  "mt_model": "JustFrederik/nllb-200-distilled-600M-ct2-int8",
+  "compute": "int8_float16",
+  "beam": 1,
+  "cpus": 12,
+  "by_lang": {
+   "hi": "songzewu/vasista22-whisper-hindi-small-ct2"
+  },
+  "normalize": true,
+  "gain_db": 0.0,
+  "threads": 12,
+  "lt_url": "http://localhost:5000"
+ },
+ "asr": {
+  "en": {
+   "n": 40,
+   "wer": 0.02751196172248804,
+   "mean_asr_s": 0.6231203099996492,
+   "mean_audio_s": 9.268,
+   "rtf": 0.06723352503233158,
+   "utterances": [
+    {
+     "id": "1778",
+     "ref": "Television reports show white smoke coming from the plant.",
+     "hyp": "Television reports show white smoke coming from the plant.",
+     "asr_s": 1.147
+    },
+    {
+     "id": "1953",
+     "ref": "He was subsequently relocated to Addenbrooke's Hospital in Cambridge.",
+     "hyp": "He was subsequently relocated to Addenbrooke's Hospital in Cambridge.",
+     "asr_s": 0.56
+    },
+    {
+     "id": "1952",
+     "ref": "Anyone who's going to drive at high latitudes or over mountain passes should consider the possibility of snow, ice, or freezing temperatures.",
+     "hyp": "Anyone who's going to drive at hot lightitudes or over mountain passes should consider the possibility of snow, ice, or freezing temperatures.",
+     "asr_s": 0.637
+    },
+    {
+     "id": "1955",
+     "ref": "MS is a disease that affects the central nervous system, which is made up of the brain, the spinal cord and the optic nerve.",
+     "hyp": "MS is a disease that affects the central nervous system, which is made up of the brain, the spinal cord, and the optic nerve.",
+     "asr_s": 0.633
+    },
+    {
+     "id": "1801",
+     "ref": "The parade of buildings that make the Hong Kong skyline has been likened to a glittering bar chart that is made apparent by the presence of the waters of Victoria Harbour.",
+     "hyp": "The parade of buildings that make the Hong Kong skyline has been likened to a glittering bar chart that is made apparent by the presence of the waters of Victoria Harbour.",
+     "asr_s": 0.659
+    },
+    {
+     "id": "1849",
+     "ref": "If you have watched the movie National Treasure, you may think a treasure map was written on the back of the Declaration of Independence.",
+     "hyp": "If you have watched the movie National Treasure, you may think a treasure map was written on the back of the Declaration of Independence.",
+     "asr_s": 0.596
+    },
+    {
+     "id": "1808",
+     "ref": "With two years of the end of the war, the former allies were now enemies and the Cold War began.",
+     "hyp": "With two years of the end of the war, the former allies were now enemies and the Cold War began.",
+     "asr_s": 0.582
+    },
+    {
+     "id": "1779",
+     "ref": "The announcement was made after Trump had a phone conversation with Turkish President Recep Tayyip Erdoğan.",
+     "hyp": "The announcement was made after Trump had a phone conversation with Turkish president Recep Tayyipu Erdogan.",
+     "asr_s": 0.6
+    },
+    {
+     "id": "1984",
+     "ref": "Mass car ownership also leads to a higher incidence of accidents on the roads, which leads to the invention of new techniques in healthcare for repairing damaged bodies.",
+     "hyp": "Mass car ownership also leads to a higher incidence of accidents on the road, which leads to the invention of new techniques in healthcare for repairing damaged bodies.",
+     "asr_s": 0.609
+    },
+    {
+     "id": "1792",
+     "ref": "This is called a chemical's pH. You can make an indicator using red cabbage juice.",
+     "hyp": "This is called a chemicals pH. You can make an indicator using red cabbage juice.",
+     "asr_s": 0.569
+    },
+    {
+     "id": "1741",
+     "ref": "Large areas further north are quite sparsely populated and some is nearly uninhabited wilderness.",
+     "hyp": "Large areas further north are quite sparsely populated and some is nearly uninhabited wilderness.",
+     "asr_s": 0.578
+    },
+    {
+     "id": "1884",
+     "ref": "In particular, it is claimed that one can detect whether a person is lying by interpreting micro-expressions correctly.",
+     "hyp": "In particular, it is claimed that one can detect whether a person is lying by interpreting microexpressions correctly.",
+     "asr_s": 0.583
+    },
+    {
+     "id": "1998",
+     "ref": "They have feet with scales and claws, they lay eggs, and they walk on their two back legs like a T-Rex.",
+     "hyp": "They have feet with scales and claws, they lay eggs, and they walk on their two back legs like a T-Rex.",
+     "asr_s": 0.601
+    },
+    {
+     "id": "1807",
+     "ref": "Italian is also the everyday language used by most of those who work in the state while Latin is often used in religious ceremonies.",
+     "hyp": "Italian is also the everyday language used by most of those who work in the state while Latin is often used in religious ceremonies.",
+     "asr_s": 0.625
+    },
+    {
+     "id": "1928",
+     "ref": "By 1976, thirty percent of Machu Picchu had been restored and restoration continues till today.",
+     "hyp": "By 1976, 30% of Machu Picchu has been restored and restoration continues till today.",
+     "asr_s": 0.573
+    },
+    {
+     "id": "1675",
+     "ref": "All nouns, alongside the word Sie for you, always begin with a capital letter, even in the middle of a sentence.",
+     "hyp": "All nouns alongside the words say for you always begin with a capital letter, even in the middle of a sentence.",
+     "asr_s": 0.615
+    },
+    {
+     "id": "1961",
+     "ref": "One of the most common methods used to illustrate the importance of socialization is to draw upon the few unfortunate cases of children who were, through neglect, misfortune, or wilful abuse, not socialized by adults while they were growing up.",
+     "hyp": "One of the most common methods used to illustrate the importance of socialization is to draw upon the unfortunate cases of children who were through neglect, misfortune, or willful abuse not socialized by adults while they were growing up.",
+     "asr_s": 0.684
+    },
+    {
+     "id": "1990",
+     "ref": "Blogs can also help improve student writing. While students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+     "hyp": "Blogs can also help improve student writing. While students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+     "asr_s": 0.63
+    },
+    {
+     "id": "1691",
+     "ref": "On some routes, the larger companies have their own planes, but for other routes and smaller firms there was a problem.",
+     "hyp": "On some routes, the larger companies have their own planes, but for other routes and smaller firms, there was a problem.",
+     "asr_s": 0.603
+    },
+    {
+     "id": "1687",
+     "ref": "Segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+     "hyp": "Segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+     "asr_s": 0.6
+    },
+    {
+     "id": "1720",
+     "ref": "The hot chocolate is up to Belgian standards. Fruit juices are pricey but excellent.",
+     "hyp": "The hot chocolate is up to Belgian standards. Fruit juices are pricey but excellent.",
+     "asr_s": 0.572
+    },
+    {
+     "id": "1876",
+     "ref": "The Northern Marianas emergency management office said that there were no damages reported in the nation.",
+     "hyp": "The Northern Marianas Emergency Management Office said that there were no damages reported in the nation.",
+     "asr_s": 0.586
+    },
+    {
+     "id": "1890",
+     "ref": "Most modern research telescopes are enormous facilities in remote areas with favorable atmospheric conditions.",
+     "hyp": "Most modern research telescopes are enormous facilities in remote areas with favorable atmospheric conditions.",
+     "asr_s": 0.58
+    },
+    {
+     "id": "1719",
+     "ref": "Severe weather is the generic term for any dangerous weather phenomenon with the potential to cause damage, serious social disruption, or loss of human life.",
+     "hyp": "Severe weather is the generic term for any dangerous weather phenomenon with the potential to cause damage, serious social disruption, or loss of human life.",
+     "asr_s": 0.66
+    },
+    {
+     "id": "2006",
+     "ref": "Elements like calcium and potassium are considered metals. Of course, there are also metals like silver and gold.",
+     "hyp": "Elements like calcium and potassium are considered metals. Of course, there are also metals like silver and gold.",
+     "asr_s": 0.594
+    },
+    {
+     "id": "1823",
+     "ref": "Traffic Flow is the study of the movement of individual drivers and vehicles between two points and the interactions they make with one another.",
+     "hyp": "Traffic flow is a study of the movement of individual drivers and vehicles between two points and the interactions they make with one another.",
+     "asr_s": 0.599
+    },
+    {
+     "id": "1683",
+     "ref": "There are still many men and women alive who survived their time here, and many more who had loved ones who were murdered or worked to death there, Jews and non-Jews alike.",
+     "hyp": "There are still many men and women alive who survived their time here and many more who had loved ones who were murdered or worked to death there, Jews and non-Jews alike.",
+     "asr_s": 0.653
+    },
+    {
+     "id": "1694",
+     "ref": "Children are placed in Foster Care for a wide variety of reasons that range from neglect, to abuse, and even to extortion.",
+     "hyp": "Children are placed in foster care for a wide variety of reasons that range from neglect to abuse and even to extortion.",
+     "asr_s": 0.613
+    },
+    {
+     "id": "1791",
+     "ref": "Do not deface the site by marking or scratching graffiti into structures.",
+     "hyp": "Do not deface the site by marking or scratching graffiti into structures.",
+     "asr_s": 0.569
+    },
+    {
+     "id": "1772",
+     "ref": "So, it is likely that the notation was added simply as a label.",
+     "hyp": "So, it is likely that the notation was added simply as a label.",
+     "asr_s": 0.568
+    },
+    {
+     "id": "1923",
+     "ref": "The strategy proved effective, cutting off vital military and civilian supplies, although this blockade violated generally accepted international law codified by several international agreements of the past two centuries.",
+     "hyp": "The strategy proved effective cutting off vital military and civilian supplies, although this blockade violated generally accepted international law codified by several international agreements of the past two centuries.",
+     "asr_s": 0.652
+    },
+    {
+     "id": "1702",
+     "ref": "In just two weeks the Americans and Free French forces had liberated southern France and were turning towards Germany.",
+     "hyp": "In just two weeks, the Americans and Free French Forces had liberated southern France and were churning towards Germany.",
+     "asr_s": 0.609
+    },
+    {
+     "id": "1841",
+     "ref": "Nothing can be seen other than the clear, beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+     "hyp": "Nothing can be seen other than the clear beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+     "asr_s": 0.639
+    },
+    {
+     "id": "1757",
+     "ref": "Only mutations in germ-line cells can be passed on to children, while mutations elsewhere can cause cell-death or cancer.",
+     "hyp": "Only mutations in germline cells can be passed on to children, while mutations elsewhere can cause cell death or cancer.",
+     "asr_s": 0.614
+    },
+    {
+     "id": "1760",
+     "ref": "Mosasaurus was the apex predator of its time, so it feared nothing, except other mosasaurs.",
+     "hyp": "Mosaseres was the apex predator of its time so it feared nothing except other Mosaseres.",
+     "asr_s": 0.587
+    },
+    {
+     "id": "1790",
+     "ref": "His work is of such recognized quality and detail that he is one of the very few \"household names\" among philatelists. Some specialize in collecting his work alone.",
+     "hyp": "His work is of such recognized quality and detail that he is one of the very few household names among philatelists. Some specialize in collecting his work alone.",
+     "asr_s": 0.644
+    },
+    {
+     "id": "1732",
+     "ref": "The age where the events took place is commonly referred as the High Middle Ages the period of European history in the 11th, 12th, and 13th centuries (AD 1000–1300).",
+     "hyp": "The age where the events took place is commonly referred as the High Middle Ages, the period of European history in the 11th, 12th, and 13th centuries, AD 1000 to 1300.",
+     "asr_s": 0.665
+    },
+    {
+     "id": "1689",
+     "ref": "Europe is a continent that is relatively small but with many independent countries. Under normal circumstances, travelling through multiple countries would mean having to go through visa applications and passport control multiple times.",
+     "hyp": "Europe is a continent that is relatively small but with many independent countries. Under normal circumstances, traveling through multiple countries would mean having to go through visa applications and passport control multiple times.",
+     "asr_s": 0.681
+    },
+    {
+     "id": "1736",
+     "ref": "Rolando Mendoza fired his M16 rifle at the tourists.",
+     "hyp": "Rolando Mendoza fired his M16 rifle at the tourists.",
+     "asr_s": 0.566
+    },
+    {
+     "id": "1692",
+     "ref": "According to Japan's nuclear agency, radioactive caesium and iodine has been identified at the plant.",
+     "hyp": "According to Japan's nuclear agency, radioactive caseum and iodine has been identified at the plant.",
+     "asr_s": 0.59
+    }
+   ]
+  },
+  "hi": {
+   "n": 40,
+   "wer": 0.16083916083916083,
+   "mean_asr_s": 1.0172841825016803,
+   "mean_audio_s": 11.5245,
+   "rtf": 0.08827143758962908,
+   "utterances": [
+    {
+     "id": "1778",
+     "ref": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआँ दिखाया गया है।",
+     "hyp": "टेलीविज़न रिपोर्टों में प्लांट से निकलने वाला सफेद दुआँ दिखाया गया है.",
+     "asr_s": 0.656
+    },
+    {
+     "id": "1953",
+     "ref": "बाद में उन्हें कैम्ब्रिज में एडेनब्रुक के अस्पताल में स्थानांतरित कर दिया गया.",
+     "hyp": "बाद में उन्हें कैमरेज में एडन रूप के अस्पताल में स्थानांतरित कर दिया गया.",
+     "asr_s": 0.64
+    },
+    {
+     "id": "1952",
+     "ref": "जो भी ऊँचाई या पहाड़ी दर्रे पर गाड़ी चलाने जा रहा है, उसे हिम, बर्फ या ठंड के तापमान की संभावना के विचार को मन में रखना चाहिए।",
+     "hyp": "जो भी ऊँचाई या पहाड़ी दर्रे पर गाड़ी चलाने जा रहा है उसे हिम बर्फ या ठंड के तापमान की संभावना के विचार को मन में रखना चाहिए.",
+     "asr_s": 1.022
+    },
+    {
+     "id": "1955",
+     "ref": "MS, बीमारी केंद्रीय तंत्रिका तंत्र पर असर करती है, जिसमें दिमाग, स्पाइनल कॉर्ड और ऑप्टिक नर्व शामिल हैं.",
+     "hyp": "एमएस बीमारी केंद्रीय तंत्रिका तंत्र पर असर करती है जिसमें दिमाग स्पैनल कोड और ऑप्टिक नर्व शामिल हैं",
+     "asr_s": 0.816
+    },
+    {
+     "id": "1801",
+     "ref": "भवनों की परेड जिसने हाँगकाँग की स्कायलाइन को चमचमाते बार चार्ट की तरह बनाया है, उसने विक्टोरिया हार्बर के पानी की मौज़ूदगी को देखने लायक बनाया है.",
+     "hyp": "भवनों की परेड जिसने हांगकांग की स्काई लाइन को चमचमाते बार चार्ट की तरह बनाया है उसने विक्टोरिया हार्बर के पानी की मौजूदगी को देखने लायक बनाया है.",
+     "asr_s": 1.131
+    },
+    {
+     "id": "1849",
+     "ref": "अगर आपने फ़िल्म नेशनल ट्रेज़र देखी है, तो आपको लगेगा कि स्वतंत्रता के घोषणा-पत्र के पीछे एक ख़ज़ाने का नक्शा लिखा गया था.",
+     "hyp": "अगर आप ने फिल्म नेशनल ट्रेजर देखिए तो आपको लगेगा कि स्वतंत्रता के घोषणा पत्र के पीछे एक खजाने का नक्शा लिखा गया था",
+     "asr_s": 0.999
+    },
+    {
+     "id": "1808",
+     "ref": "लड़ाई के आख़िरी दो सालों में, पहले के साथी अब दुश्मन बन गए थे और शीत युद्ध की शुरुआत हो चुकी थी.",
+     "hyp": "लड़ाई के आखिरी दो सालों में पहले के साथ ही अब दुश्मन बन गए थे और शीत युद्ध की शुरुआत हो चुकी थी.",
+     "asr_s": 0.816
+    },
+    {
+     "id": "1779",
+     "ref": "तुर्की के राष्ट्रपति रजब तैयब इरदुगान के साथ ट्रंप की फ़ोन पर चर्चा होने के बाद घोषणा की गई थी.",
+     "hyp": "तुर्की के राष्ट्रपति रजब तैयग उर्द्वान के साथ ट्रंप की फ़ोन पर चर्चा होने के बाद घोषणा की गई थी.",
+     "asr_s": 0.864
+    },
+    {
+     "id": "1984",
+     "ref": "सड़कों पर ज़्यादा दुर्घटना की वजह बहुत ज़्यादा कार ओनरशिप है, जिससे शरीर में हुई टूट-फूट को सुधारने के लिए हेल्थकेयर में नई तकनीकों के आविष्कार को बढ़ावा मिला है.",
+     "hyp": "सड़कों पर ज्यादा दुर्घटना की वजह बहुत ज्यादा कार, ऑनरशिप है जिससे शरीर में हुई टूटफूट को सुधारने के लिए हेल्थकेयर में नई तकनीकों के आविष्कार को बढ़ावा मिला है.",
+     "asr_s": 1.289
+    },
+    {
+     "id": "1792",
+     "ref": "इसे केमिकल का pH कहा जाता है. आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं.",
+     "hyp": "इसे केमिकल का पीएच कहा जाता है आप लाल गोभी के जूस को इस्तेमाल करके एक संकेतक बना सकते हैं",
+     "asr_s": 0.705
+    },
+    {
+     "id": "1741",
+     "ref": "उत्तर की ओर के बड़े क्षेत्र में आबादी बहुत ही कम है और कुछ इलाकों में तो लगभग कोई इंसानी आबादी नहीं है.",
+     "hyp": "उत्तर की ओर के बड़े क्षेत्र में आबादी बहुत ही कम है और कुछ इलाकों में तो लगभग कोई इंसानी आबादी है ही नहीं.",
+     "asr_s": 0.862
+    },
+    {
+     "id": "1884",
+     "ref": "विशेष रूप से, यह दावा किया जाता है कि किसी व्यक्ति की सूक्ष्म अभिव्यक्तियों की सही व्याख्या करके यह समझा सकता है कि वह झूठ बोल रहा है या नहीं।",
+     "hyp": "विशेष रूप से यह दावा किया जाता है कि किस व्यक्ति की सूक्ष्म अभिव्यक्तियों की सही व्याख्या करने करके यह समझा सकता है कि वह झूठ बोल रहा है या नहीं",
+     "asr_s": 1.371
+    },
+    {
+     "id": "1998",
+     "ref": "उनके पैरों में पपड़ियाँ और पंजे हैं, वे अंडे देते हैं, और वे किसी टी-रेक्स की तरह अपने दो पीछे वाले पैरों पर चलते हैं.",
+     "hyp": "उनके पैरों में पपड़ियाँ और पंजे हैं, वे अंडे देते हैं और वे किसी टीरेक्स की तरह अपने दो पीछे वाले पैरों पर चलते हैं.",
+     "asr_s": 0.93
+    },
+    {
+     "id": "1807",
+     "ref": "इटैलियन भी रोज़ाना इस्तेमाल होने वाली भाषा है जिसे राज्य में काम करने वाले अधिकांश लोग उपयोग में लाते हैं, जबकि लेटिन का धार्मिक रस्मों में इस्तेमाल किया जाता है.",
+     "hyp": "इटालियन भी रोजाना इस्तेमाल होने वाली भाषा है जिसे राज्य में काम करने वाले अधिकांश लोग उपयोग में लाते हैं जबकि लेटिन का धार्मिक रस्मों में इस्तेमाल किया जाता है",
+     "asr_s": 1.273
+    },
+    {
+     "id": "1928",
+     "ref": "सन 1976 तक माचू पिचू के तीस प्रतिशत हिस्से का जीर्णोद्धार कर दिया गया था और जीर्णोद्धार का कार्य आज तक जारी है।",
+     "hyp": "सन 1976 तक माँछू पिचू के 30 प्रतिशत हिस्से का जीर्णोधार कर दिया गया था और जीर्णोधार का कार्य आज तक जारी है.",
+     "asr_s": 0.839
+    },
+    {
+     "id": "1675",
+     "ref": "साई के साथ-साथ सभी संज्ञा शब्द हमेशा अंग्रेज़ी के बड़े अक्षर से ही शुरू होते हैं, भले ही वे वाक्य के बीच में ही क्यों न हों.",
+     "hyp": "साई के साथ साथ सभी संज्ञा शब्द हमेशा अंग्रेजी के बड़े अक्षर से ही शुरू होते हैं भले ही वे वाक्य के बीच में ही क्यों न हों.",
+     "asr_s": 0.918
+    },
+    {
+     "id": "1961",
+     "ref": "समाजीकरण के महत्व को स्पष्ट करने के लिए इस्तेमाल किए जाने वाले सबसे आम तरीकों में से कुछ बच्चों के दुर्भाग्यपूर्ण मामलों को आकर्षित करना है, जो बड़े होने के दौरान वयस्कों द्वारा उपेक्षित नहीं, बल्कि उपेक्षा, दुर्भाग्य या दुर्व्यवहार के माध्यम से होते थे।",
+     "hyp": "समाजीकरण के महत्व को स्पष्ट करने के लिए इस्तेमाल किए जाने वाले सबसे आम तरीकों में से कुछ बच्चों के दुर्भाग्यपूर्ण मामलों को आकर्षित करना है जो बड़े होने के दौरान वयस्को द्वारा उपेक्षित नहीं बल्कि उपेक्षा दुर्भा",
+     "asr_s": 1.734
+    },
+    {
+     "id": "1990",
+     "ref": "ब्लॉग से छात्र लेखन में सुधार करने में भी मदद मिल सकती है. जहां छात्र अपने ब्लॉग अनुभव की शुरुआत अक्सर बेतरतीब व्याकरण और वर्तनी के साथ करते हैं, वहीं दर्शकों की मौजूदगी से इसमें आम तौर पर बदलाव आता है.",
+     "hyp": "ब्लॉक से छात्र लेखन में सुधार करने में भी मदद मिल सकती है जहां छात्र अपने ब्लॉक अनुभव की शुरुआत अक्सर बेतरती व्याकरण और वर्तन के साथ करते हैं वहीं दर्शकों की मौजूदगी से इसमें आमतौर पर बदलाव आता है",
+     "asr_s": 1.564
+    },
+    {
+     "id": "1691",
+     "ref": "चुनिंदा रूट पर, बड़ी कंपनियों के खुद के विमान हैं, लेकिन अन्य रूट पर और छोटी फ़र्म के लिए यह एक समस्या है.",
+     "hyp": "चनिंदा रूट पर बडी कंपनियों के खुद के विमान है लेकिन अन्य रूट पर और छोटी फॉर्म के लिए यह एक समस्या है",
+     "asr_s": 0.838
+    },
+    {
+     "id": "1687",
+     "ref": "अलगाव और पुनर्संयोजन भिन्नता प्रत्येक पीढ़ी के साथ दो पूलों के बीच आगे-पीछे होती रहती है।",
+     "hyp": "अलगाव और पुनर्संयोजन भिन्नता प्रत्येक पीटी के साथ दो पुलों के बीच आगे पीछे होती रहती है",
+     "asr_s": 0.74
+    },
+    {
+     "id": "1720",
+     "ref": "हॉट चॉकलेट बेल्जियम के मानकों पर बनी है. फलों का जूस महंगा है लेकिन बहुत अच्छा है.",
+     "hyp": "हॉट चॉकलेट बेल्जियम की मानकों पर बनती है फलों का जूज महंगा है लेकिन बहुत अच्छा है",
+     "asr_s": 0.743
+    },
+    {
+     "id": "1876",
+     "ref": "उत्तरी मैरिएनस इमरजेंसी प्रबंधन कार्यलय की ओर से कहा गया कि राष्ट्र में नुकसान की कोई सूचना प्राप्त नहीं हुई थी.",
+     "hyp": "उत्तरी मेरियन्स इमरजेंसी प्रबंधन कार्यालय की ओर से कहा गया कि राष्ट्र में नुकसान की कोई सूचना प्राप्त नहीं हुई थी.",
+     "asr_s": 1.034
+    },
+    {
+     "id": "1890",
+     "ref": "अधिकांश आधुनिक अनुसंधान दूरबीनों में अनुकूल वायुमंडलीय परिस्थितियों के साथ दूरदराज के क्षेत्रों में काम करने के लिए बहुत सुविधाएँ हैं.",
+     "hyp": "अधिकांश आधुनिक अनुसंधान दूरबीनो में अनुकूल वायु मंडलीय परिस्थितियों के साथ दूरदराज के क्षेत्रों में काम करने के लिए बहुत सुविधाएँ हैं.",
+     "asr_s": 1.225
+    },
+    {
+     "id": "1719",
+     "ref": "गंभीर मौसम किसी भी खतरनाक मौसमी घटना के लिए वर्गीय शब्द है जिसमें नुकसान, गंभीर सामाजिक व्यवधान, या मानव जीवन की हानि की संभावना है।",
+     "hyp": "गंभीर मौसम किसी भी खतरनाक मौसमी घटना के लिए वर्गीय शब्द है जिसमें नुकसान गंभीर सामाजिक व्यवधान या मानव जीवन की हानि की संभावना है",
+     "asr_s": 1.027
+    },
+    {
+     "id": "2006",
+     "ref": "कैल्शियम और पोटैशियम जैसे तत्वों को धातु माना जाता है। बेशक, चांदी और सोने जैसी धातुएं भी हैं।",
+     "hyp": "जैसे तत्व को माना जाता है चांदी और सोने जैसी तत्व भी है",
+     "asr_s": 0.494
+    },
+    {
+     "id": "1823",
+     "ref": "यातायात बहाव दो बिंदुओं के बीच व्यक्तिगत चालकों और वाहनों की गतिविधि और एक दूसरे के साथ की जाने वाली पारस्परिक क्रिया का अध्ययन है।",
+     "hyp": "यातायात भाग दो बिंदुओं के बीच व्यक्तिगत चालकों और वाहनों की गतिविधि और एक दूसरे के साथ की जाने वाली पारस्परिक क्रिया का अध्ययन है",
+     "asr_s": 1.066
+    },
+    {
+     "id": "1683",
+     "ref": "यहूदी और गैर-यहूदी की तरह, अभी भी ऐसे कई पुरुष और महिलाएं जीवित हैं जो उस समय बचने में सफल रहे और कई जिनके प्रियजनों को मार दिया गया या उनके मरने तक उनसे काम करवाया गया.",
+     "hyp": "यहूदी और गैर यहूदी की तरह अभी भी ऐसे कई पुरुष और महिलाएँ जीवित हैं जो उस समय बचने में सफल रहे और कई जिनके प्रियजनों को मार दिया गया या उनके मरने तक उनसे काम करवाया गया.",
+     "asr_s": 1.279
+    },
+    {
+     "id": "1694",
+     "ref": "बच्चों को कई वजहों से फ़ॉस्टर केयर में रखा जाता है, जिनमें अनदेखी करना, बुरा बर्ताव करना, और यहां तक कि ज़बरदस्ती वसूली करना भी शामिल है.",
+     "hyp": "बच्चों को कई वजहों से फ़ास्टर केयर में रखा जाता है जिनमें अंधेकी करना, पूरा बर्ताव करना और यहाँ तक की जबरदस्ती वसूली करना भी शामिल है.",
+     "asr_s": 1.083
+    },
+    {
+     "id": "1791",
+     "ref": "चीज़ों पर कुछ बनाकर या खरोंच कर इस जगह को नुक़सान न पहुँचाएँ.",
+     "hyp": "चीजों पर कुछ बनाकर या खरोचकर इस जगह को नुकसान न पहुंचाएं",
+     "asr_s": 0.595
+    },
+    {
+     "id": "1772",
+     "ref": "इसलिए, यह माना जा रहा है कि नोटेशन को सिर्फ़ एक लेबल के रूप में जोड़ा गया था.",
+     "hyp": "इसलिए यह माना जा रहा है कि नोटेशन को सिर्फ एक लेवल के रूप में जोड़ा गया था.",
+     "asr_s": 0.723
+    },
+    {
+     "id": "1923",
+     "ref": "रणनीति महत्वपूर्ण सैन्य और असैन्य आपूर्ति को काटते हुए प्रभावी साबित हुई, हालाँकि इस नाकाबंदी ने पिछले दो शताब्दियों के कई अंतरराष्ट्रीय समझौतों द्वारा आमतौर पर स्वीकृत अंतर्राष्ट्रीय कानून का उल्लंघन किया।",
+     "hyp": "रणनीति महत्वपूर्ण सैन्य और असैन्य आपूर्ति को काटते हुए प्रभावी साबित हुई, हालाँकि इस नाकाबंदी ने पिछले दो शताब्दियों के कई अंतर्राष्ट्रीय जमजोतों द्वारा आमतौर पर स्वीकृत अंतर्राष्ट्रीय कानून का उल्लंघन क",
+     "asr_s": 1.693
+    },
+    {
+     "id": "1702",
+     "ref": "केवल दो हफ़्तों में अमेरिकियों और फ़्री फ़्रेंच बलों ने दक्षिणी फ़्रांस को मुक्त कर दिया था और जर्मनी की ओर बढ़ रहे थे.",
+     "hyp": "केवल दो हफ्तों में अमेरिकी और फ्री फ्रेंच बलों ने दक्षिणी फ्रांस को मुक्त कर दिया था और शर्मनी की ओर बढ रहे थे",
+     "asr_s": 0.898
+    },
+    {
+     "id": "1841",
+     "ref": "ऊपर साफ़ वातावरण, सुंदर आसमान और आस-पास के कई पहाड़ों के अलावा और कुछ भी नहीं नज़र आता है. इसलिए इस गुफ़ा के अंदर से दुनिया का छोटा सा हिस्सा ही देखा या सुना जा सकता है.",
+     "hyp": "ऊपर साफ़ वातावरण सुंदर आसमान और आसपास के कई पहाडों के अलावा और कुछ भी नहीं नजर आता है इसलिए इस गुफा के अंदर से दुनिया का छोटा सा हिस्सा ही देखा या सुना जा सकता है.",
+     "asr_s": 1.337
+    },
+    {
+     "id": "1757",
+     "ref": "केवल जर्म-लाइन कोशिकाओं में वृद्धि बच्चों तक पहुँच सकती है जबकि अन्य कहीं होने वाली वृद्धि से कोशिकाएँ नष्ट हो सकती हैं या कैंसर हो सकता है.",
+     "hyp": "केवल जर्मलाइन पसीकाओं में वृद्धि बचा तब तक सबसे उठाए अन्य होने वाली वृद्धि से पसी का एमएस पेशक थे या फिन समझ पाएँगे",
+     "asr_s": 1.023
+    },
+    {
+     "id": "1760",
+     "ref": "मोसासौरस अपने समय का सबसे बड़ा शिकारी था, इसलिए उसे अन्य मोसासौरस के अलावा किसी का भय नहीं था।",
+     "hyp": "मौसा सरस अपने समय का सबसे बड़ा शिकारी था, इसलिए उसे अन्य मौसा सरस के अलावा किसी का भय नहीं था.",
+     "asr_s": 0.802
+    },
+    {
+     "id": "1790",
+     "ref": "उनका काम ऐसी गुणवत्ता और विस्तार के पहचान का है कि वह टिकट संग्रहकर्ताओं के बीच बहुत कम “घरेलू नामों” में से एक है. कुछ उनके काम को अकेले बटोरने में माहिर हैं.",
+     "hyp": "उनका काम ऐसी गुणवत्ता और विस्तार के पहचान का है कि वह टिकट संग्रहकर्ताओं के बीच बहुत कम घर लो नामों में से एक है कुछ उनके काम को अकेले बटरने में माहिर है",
+     "asr_s": 1.148
+    },
+    {
+     "id": "1732",
+     "ref": "जिस समय घटनाएँ हुई उसके युग को सामान्य रूप से यूरोप के इतिहास में 11वीं, 12वीं और 13वीं सदी (AD 1000-1300) में यूरोपियन इतिहास के उच्च मध्य युग की अवधि के रूप में बताया जाता है.",
+     "hyp": "जिस समय घटनाएँ हुए उसके युग को सामान्य रूप से यूरोप के इतिहास में 11वीं, 12वीं और 13वीं सदी में यूरोपियन इतिहास के उच्च मध्य युग की अवधि के रूप में बताया जाता है.",
+     "asr_s": 1.284
+    },
+    {
+     "id": "1689",
+     "ref": "यूरोप एक ऐसा महाद्वीप है जो अपेक्षाकृत छोटा है लेकिन इसमें कई स्वतंत्र देश हैं. सामान्य परिस्थिति में कई देशों की यात्रा करने का मतलब कई बार वीज़ा आवेदन और पासपोर्ट कंट्रोल की प्रक्रिया से गुज़रना है.",
+     "hyp": "यूरोप एक ऐसा महाद्वीप है जो अपेक्याकरूद छोटा है, लेकिन इसमें कई स्वतंत्र देश है, सामान्य परिस्थिति में कई देशों की यात्रा करने का मतलब कई बार वीजा आवेदन और पासपोर्ट कंट्रोल की प्रक्रिया से गुजरना है.",
+     "asr_s": 1.545
+    },
+    {
+     "id": "1736",
+     "ref": "रोलैंडो मेंडोज़ा ने अपनी M16 राइफल से पर्यटकों के ऊपर फायर किया।",
+     "hyp": "खोलेंगे नेदोजन अपने पाँच सिक्स डेट फॉर ऐसा परीक्षा किया",
+     "asr_s": 0.571
+    },
+    {
+     "id": "1692",
+     "ref": "जापान की परमाणु एजेंसी के अनुसार, प्लांट में रेडियोधर्मी सीज़ियम और आयोडीन की पहचान की गई है.",
+     "hyp": "जापान की परमाणु एजेंसी के अनुसार प्लांट में रेडियो धर्मिस, सीजीएम और आयोडीन की पहचान की गई है.",
+     "asr_s": 1.114
+    }
+   ],
+   "cer": 0.07253677211364094
+  },
+  "es": {
+   "n": 40,
+   "wer": 0.015657620041753653,
+   "mean_asr_s": 2.042606232500475,
+   "mean_audio_s": 11.664000000000001,
+   "rtf": 0.1751205617713027,
+   "utterances": [
+    {
+     "id": "1778",
+     "ref": "En las coberturas televisivas puede verse humo blanco emanando de la planta.",
+     "hyp": "En las coberturas televisivas puede verse humo blanco emanando de la planta.",
+     "asr_s": 3.251
+    },
+    {
+     "id": "1953",
+     "ref": "Luego lo trasladaron al Hospital Addenbrooke, en Cambridge.",
+     "hyp": "Luego lo trasladaron al hospital Addenbrooke en Cambridge.",
+     "asr_s": 3.176
+    },
+    {
+     "id": "1952",
+     "ref": "Cualquier persona que se proponga conducir en latitudes altas o en pasos de montañas debe prever la posibilidad de que haya nieve, hielo o bajas temperaturas.",
+     "hyp": "Cualquier persona que se proponga conducir en latitudes altas o en pasos de montañas debe prever la posibilidad de que haya nieve, hielo o bajas temperaturas.",
+     "asr_s": 3.433
+    },
+    {
+     "id": "1955",
+     "ref": "El sistema nervioso central, unión del cerebro, la médula espinal y el nervio óptico, es el objeto de ataque de la esclerosis múltiple.",
+     "hyp": "El sistema nervioso central, unión del cerebro, la médula espinal y el nervio óptico es el objeto de ataque de la esclerosis múltiple.",
+     "asr_s": 3.347
+    },
+    {
+     "id": "1801",
+     "ref": "Se ha comparado el despliegue de edificaciones que delimitan el horizonte de Hong Kong con un gráfico de barras luminoso que se evidencia por la presencia de las aguas del Puerto Victoria.",
+     "hyp": "Se ha comparado el despliegue de edificaciones que delimitan el horizonte de Hong Kong con un gráfico de barras luminoso que se evidencia por la presencia de las aguas del puerto Victoria.",
+     "asr_s": 3.478
+    },
+    {
+     "id": "1849",
+     "ref": "Si ha visto el filme Tesoro Nacional, quizás crea que un mapa del tesoro fue trazado en el dorso de la Declaración de la Independencia.",
+     "hyp": "Si ha visto el filme Tesoro Nacional, quizás crea que un mapa del tesoro fue trazado en el dorso de la declaración de la independencia.",
+     "asr_s": 3.36
+    },
+    {
+     "id": "1808",
+     "ref": "A dos años del final de la guerra, los que eran aliados ahora eran enemigos y la Guerra Fría comenzó.",
+     "hyp": "A dos años del final de la guerra, los que eran aliados ahora eran enemigos y la guerra fría comenzó.",
+     "asr_s": 3.301
+    },
+    {
+     "id": "1779",
+     "ref": "El anuncio se hizo tras la conversación telefónica que Trump mantuvo con con el presidente de Turquía, Recep Tayyip Erdoğan.",
+     "hyp": "El anuncio se hizo tras la conversación telefónica que Trump mantuvo con el presidente de Turquía, Recep Tayyip Erdogan.",
+     "asr_s": 1.855
+    },
+    {
+     "id": "1984",
+     "ref": "El uso masivo de automóviles también genera una mayor incidencia en los accidentes de tránsito, lo que conduce al desarrollo de nuevas técnicas en el campo de la salud para reparar los cuerpos dañados.",
+     "hyp": "El uso masivo de automóviles también genera una mayor incidencia en los accidentes de tránsito, lo que conduce al desarrollo de nuevas técnicas en el campo de la salud para reparar los cuerpos dañados.",
+     "asr_s": 1.114
+    },
+    {
+     "id": "1792",
+     "ref": "Esto se denomina pH de una sustancia química. Usted puede elaborar un indicador de pH utilizando jugo de col roja.",
+     "hyp": "Esto se denomina pH de una sustancia química. Usted puede elaborar un indicador de pH utilizando jugo de col roja.",
+     "asr_s": 1.055
+    },
+    {
+     "id": "1741",
+     "ref": "Las grandes áreas más hacia el norte están poco pobladas y algunas son tierras silvestres, casi inhabitadas.",
+     "hyp": "Las grandes áreas más hacia el norte están poco pobladas y algunas son tierras silvestres, casi inhabilitadas.",
+     "asr_s": 0.997
+    },
+    {
+     "id": "1884",
+     "ref": "Concretamente, se sostiene que, mediante la adecuada lectura de sus microexpresiones, es posible detectar si una persona está mintiendo.",
+     "hyp": "Concretamente se sostiene que, mediante la adecuada lectura de sus microexpresiones, es posible detectar si una persona está mintiendo.",
+     "asr_s": 1.082
+    },
+    {
+     "id": "1998",
+     "ref": "Tienen extremidades escamadas y con garras, ponen huevos y se desplazan sobre sus patas traseras al igual que el T-Rex.",
+     "hyp": "Tienen extremidades escamadas y con garras ponen huevos y se desplazan sobre sus patas traseras al igual que el T-Rex.",
+     "asr_s": 1.078
+    },
+    {
+     "id": "1807",
+     "ref": "La lengua que hablan a diario la mayoría de quienes trabajan dentro del estado es también el italiano y el uso del latín queda generalmente reservado para las ceremonias religiosas.",
+     "hyp": "La lengua que hablan a diario la mayoría de quienes trabajan dentro del estado es también el italiano y el uso del latín queda generalmente reservado para las ceremonias religiosas.",
+     "asr_s": 1.101
+    },
+    {
+     "id": "1928",
+     "ref": "Hacia 1976 ya se había restaurado el treinta por ciento del Machu Picchu y los trabajos continúan en la actualidad.",
+     "hyp": "Hacia 1976 ya se había restaurado el 30% del Machu Picchu y los trabajos continúan en la actualidad.",
+     "asr_s": 1.038
+    },
+    {
+     "id": "1675",
+     "ref": "Todos los sustantivos, así como el vocablo Sie para significar 'usted', llevan siempre su letra inicial mayúscula, aunque estén ubicados en el medio de la oración.",
+     "hyp": "Todos los sustantivos, así como el vocablo SIE para significar Usted, llevan siempre su letra inicial mayúscula, aunque estén ubicados en el medio de la oración.",
+     "asr_s": 1.117
+    },
+    {
+     "id": "1961",
+     "ref": "Uno de los mecanismos más comúnmente usados para graficar la importancia de sociabilizar es analizar los pocos y lamentables casos de niños que, por negligencia, desgracia o abuso intencional, no fueron socializados por adultos durante su crecimiento.",
+     "hyp": "Uno de los mecanismos más comúnmente usados para graficar la importancia de sociabilizar es analizar los pocos y lamentables casos de niños que, por negligencia, desgracia o abuso intencional, no fueron socializados por adultos durante su crecimiento.",
+     "asr_s": 1.205
+    },
+    {
+     "id": "1990",
+     "ref": "Los blogs también pueden contribuir a mejorar la redacción de los alumnos. Aun cuando los estudiantes suelen iniciar su experiencia de blog con una gramática y ortografía poco cuidadas, esto generalmente cambia ante la presencia de una audiencia.",
+     "hyp": "Los blogs también pueden contribuir a mejorar la redacción de los alumnos. Aun cuando los estudiantes suelen iniciar su experiencia de blog con una gramática y ortografía poco cuidadas, esto generalmente cambia ante la presencia de una audiencia.",
+     "asr_s": 1.167
+    },
+    {
+     "id": "1691",
+     "ref": "Las compañías grandes tienen sus propios aviones en algunas rutas, pero hubo un problema para las empresas más pequeñas y otras rutas.",
+     "hyp": "Las compañías grandes tienen sus propios aviones en algunas rutas, pero hubo un problema para las empresas más pequeñas y otras rutas.",
+     "asr_s": 1.058
+    },
+    {
+     "id": "1687",
+     "ref": "La segregación y la recombinación barajan la variación entre uno y otro generación tras generación.",
+     "hyp": "La segregación y la recombinación barajan la variación entre uno y otro generación tras generación.",
+     "asr_s": 3.198
+    },
+    {
+     "id": "1720",
+     "ref": "El chocolate caliente está a la altura de los estándares belgas. Los jugos frutales son costosos, pero deliciosos.",
+     "hyp": "El chocolate caliente está a la altura de los estándares belgas. Los jugos frutales son costosos pero deliciosos.",
+     "asr_s": 3.349
+    },
+    {
+     "id": "1876",
+     "ref": "La agencia de manejo de emergencias de las Marianas del Norte indicó que no hubo registro de daños en el territorio nacional.",
+     "hyp": "La Agencia de Manejo de Emergencias de las Marianas del Norte indicó que no hubo registro de daños en el territorio nacional.",
+     "asr_s": 3.51
+    },
+    {
+     "id": "1890",
+     "ref": "La mayor parte de los telescopios de investigación actuales consisten en inmensas estructuras instaladas en áreas alejadas con condiciones atmosféricas propicias.",
+     "hyp": "La mayor parte de los telescopios de investigación actuales consisten en inmensas estructuras instaladas en áreas alejadas con condiciones atmosféricas propicias.",
+     "asr_s": 3.405
+    },
+    {
+     "id": "1719",
+     "ref": "El término clima severo refiere, en general, a cualquier fenómeno climático riesgoso que sea capaz de provocar daños, alteraciones sociales graves o la muerte de personas.",
+     "hyp": "El término clima severo refiere, en general, a cualquier fenómeno climático riesgoso que sea capaz de provocar daños, alteraciones sociales graves o la muerte de personas.",
+     "asr_s": 3.456
+    },
+    {
+     "id": "2006",
+     "ref": "Se consideran metales a los elementos como el calcio y el potasio. Desde ya, también existen metales del tipo del oro y la plata.",
+     "hyp": "Se consideran metales a los elementos como el calcio y el potasio. Desde ya, también existen metales del tipo del oro y la plata.",
+     "asr_s": 3.313
+    },
+    {
+     "id": "1823",
+     "ref": "El flujo de tráfico es el estudio del movimiento individual de conductores y vehículos entre dos puntos y de las interacciones entre ellos.",
+     "hyp": "El flujo de tráfico es el estudio del movimiento individual de conductores y vehículos entre dos puntos y de las interacciones entre ellos.",
+     "asr_s": 3.347
+    },
+    {
+     "id": "1683",
+     "ref": "Aún quedan muchos hombres y mujeres con vida que sobrevivieron a su estadía en este lugar y muchos más que tuvieron seres queridos a los que asesinaron o trabajaron allí hasta su muerte, tanto judíos como no judíos.",
+     "hyp": "Aún quedan muchos hombres y mujeres con vida que sobrevivieron a su estadía en este lugar y muchos más que tuvieron seres queridos a los que asesinaron o trabajaron allí hasta su muerte, tanto judíos como no judíos.",
+     "asr_s": 3.427
+    },
+    {
+     "id": "1694",
+     "ref": "Se acoge a los niños en hogares de guarda por una amplia variedad de motivos, desde negligencia hasta abuso e, incluso, extorsión.",
+     "hyp": "Se acoge a los niños en hogares de guarda por una amplia variedad de motivos, desde negligencia hasta abuso e incluso extorsión.",
+     "asr_s": 3.33
+    },
+    {
+     "id": "1791",
+     "ref": "No arruine el lugar haciendo marcas ni haga grafitis en las estructuras.",
+     "hyp": "No arruine el lugar haciendo marcas ni grafitis en las estructuras.",
+     "asr_s": 2.342
+    },
+    {
+     "id": "1772",
+     "ref": "Por tanto, es probable que la anotación haya sido agregada tan solo como un rótulo.",
+     "hyp": "por tanto es probable que la notación haya sido agregada tan solo como un rótulo.",
+     "asr_s": 0.963
+    },
+    {
+     "id": "1923",
+     "ref": "Si bien la estrategia, que involucró la interrupción de suministros militares y civiles vitales, fue exitosa, dicha medida violó el derecho internacional generalizadamente reconocido y contemplado en varios acuerdos internacionales de los dos últimos siglos.",
+     "hyp": "Si bien la estrategia que involucró la interrupción de suministros militares y civiles vitales fue exitosa, dicha medida violó el derecho internacional generalizadamente reconocido y contemplado en varios acuerdos internacionales de los dos últimos siglos.",
+     "asr_s": 1.169
+    },
+    {
+     "id": "1702",
+     "ref": "En apenas dos semanas, las fuerzas norteamericanas y las de la Francia Libre habían logrado la liberación del sur de Francia y seguían rumbo a Alemania.",
+     "hyp": "En apenas dos semanas, las fuerzas norteamericanas y las de la Francia libre habrían logrado la liberación del sur de Francia y seguían rumbo a Alemania.",
+     "asr_s": 1.059
+    },
+    {
+     "id": "1841",
+     "ref": "Nada puede verse más que el maravilloso cielo despejado y las numerosas montañas de los alrededores. Desde el interior de esta cueva, se puede ver u oír muy poco de este mundo.",
+     "hyp": "Nada puede verse más que el maravilloso cielo despejado y las numerosas montañas de los alrededores. Desde el interior de esta cueva se puede ver u oír muy poco de este mundo.",
+     "asr_s": 1.091
+    },
+    {
+     "id": "1757",
+     "ref": "Únicamente las mutaciones en células germinales se pueden transmitir a los niños, mientras que las que ocurren en otras partes pueden causar la muerte celular o cáncer.",
+     "hyp": "Únicamente las mutaciones en células germinales se pueden transmitir a los niños, mientras que las que ocurren en otras partes pueden causar la muerte celular o cáncer.",
+     "asr_s": 1.066
+    },
+    {
+     "id": "1760",
+     "ref": "El Mosasaurus fue el depredador alfa de su época, por tanto, a nada le temía, excepto a otros de su misma especie.",
+     "hyp": "El Mosasaurus fue el depredador alfa de su época, por tanto a nada le temía, excepto a otros de su misma especie.",
+     "asr_s": 1.032
+    },
+    {
+     "id": "1790",
+     "ref": "La calidad y el nivel de detalle de su labor son tan reconocidos que se ha vuelto uno de los pocos «nombres familiares» entre los filatelistas. Hay personas que se especializan en recopilar su obra.",
+     "hyp": "La calidad y el nivel de detalle de su labor son tan reconocidos que se ha vuelto uno de los pocos nombres familiares entre los filasteístas. Hay personas que se especializan en recopilar su obra.",
+     "asr_s": 1.138
+    },
+    {
+     "id": "1732",
+     "ref": "El período histórico europeo en el que se sitúan estos acontecimientos se conoce habitualmente como Alta Edad Media, entre los siglos XI, XII y XIII (es decir, entre los años 1000 y 1300 d. C.).",
+     "hyp": "El periodo histórico europeo en el que se sitúa estos acontecimientos se conoce habitualmente como Alta Edad Media, entre los siglos XI, XII y XIII, es decir, entre los años 1000 y 1300 DC.",
+     "asr_s": 1.138
+    },
+    {
+     "id": "1689",
+     "ref": "Europa es un continente relativamente pequeño, pero con muchos países independientes. Bajo circunstancias normales, viajar por varios países significaría tener que gestionar solicitudes de visa y controles de pasaporte varias veces.",
+     "hyp": "Europa es un continente relativamente pequeño, pero con muchos países independientes. Bajo circunstancias normales, viajar por varios países significaría tener que gestionar solicitudes de visa y controles de pasaporte varias veces.",
+     "asr_s": 1.131
+    },
+    {
+     "id": "1736",
+     "ref": "Rolando Mendoza abrió fuego con su M16 contra los visitantes extranjeros.",
+     "hyp": "Rolando Mendoza abrió fuego con su M16 contra los visitantes extranjeros.",
+     "asr_s": 0.988
+    },
+    {
+     "id": "1692",
+     "ref": "Según ha informado la agencia nuclear de Japón, se ha encontrado cesio y iodo radioactivos en la planta.",
+     "hyp": "Según ha informado la Agencia Nuclear de Japón, se ha encontrado cesio y yodo radioactivos en la planta.",
+     "asr_s": 1.038
+    }
+   ]
+  }
+ },
+ "mt": {
+  "en-hi": {
+   "n": 40,
+   "failures": 0,
+   "refs": [
+    "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआँ दिखाया गया है।",
+    "बाद में उन्हें कैम्ब्रिज में एडेनब्रुक के अस्पताल में स्थानांतरित कर दिया गया.",
+    "जो भी ऊँचाई या पहाड़ी दर्रे पर गाड़ी चलाने जा रहा है, उसे हिम, बर्फ या ठंड के तापमान की संभावना के विचार को मन में रखना चाहिए।",
+    "MS, बीमारी केंद्रीय तंत्रिका तंत्र पर असर करती है, जिसमें दिमाग, स्पाइनल कॉर्ड और ऑप्टिक नर्व शामिल हैं.",
+    "भवनों की परेड जिसने हाँगकाँग की स्कायलाइन को चमचमाते बार चार्ट की तरह बनाया है, उसने विक्टोरिया हार्बर के पानी की मौज़ूदगी को देखने लायक बनाया है.",
+    "अगर आपने फ़िल्म नेशनल ट्रेज़र देखी है, तो आपको लगेगा कि स्वतंत्रता के घोषणा-पत्र के पीछे एक ख़ज़ाने का नक्शा लिखा गया था.",
+    "लड़ाई के आख़िरी दो सालों में, पहले के साथी अब दुश्मन बन गए थे और शीत युद्ध की शुरुआत हो चुकी थी.",
+    "तुर्की के राष्ट्रपति रजब तैयब इरदुगान के साथ ट्रंप की फ़ोन पर चर्चा होने के बाद घोषणा की गई थी.",
+    "सड़कों पर ज़्यादा दुर्घटना की वजह बहुत ज़्यादा कार ओनरशिप है, जिससे शरीर में हुई टूट-फूट को सुधारने के लिए हेल्थकेयर में नई तकनीकों के आविष्कार को बढ़ावा मिला है.",
+    "इसे केमिकल का pH कहा जाता है. आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं.",
+    "उत्तर की ओर के बड़े क्षेत्र में आबादी बहुत ही कम है और कुछ इलाकों में तो लगभग कोई इंसानी आबादी नहीं है.",
+    "विशेष रूप से, यह दावा किया जाता है कि किसी व्यक्ति की सूक्ष्म अभिव्यक्तियों की सही व्याख्या करके यह समझा सकता है कि वह झूठ बोल रहा है या नहीं।",
+    "उनके पैरों में पपड़ियाँ और पंजे हैं, वे अंडे देते हैं, और वे किसी टी-रेक्स की तरह अपने दो पीछे वाले पैरों पर चलते हैं.",
+    "इटैलियन भी रोज़ाना इस्तेमाल होने वाली भाषा है जिसे राज्य में काम करने वाले अधिकांश लोग उपयोग में लाते हैं, जबकि लेटिन का धार्मिक रस्मों में इस्तेमाल किया जाता है.",
+    "सन 1976 तक माचू पिचू के तीस प्रतिशत हिस्से का जीर्णोद्धार कर दिया गया था और जीर्णोद्धार का कार्य आज तक जारी है।",
+    "साई के साथ-साथ सभी संज्ञा शब्द हमेशा अंग्रेज़ी के बड़े अक्षर से ही शुरू होते हैं, भले ही वे वाक्य के बीच में ही क्यों न हों.",
+    "समाजीकरण के महत्व को स्पष्ट करने के लिए इस्तेमाल किए जाने वाले सबसे आम तरीकों में से कुछ बच्चों के दुर्भाग्यपूर्ण मामलों को आकर्षित करना है, जो बड़े होने के दौरान वयस्कों द्वारा उपेक्षित नहीं, बल्कि उपेक्षा, दुर्भाग्य या दुर्व्यवहार के माध्यम से होते थे।",
+    "ब्लॉग से छात्र लेखन में सुधार करने में भी मदद मिल सकती है. जहां छात्र अपने ब्लॉग अनुभव की शुरुआत अक्सर बेतरतीब व्याकरण और वर्तनी के साथ करते हैं, वहीं दर्शकों की मौजूदगी से इसमें आम तौर पर बदलाव आता है.",
+    "चुनिंदा रूट पर, बड़ी कंपनियों के खुद के विमान हैं, लेकिन अन्य रूट पर और छोटी फ़र्म के लिए यह एक समस्या है.",
+    "अलगाव और पुनर्संयोजन भिन्नता प्रत्येक पीढ़ी के साथ दो पूलों के बीच आगे-पीछे होती रहती है।",
+    "हॉट चॉकलेट बेल्जियम के मानकों पर बनी है. फलों का जूस महंगा है लेकिन बहुत अच्छा है.",
+    "उत्तरी मैरिएनस इमरजेंसी प्रबंधन कार्यलय की ओर से कहा गया कि राष्ट्र में नुकसान की कोई सूचना प्राप्त नहीं हुई थी.",
+    "अधिकांश आधुनिक अनुसंधान दूरबीनों में अनुकूल वायुमंडलीय परिस्थितियों के साथ दूरदराज के क्षेत्रों में काम करने के लिए बहुत सुविधाएँ हैं.",
+    "गंभीर मौसम किसी भी खतरनाक मौसमी घटना के लिए वर्गीय शब्द है जिसमें नुकसान, गंभीर सामाजिक व्यवधान, या मानव जीवन की हानि की संभावना है।",
+    "कैल्शियम और पोटैशियम जैसे तत्वों को धातु माना जाता है। बेशक, चांदी और सोने जैसी धातुएं भी हैं।",
+    "यातायात बहाव दो बिंदुओं के बीच व्यक्तिगत चालकों और वाहनों की गतिविधि और एक दूसरे के साथ की जाने वाली पारस्परिक क्रिया का अध्ययन है।",
+    "यहूदी और गैर-यहूदी की तरह, अभी भी ऐसे कई पुरुष और महिलाएं जीवित हैं जो उस समय बचने में सफल रहे और कई जिनके प्रियजनों को मार दिया गया या उनके मरने तक उनसे काम करवाया गया.",
+    "बच्चों को कई वजहों से फ़ॉस्टर केयर में रखा जाता है, जिनमें अनदेखी करना, बुरा बर्ताव करना, और यहां तक कि ज़बरदस्ती वसूली करना भी शामिल है.",
+    "चीज़ों पर कुछ बनाकर या खरोंच कर इस जगह को नुक़सान न पहुँचाएँ.",
+    "इसलिए, यह माना जा रहा है कि नोटेशन को सिर्फ़ एक लेबल के रूप में जोड़ा गया था.",
+    "रणनीति महत्वपूर्ण सैन्य और असैन्य आपूर्ति को काटते हुए प्रभावी साबित हुई, हालाँकि इस नाकाबंदी ने पिछले दो शताब्दियों के कई अंतरराष्ट्रीय समझौतों द्वारा आमतौर पर स्वीकृत अंतर्राष्ट्रीय कानून का उल्लंघन किया।",
+    "केवल दो हफ़्तों में अमेरिकियों और फ़्री फ़्रेंच बलों ने दक्षिणी फ़्रांस को मुक्त कर दिया था और जर्मनी की ओर बढ़ रहे थे.",
+    "ऊपर साफ़ वातावरण, सुंदर आसमान और आस-पास के कई पहाड़ों के अलावा और कुछ भी नहीं नज़र आता है. इसलिए इस गुफ़ा के अंदर से दुनिया का छोटा सा हिस्सा ही देखा या सुना जा सकता है.",
+    "केवल जर्म-लाइन कोशिकाओं में वृद्धि बच्चों तक पहुँच सकती है जबकि अन्य कहीं होने वाली वृद्धि से कोशिकाएँ नष्ट हो सकती हैं या कैंसर हो सकता है.",
+    "मोसासौरस अपने समय का सबसे बड़ा शिकारी था, इसलिए उसे अन्य मोसासौरस के अलावा किसी का भय नहीं था।",
+    "उनका काम ऐसी गुणवत्ता और विस्तार के पहचान का है कि वह टिकट संग्रहकर्ताओं के बीच बहुत कम “घरेलू नामों” में से एक है. कुछ उनके काम को अकेले बटोरने में माहिर हैं.",
+    "जिस समय घटनाएँ हुई उसके युग को सामान्य रूप से यूरोप के इतिहास में 11वीं, 12वीं और 13वीं सदी (AD 1000-1300) में यूरोपियन इतिहास के उच्च मध्य युग की अवधि के रूप में बताया जाता है.",
+    "यूरोप एक ऐसा महाद्वीप है जो अपेक्षाकृत छोटा है लेकिन इसमें कई स्वतंत्र देश हैं. सामान्य परिस्थिति में कई देशों की यात्रा करने का मतलब कई बार वीज़ा आवेदन और पासपोर्ट कंट्रोल की प्रक्रिया से गुज़रना है.",
+    "रोलैंडो मेंडोज़ा ने अपनी M16 राइफल से पर्यटकों के ऊपर फायर किया।",
+    "जापान की परमाणु एजेंसी के अनुसार, प्लांट में रेडियोधर्मी सीज़ियम और आयोडीन की पहचान की गई है."
+   ],
+   "reference": {
+    "bleu": 25.84353009810532,
+    "chrf": 51.14797330230081,
+    "mean_mt_ms": 906.6404399996827,
+    "hyps": [
+     "टेलीविजन रिपोर्ट में पौधे से आने वाले सफ़ेद धुएं को दिखाया गया है।",
+     "बाद में उन्हें कैम्ब्रिज में एडेनब्रुक अस्पताल में स्थानांतरित कर दिया गया था।",
+     "जो कोई भी उच्च अक्षांश या पर्वतीय गुजरता पर ड्राइव करने जा रहा है, उसे बर्फ, बर्फ या ठंडी तापमान की संभावना पर विचार करना चाहिए।",
+     "एमएस एक रोग है जो केंद्रीय तंत्रिका तंत्र को प्रभावित करता है, जो मस्तिष्क, रीढ़ की हड्डी और ऑप्टिक तंत्रिका से बना है।",
+     "इमारतों की परेड जो हांगकांग स्काईलाइन बनाते हैं, को विक्टोरिया हार्बर के पानी की उपस्थिति से स्पष्ट किया गया है कि एक शानदार बार चार्ट के लिए पसंद किया गया है।",
+     "यदि आपने फिल्म नेशनल खजाना को देखा है, तो आपको लगता है कि स्वतंत्रता की घोषणा के पीछे एक खजाना नक्शा लिखा गया था।",
+     "युद्ध के अंत के दो वर्षों के साथ, पूर्व सहयोगी अब दुश्मन थे और शीत युद्ध शुरू हुआ।",
+     "यह घोषणा तब की गई जब ट्रम्प ने तुर्की के राष्ट्रपति रीसेप ताय्यीप एर्दोगन के साथ एक फोन बातचीत की थी।",
+     "मास कार स्वामित्व भी सड़क पर दुर्घटनाओं की उच्च घटना की ओर जाता है, जो क्षतिग्रस्त शरीर की मरम्मत के लिए स्वास्थ्य देखभाल में नई तकनीकों के आविष्कार की ओर जाता है।",
+     "इसे रासायनिक पीएच कहा जाता है। आप लाल गोभी के रस का उपयोग करके एक सूचक बना सकते हैं।",
+     "उत्तर के आगे बड़े क्षेत्र काफी स्पष्ट रूप से आबादी वाले हैं और कुछ लगभग अनिवासी जंगल हैं।",
+     "विशेष रूप से, यह दावा किया जाता है कि कोई यह पता लगा सकता है कि क्या कोई व्यक्ति सूक्ष्म अभिव्यक्तियों को सही ढंग से व्याख्या करके झूठ बोल रहा है।",
+     "उनके पास तराजू और पंजे के साथ पैर हैं, वे अंडे देते हैं, और वे टी-रेक्स की तरह अपने दो पैरों पर चलते हैं।",
+     "इतालवी भी उन लोगों द्वारा उपयोग की जाने वाली रोजमर्रा की भाषा है जो राज्य में काम करते हैं जबकि लैटिन अक्सर धार्मिक समारोहों में उपयोग किया जाता है।",
+     "1976 तक, मचू पिकचू का तीस प्रतिशत बहाल हो गया था और आज तक बहाली जारी रही थी।",
+     "सभी noun, शब्द के साथ आपके लिए, हमेशा एक पूंजी पत्र के साथ शुरू होता है, यहां तक कि एक वाक्य के बीच में भी।",
+     "समाजीकरण के महत्व को स्पष्ट करने के लिए उपयोग किए जाने वाले सबसे आम तरीकों में से एक उन बच्चों के कुछ दुर्भाग्यपूर्ण मामलों को आकर्षित करना है जो उपेक्षा, दुर्भाग्यपूर्ण, या विलफुल दुर्व्यवहार के माध्यम से थे, जबकि वे बढ़ रहे थे।",
+     "ब्लॉग भी छात्र लेखन में सुधार में मदद कर सकते हैं। जबकि छात्र अक्सर मैला व्याकरण और वर्तनी के साथ अपने ब्लॉग अनुभव शुरू करते हैं, दर्शकों की उपस्थिति आम तौर पर बदल जाती है।",
+     "कुछ मार्गों पर, बड़ी कंपनियों के पास अपना विमान है, लेकिन अन्य मार्गों और छोटी फर्मों के लिए एक समस्या थी।",
+     "प्रत्येक पीढ़ी के साथ दो पूलों के बीच अलगाव और पुनर्संयोजन shuffle भिन्नता है।",
+     "गर्म चॉकलेट बेल्जियम मानकों तक है। फलों का रस मूल्यवान लेकिन उत्कृष्ट है।",
+     "उत्तरी मारियाना आपातकालीन प्रबंधन कार्यालय ने कहा कि देश में कोई क्षति नहीं हुई थी।",
+     "अधिकांश आधुनिक अनुसंधान दूरबीन अनुकूल वायुमंडलीय स्थितियों के साथ दूरदराज के क्षेत्रों में भारी सुविधाएं हैं।",
+     "गंभीर मौसम किसी भी खतरनाक मौसम की घटना के लिए सामान्य शब्द है जिसके कारण क्षति, गंभीर सामाजिक व्यवधान या मानव जीवन की हानि होती है।",
+     "कैल्शियम और पोटेशियम जैसे तत्वों को धातुओं पर विचार किया जाता है। बेशक, चांदी और सोने जैसी धातुएं भी हैं।",
+     "ट्रैफिक फ्लो दो बिंदुओं के बीच व्यक्तिगत ड्राइवरों और वाहनों के आंदोलन का अध्ययन है और वे एक दूसरे के साथ बातचीत करते हैं।",
+     "अभी भी कई पुरुष और महिलाएं जीवित हैं जो यहां अपने समय से बचे थे, और कई और जिन्होंने उन लोगों से प्यार किया था जिन्होंने हत्या कर दी थी या वहां मौत के लिए काम किया था, यहूदियों और गैर यहूदी जैसे थे।",
+     "बच्चों को फोस्टर केयर में कई कारणों से रखा जाता है जो उपेक्षा से लेकर दुर्व्यवहार तक और यहां तक कि बहिष्कार करने के लिए भी हैं।",
+     "संरचना में भित्तिचित्रों को चिह्नित करके या खरोंच करके साइट का सामना न करें।",
+     "इसलिए, यह संभावना है कि नोटेशन को केवल लेबल के रूप में जोड़ा गया था।",
+     "रणनीति ने प्रभावी साबित किया, महत्वपूर्ण सैन्य और नागरिक आपूर्ति को काट दिया, हालांकि यह नाकाबंदी ने आम तौर पर पिछले दो शताब्दियों के कई अंतरराष्ट्रीय समझौतों द्वारा अंतर्राष्ट्रीय कानून को स्वीकार किया।",
+     "सिर्फ दो सप्ताह में अमेरिकी और फ्री फ्रेंच बलों ने दक्षिणी फ्रांस को मुक्त कर दिया था और जर्मनी की ओर मुड़ गए थे।",
+     "कुछ भी स्पष्ट, सुंदर आकाश ऊपर और आसपास के पहाड़ों के अलावा अन्य नहीं देखा जा सकता है। इस दुनिया में बहुत कम देखा जा सकता है या गुफा के अंदर से सुना जा सकता है।",
+     "केवल रोगाणु-रेखा कोशिकाओं में उत्परिवर्तन बच्चों को पारित किया जा सकता है, जबकि कहीं भी उत्परिवर्तन कोशिका मृत्यु या कैंसर का कारण बन सकता है।",
+     "मोसासोरस अपने समय का शीर्ष शिकारी था, इसलिए यह अन्य mosasaurs को छोड़कर कुछ भी डर गया।",
+     "उनका काम ऐसी मान्यता प्राप्त गुणवत्ता और विस्तार का है कि वह दार्शनिकों के बीच बहुत कम \"घरेलू नाम\" में से एक है। कुछ लोग अकेले अपने काम को इकट्ठा करने में विशेषज्ञ हैं।",
+     "जहां की घटनाओं को आमतौर पर उच्च मध्य युग के रूप में 11 वीं, 12 वीं और 13 वीं शताब्दी (AD 1000-1300) में यूरोपीय इतिहास की अवधि के रूप में संदर्भित किया जाता है।",
+     "यूरोप एक महाद्वीप है जो अपेक्षाकृत छोटा है लेकिन कई स्वतंत्र देशों के साथ। सामान्य परिस्थितियों में, एकाधिक देशों के माध्यम से यात्रा करने का मतलब वीजा अनुप्रयोगों और पासपोर्ट नियंत्रण एकाधिक समय से गुजरना होगा।",
+     "रोलैंडो मेंदोज़ा ने पर्यटकों पर अपने M16 राइफल को निकाल दिया।",
+     "जापान की परमाणु एजेंसी के अनुसार, रेडियोधर्मी कैसियम और आयोडीन को संयंत्र में पहचाना गया है।"
+    ]
+   },
+   "cascade": {
+    "bleu": 25.225051744922858,
+    "chrf": 50.34448437221776,
+    "mean_mt_ms": 875.1177624992124,
+    "hyps": [
+     "टेलीविजन रिपोर्ट में पौधे से आने वाले सफ़ेद धुएं को दिखाया गया है।",
+     "बाद में उन्हें कैम्ब्रिज में एडेनब्रुक अस्पताल में स्थानांतरित कर दिया गया था।",
+     "जो कोई भी गर्म प्रकाशिकी या पर्वतीय गुजरता पर ड्राइव करने जा रहा है उसे बर्फ, बर्फ या ठंडी तापमान की संभावना पर विचार करना चाहिए।",
+     "एमएस एक रोग है जो केंद्रीय तंत्रिका तंत्र को प्रभावित करता है, जो मस्तिष्क, रीढ़ की हड्डी और ऑप्टिक तंत्रिका से बना है।",
+     "इमारतों की परेड जो हांगकांग स्काईलाइन बनाते हैं, को विक्टोरिया हार्बर के पानी की उपस्थिति से स्पष्ट किया गया है कि एक शानदार बार चार्ट के लिए पसंद किया गया है।",
+     "यदि आपने फिल्म नेशनल खजाना को देखा है, तो आपको लगता है कि स्वतंत्रता की घोषणा के पीछे एक खजाना नक्शा लिखा गया था।",
+     "युद्ध के अंत के दो वर्षों के साथ, पूर्व सहयोगी अब दुश्मन थे और शीत युद्ध शुरू हुआ।",
+     "यह घोषणा तब की गई जब ट्रम्प ने तुर्की के राष्ट्रपति रीसेप ताय्यीपु एर्दोगन के साथ एक फोन बातचीत की थी।",
+     "मास कार स्वामित्व भी सड़क पर दुर्घटनाओं की एक उच्च घटना की ओर जाता है, जो क्षतिग्रस्त शरीर की मरम्मत के लिए स्वास्थ्य देखभाल में नई तकनीकों के आविष्कार की ओर जाता है।",
+     "इसे एक रसायन पीएच कहा जाता है। आप लाल गोभी के रस का उपयोग करके एक सूचक बना सकते हैं।",
+     "उत्तर के आगे बड़े क्षेत्र काफी स्पष्ट रूप से आबादी वाले हैं और कुछ लगभग अनिवासी जंगल हैं।",
+     "विशेष रूप से, यह दावा किया जाता है कि कोई यह पता लगा सकता है कि क्या कोई व्यक्ति सूक्ष्म अभिव्यक्तियों को सही ढंग से व्याख्या करके झूठ बोल रहा है।",
+     "उनके पास तराजू और पंजे के साथ पैर हैं, वे अंडे देते हैं, और वे टी-रेक्स की तरह अपने दो पैरों पर चलते हैं।",
+     "इतालवी भी उन लोगों द्वारा उपयोग की जाने वाली रोजमर्रा की भाषा है जो राज्य में काम करते हैं जबकि लैटिन अक्सर धार्मिक समारोहों में उपयोग किया जाता है।",
+     "1976 तक, मचू पिकचू को 30% बहाल कर दिया गया है और आज तक बहाली जारी रही है।",
+     "शब्दों के साथ सभी noun कहते हैं कि आप हमेशा एक पूंजी पत्र के साथ शुरू होते हैं, यहां तक कि एक वाक्य के बीच में भी।",
+     "समाजीकरण के महत्व को स्पष्ट करने के लिए उपयोग किए जाने वाले सबसे आम तरीकों में से एक उन बच्चों के दुर्भाग्यपूर्ण मामलों को आकर्षित करना है जो उपेक्षा, दुर्भाग्यपूर्ण, या इच्छापूर्ण दुर्व्यवहार के माध्यम से थे, जबकि वे बढ़ रहे थे।",
+     "ब्लॉग भी छात्र लेखन में सुधार में मदद कर सकते हैं। जबकि छात्र अक्सर मैला व्याकरण और वर्तनी के साथ अपने ब्लॉग अनुभव शुरू करते हैं, दर्शकों की उपस्थिति आम तौर पर बदल जाती है।",
+     "कुछ मार्गों पर, बड़ी कंपनियों के पास अपना विमान है, लेकिन अन्य मार्गों और छोटी फर्मों के लिए, एक समस्या थी।",
+     "प्रत्येक पीढ़ी के साथ दो पूलों के बीच अलगाव और पुनर्संयोजन shuffle भिन्नता है।",
+     "गर्म चॉकलेट बेल्जियम मानकों तक है। फलों का रस मूल्यवान लेकिन उत्कृष्ट है।",
+     "उत्तरी मारियानास आपातकालीन प्रबंधन कार्यालय ने कहा कि देश में कोई नुकसान नहीं था।",
+     "अधिकांश आधुनिक अनुसंधान दूरबीन अनुकूल वायुमंडलीय स्थितियों के साथ दूरदराज के क्षेत्रों में भारी सुविधाएं हैं।",
+     "गंभीर मौसम किसी भी खतरनाक मौसम की घटना के लिए सामान्य शब्द है जिसके कारण क्षति, गंभीर सामाजिक व्यवधान या मानव जीवन की हानि होती है।",
+     "कैल्शियम और पोटेशियम जैसे तत्वों को धातुओं पर विचार किया जाता है। बेशक, चांदी और सोने जैसी धातुएं भी हैं।",
+     "यातायात प्रवाह दो बिंदुओं और बातचीत के बीच व्यक्तिगत ड्राइवरों और वाहनों के आंदोलन का अध्ययन है जो वे एक दूसरे के साथ बनाते हैं।",
+     "अभी भी कई पुरुष और महिलाएं जीवित हैं जो यहां अपने समय से बचे थे और कई और जिन्होंने उन लोगों से प्यार किया था जिन्होंने हत्या कर दी थी या वहां मौत के लिए काम किया था, यहूदियों और गैर यहूदी जैसे थे।",
+     "बच्चों को कई कारणों से ध्यान में रखा जाता है जो उपेक्षा से लेकर दुर्व्यवहार तक और यहां तक कि बहिष्कार करने के लिए भी होते हैं।",
+     "संरचना में भित्तिचित्रों को चिह्नित करके या खरोंच करके साइट का सामना न करें।",
+     "इसलिए, यह संभावना है कि नोटेशन को केवल लेबल के रूप में जोड़ा गया था।",
+     "रणनीति ने महत्वपूर्ण सैन्य और नागरिक आपूर्ति को प्रभावी रूप से काट दिया, हालांकि यह नाकाबंदी ने आम तौर पर पिछले दो शताब्दियों के कई अंतरराष्ट्रीय समझौतों द्वारा अंतर्राष्ट्रीय कानून को स्वीकार किया।",
+     "सिर्फ दो सप्ताह में, अमेरिकी और फ्री फ्रेंच फोर्स ने दक्षिणी फ्रांस को मुक्त कर दिया था और जर्मनी की ओर संघर्ष कर रहे थे।",
+     "ऊपर स्पष्ट सुंदर आकाश और आसपास के कई पहाड़ों के अलावा कुछ भी नहीं देखा जा सकता है। इस दुनिया में बहुत कम देखा जा सकता है या गुफा के अंदर से सुना जा सकता है।",
+     "केवल रोगाणु कोशिकाओं में उत्परिवर्तन बच्चों को पारित किया जा सकता है, जबकि कहीं भी उत्परिवर्तन कोशिका मृत्यु या कैंसर का कारण बन सकता है।",
+     "मोसेरेस अपने समय के शीर्ष शिकारी थे, इसलिए यह अन्य मोसेरेस को छोड़कर कुछ भी डरता था।",
+     "उनका काम ऐसी मान्यता प्राप्त गुणवत्ता और विस्तार से है कि वह दार्शनिकों के बीच बहुत कम घरेलू नामों में से एक है। कुछ लोग अकेले अपने काम को इकट्ठा करने में विशेषज्ञ हैं।",
+     "जहां की घटनाओं को आमतौर पर उच्च मध्य युग, 11 वीं, 12 वीं और 13 वीं शताब्दी में यूरोपीय इतिहास की अवधि, एडी 1000 से 1300 के रूप में संदर्भित किया जाता है।",
+     "यूरोप एक महाद्वीप है जो अपेक्षाकृत छोटा है लेकिन कई स्वतंत्र देशों के साथ। सामान्य परिस्थितियों में, एकाधिक देशों के माध्यम से यात्रा करने का मतलब वीजा अनुप्रयोगों और पासपोर्ट नियंत्रण एकाधिक समय से गुजरना होगा।",
+     "रोलैंडो मेंदोज़ा ने पर्यटकों पर अपने M16 राइफल को निकाल दिया।",
+     "जापान की परमाणु एजेंसी के अनुसार, रेडियोधर्मी मामला और आयोडीन को पौधे में पहचाना गया है।"
+    ]
+   }
+  },
+  "hi-en": {
+   "n": 40,
+   "failures": 0,
+   "refs": [
+    "Television reports show white smoke coming from the plant.",
+    "He was subsequently relocated to Addenbrooke's Hospital in Cambridge.",
+    "Anyone who's going to drive at high latitudes or over mountain passes should consider the possibility of snow, ice, or freezing temperatures.",
+    "MS is a disease that affects the central nervous system, which is made up of the brain, the spinal cord and the optic nerve.",
+    "The parade of buildings that make the Hong Kong skyline has been likened to a glittering bar chart that is made apparent by the presence of the waters of Victoria Harbour.",
+    "If you have watched the movie National Treasure, you may think a treasure map was written on the back of the Declaration of Independence.",
+    "With two years of the end of the war, the former allies were now enemies and the Cold War began.",
+    "The announcement was made after Trump had a phone conversation with Turkish President Recep Tayyip Erdoğan.",
+    "Mass car ownership also leads to a higher incidence of accidents on the roads, which leads to the invention of new techniques in healthcare for repairing damaged bodies.",
+    "This is called a chemical's pH. You can make an indicator using red cabbage juice.",
+    "Large areas further north are quite sparsely populated and some is nearly uninhabited wilderness.",
+    "In particular, it is claimed that one can detect whether a person is lying by interpreting micro-expressions correctly.",
+    "They have feet with scales and claws, they lay eggs, and they walk on their two back legs like a T-Rex.",
+    "Italian is also the everyday language used by most of those who work in the state while Latin is often used in religious ceremonies.",
+    "By 1976, thirty percent of Machu Picchu had been restored and restoration continues till today.",
+    "All nouns, alongside the word Sie for you, always begin with a capital letter, even in the middle of a sentence.",
+    "One of the most common methods used to illustrate the importance of socialization is to draw upon the few unfortunate cases of children who were, through neglect, misfortune, or wilful abuse, not socialized by adults while they were growing up.",
+    "Blogs can also help improve student writing. While students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+    "On some routes, the larger companies have their own planes, but for other routes and smaller firms there was a problem.",
+    "Segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+    "The hot chocolate is up to Belgian standards. Fruit juices are pricey but excellent.",
+    "The Northern Marianas emergency management office said that there were no damages reported in the nation.",
+    "Most modern research telescopes are enormous facilities in remote areas with favorable atmospheric conditions.",
+    "Severe weather is the generic term for any dangerous weather phenomenon with the potential to cause damage, serious social disruption, or loss of human life.",
+    "Elements like calcium and potassium are considered metals. Of course, there are also metals like silver and gold.",
+    "Traffic Flow is the study of the movement of individual drivers and vehicles between two points and the interactions they make with one another.",
+    "There are still many men and women alive who survived their time here, and many more who had loved ones who were murdered or worked to death there, Jews and non-Jews alike.",
+    "Children are placed in Foster Care for a wide variety of reasons that range from neglect, to abuse, and even to extortion.",
+    "Do not deface the site by marking or scratching graffiti into structures.",
+    "So, it is likely that the notation was added simply as a label.",
+    "The strategy proved effective, cutting off vital military and civilian supplies, although this blockade violated generally accepted international law codified by several international agreements of the past two centuries.",
+    "In just two weeks the Americans and Free French forces had liberated southern France and were turning towards Germany.",
+    "Nothing can be seen other than the clear, beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+    "Only mutations in germ-line cells can be passed on to children, while mutations elsewhere can cause cell-death or cancer.",
+    "Mosasaurus was the apex predator of its time, so it feared nothing, except other mosasaurs.",
+    "His work is of such recognized quality and detail that he is one of the very few \"household names\" among philatelists. Some specialize in collecting his work alone.",
+    "The age where the events took place is commonly referred as the High Middle Ages the period of European history in the 11th, 12th, and 13th centuries (AD 1000–1300).",
+    "Europe is a continent that is relatively small but with many independent countries. Under normal circumstances, travelling through multiple countries would mean having to go through visa applications and passport control multiple times.",
+    "Rolando Mendoza fired his M16 rifle at the tourists.",
+    "According to Japan's nuclear agency, radioactive caesium and iodine has been identified at the plant."
+   ],
+   "reference": {
+    "bleu": 27.11156617786539,
+    "chrf": 53.15589946446131,
+    "mean_mt_ms": 824.8257199989894,
+    "hyps": [
+     "The white smoke from the plant has been shown in television reports",
+     "Later they were transferred to the hospital of Adenbrook in Cambridge.",
+     "Whatever the height or the mountain is going to drive, it should be kept in mind the idea of the possibility of snow, snow or cold temperatures",
+     "MS, THE DISEASE AFFECTS THE CENTRAL NERVOUS SYSTEM, INCLUDING BRAIN, SPINAL CORD AND OPTIC NERVE.",
+     "The parade of buildings that have made Hong Kong’s skaline look like a bar chart, has made it worth seeing Victoria Harbor’s water spot.",
+     "If you’ve seen the Film National Treasure, you’ll notice that a treasure map was written behind the declaration of freedom.",
+     "In the last two years of battle, the first fellows now became the enemy and the Cold War had started.",
+     "The Trump’s phone with Turkish President Roz Taiyab Irdugan was announced after discussion.",
+     "There is a lot of car ownership due to a greater accident on the roads, which promotes the invention of new technologies in healthcare to improve the body’s broken down.",
+     "It is called PH of Chemical. You can make an indicator using red cabbage juice.",
+     "The population is very low in the large area of the north and in some areas then there is almost no human population.",
+     "In particular, it is claimed that by correctly interpreting the subtle manifestations of a person can explain whether it is lying or not",
+     "They lay eggs, and they walk on their two back legs like a T-Rex.",
+     "Italian is also a language used daily that most people working in the state bring in use, while latin is used in religious rituals.",
+     "Thirty percent of the Mach Pitchu was proliferated until 1976 and the work of the genitourinary continues to date",
+     "As well as all announcing words always begin with a large letter of English, even if they are not in the middle of the sentence.",
+     "Some of the most common methods used to clarify the importance of socialization are to attract the unfortunate cases of children, not neglected by adults during large, but through neglect, misfortune or abuse",
+     "The blog can also help improve student writing. While students start their blog experience often with random grammar and spelling, the audience’s presence usually changes.",
+     "On selectively root, large companies have their own planes, but on other root and for small firms it is a problem.",
+     "Isolation and recombination variation are further-backed between two pools with each generation",
+     "Hot chocolate is made on Belgium standards. Fruit juice is expensive but very good.",
+     "On behalf of the North Marians Emergency Management work room stated that there was no notice of loss in the nation.",
+     "Most modern research telescopes have plenty of features to work in remote areas with favorable atmospheric conditions.",
+     "Severe weather is a classy term for any dangerous seasonal event that is likely to harm, severe social disruption, or loss of human life",
+     "Elements such as calcium and potassium are considered metal. Of course, there are also metals like silver and gold",
+     "Traffic drift is a study of the activity of individual drivers and vehicles between two points and the interpersonal action taken with each other",
+     "Like the Jews and the Gentiles, there are still many men and women who have succeeded in escape and many whose loved ones were killed or worked with them until their dies.",
+     "Children are kept in foster care for many reasons, including ignoring, nasty-burning, and even extortion.",
+     "Do not make anything on things or scratch it.",
+     "Therefore, it is believed that the notation was just added as a label.",
+     "The strategy proved to be effective by cutting down critical military and civil supply, however this blockade violated the international law commonly sanctioned by many international agreements of the previous two centuries",
+     "The Americans and Free French forces in only two weeks had freed the southern France and were moving towards Germany.",
+     "Clear environments above, beautiful skyscrapers and many mountains around do not see anything else. Therefore, the smallest part of the world can be seen or heard from the inside of this fire.",
+     "Increased germ-line cells can only reach children while others may destroy cells or lead to cancer.",
+     "Mosasores was the biggest hunter of his time, so he was not afraid of anyone other than Mosasores",
+     "His work is one of the very few “household names” among the ticket collectors that have identified such quality and detail. Some master their work alone.",
+     "THE ERA AT WHICH THE EVENTS OCCURRED IS NORMALLY DESCRIBED AS A PERIOD OF HIGH MIDDLE AGES OF EUROPEAN HISTORY IN THE 11TH, 12TH AND 13TH CENTURY (AD 1000-1300) IN EUROPE’S HISTORY.",
+     "Europe is a continent that is relatively small but has many independent countries. Travelling to many countries under normal circumstances means multiple visa applications and passport control procedure.",
+     "ROLANDO MENDOZA FIRED OVER TOURISTS FROM HIS M16 RIFLE",
+     "According to Japan’s nuclear agency, radioactive cesium and iodine have been identified in the plant."
+    ]
+   },
+   "cascade": {
+    "bleu": 20.026516304536752,
+    "chrf": 49.5855229470051,
+    "mean_mt_ms": 811.5354724995996,
+    "hyps": [
+     "The television reports have shown white milk from the plant.",
+     "Later they were transferred to the hospital of the adne form in the camera.",
+     "The idea of the possibility of snow ice or cold temperature whichever is going to drive on the height or hillside should be kept in mind.",
+     "ms disease affects the central nervous system that includes brain spanal codes and optic nerves",
+     "The parade of buildings that have made Hong Kong’s Sky line look like the chamfer bar chart has made it worth seeing the presence of Victoria Harbor’s water.",
+     "If you look at the Film National Treasure, you will notice that a treasure map was written behind the declaration letter of freedom",
+     "In the last two years of the battle, the first as well as now the enemies were formed and the Cold War was started.",
+     "The Trump’s phone with Turkish President Roz Taiyag Urdu was announced after being discussed.",
+     "There is a lot of car, onership caused by much accident on the roads to promote the invention of new technologies in healthcare to improve the body’s rupture.",
+     "It is called the PH of the chemical. You can make an indicator using red cabbage juice",
+     "The population in the large area of the north is very low and in some areas there is no population of almost any human.",
+     "Especially it is claimed that by correctly interpreting the subtle manifestations of which person can explain whether it is lying or not",
+     "Their feet have crusts and paws, they lay eggs and they move on their two back legs like a terex.",
+     "Italian is also a language used daily that most people working in the state bring in use while latin is used in religious rituals",
+     "As of 1976, 30 per cent of the middle pitch was chronicled and the work of the gonna base continues to date.",
+     "All announcing words with Sai always begin with a large letter of English even if they are not in the middle of the sentence.",
+     "Some of the most common methods used to clarify the importance of socialization are to attract children's unfortunate affairs that are not neglected by adults during large but neglected miscarriage",
+     "The block can also help improve student writing where students start their block experience often with random grammar and spelling while the audience’s presence usually changes",
+     "Dude companies have their own plane on the Chininda Root but it is a problem for other root and small form",
+     "Isolation and recombination variations are further behind between two bridges with each PT",
+     "Hot chocolate is made on Belgium standards. Fruit jujuice is expensive but very good",
+     "On behalf of the Northern Marianas Emergency Management Office stated that no damage was received in the nation.",
+     "Most modern research telescopes have plenty of features to work in remote areas with favorable air systemic conditions.",
+     "Severe weather is a classy term for any dangerous seasonal event in which loss is likely to lead to severe social disruption or loss of human life",
+     "As the element is considered to be silver and gold-like elements",
+     "The traffic part is the study of the activity of individual drivers and vehicles between two points and the interpersonal action taken with each other",
+     "Many men and women are still living like the Jews and the non-Jewish who were successful in the time of escape and many whose loved ones were killed or worked with them until their dies.",
+     "Children are kept in a fast care for many reasons including blindness, complete disorganization and even coercion recovery.",
+     "Don’t harm this place by making something on things or by getting rid of things",
+     "The notation was therefore just added as a level that is being considered.",
+     "The strategy proved to be effective by cutting down critical military and civil supply, however this blockade has violated the international law commonly sanctioned by many of the last two centuries",
+     "In only two weeks, the American and the free French forces had freed the southern France and went to shame",
+     "The above clean environment is not visible in addition to the beautiful sky and many surroundings So the small part of the world can be seen or heard from the inside of this cave.",
+     "Only the increase in the germline pacifiers was saved by the increase of the most raised other than the MS of the pacifier or the Fin will be able to understand",
+     "Mausa Sarus was the biggest hunter of his time, so he was not afraid of anyone other than Mausa Sarus.",
+     "His work has identified a quality and detail that he is one of the very few home low names among ticket collectors. Some specializes in filtering their work alone",
+     "The age at which the events occurred is normally described as a period of the high Middle Ages of European history in the 11th, 12th and 13th century in Europe’s history.",
+     "Europe is a continent that is small, but has many independent countries, under normal circumstances, many countries have to travel through the process of visa application and passport control.",
+     "Open the next five Six Date for the exam",
+     "Radio Dharmis, CGM and Iodine have been identified in the plant as per the Nuclear Agency of Japan."
+    ]
+   }
+  },
+  "en-es": {
+   "n": 40,
+   "failures": 0,
+   "refs": [
+    "En las coberturas televisivas puede verse humo blanco emanando de la planta.",
+    "Luego lo trasladaron al Hospital Addenbrooke, en Cambridge.",
+    "Cualquier persona que se proponga conducir en latitudes altas o en pasos de montañas debe prever la posibilidad de que haya nieve, hielo o bajas temperaturas.",
+    "El sistema nervioso central, unión del cerebro, la médula espinal y el nervio óptico, es el objeto de ataque de la esclerosis múltiple.",
+    "Se ha comparado el despliegue de edificaciones que delimitan el horizonte de Hong Kong con un gráfico de barras luminoso que se evidencia por la presencia de las aguas del Puerto Victoria.",
+    "Si ha visto el filme Tesoro Nacional, quizás crea que un mapa del tesoro fue trazado en el dorso de la Declaración de la Independencia.",
+    "A dos años del final de la guerra, los que eran aliados ahora eran enemigos y la Guerra Fría comenzó.",
+    "El anuncio se hizo tras la conversación telefónica que Trump mantuvo con con el presidente de Turquía, Recep Tayyip Erdoğan.",
+    "El uso masivo de automóviles también genera una mayor incidencia en los accidentes de tránsito, lo que conduce al desarrollo de nuevas técnicas en el campo de la salud para reparar los cuerpos dañados.",
+    "Esto se denomina pH de una sustancia química. Usted puede elaborar un indicador de pH utilizando jugo de col roja.",
+    "Las grandes áreas más hacia el norte están poco pobladas y algunas son tierras silvestres, casi inhabitadas.",
+    "Concretamente, se sostiene que, mediante la adecuada lectura de sus microexpresiones, es posible detectar si una persona está mintiendo.",
+    "Tienen extremidades escamadas y con garras, ponen huevos y se desplazan sobre sus patas traseras al igual que el T-Rex.",
+    "La lengua que hablan a diario la mayoría de quienes trabajan dentro del estado es también el italiano y el uso del latín queda generalmente reservado para las ceremonias religiosas.",
+    "Hacia 1976 ya se había restaurado el treinta por ciento del Machu Picchu y los trabajos continúan en la actualidad.",
+    "Todos los sustantivos, así como el vocablo Sie para significar 'usted', llevan siempre su letra inicial mayúscula, aunque estén ubicados en el medio de la oración.",
+    "Uno de los mecanismos más comúnmente usados para graficar la importancia de sociabilizar es analizar los pocos y lamentables casos de niños que, por negligencia, desgracia o abuso intencional, no fueron socializados por adultos durante su crecimiento.",
+    "Los blogs también pueden contribuir a mejorar la redacción de los alumnos. Aun cuando los estudiantes suelen iniciar su experiencia de blog con una gramática y ortografía poco cuidadas, esto generalmente cambia ante la presencia de una audiencia.",
+    "Las compañías grandes tienen sus propios aviones en algunas rutas, pero hubo un problema para las empresas más pequeñas y otras rutas.",
+    "La segregación y la recombinación barajan la variación entre uno y otro generación tras generación.",
+    "El chocolate caliente está a la altura de los estándares belgas. Los jugos frutales son costosos, pero deliciosos.",
+    "La agencia de manejo de emergencias de las Marianas del Norte indicó que no hubo registro de daños en el territorio nacional.",
+    "La mayor parte de los telescopios de investigación actuales consisten en inmensas estructuras instaladas en áreas alejadas con condiciones atmosféricas propicias.",
+    "El término clima severo refiere, en general, a cualquier fenómeno climático riesgoso que sea capaz de provocar daños, alteraciones sociales graves o la muerte de personas.",
+    "Se consideran metales a los elementos como el calcio y el potasio. Desde ya, también existen metales del tipo del oro y la plata.",
+    "El flujo de tráfico es el estudio del movimiento individual de conductores y vehículos entre dos puntos y de las interacciones entre ellos.",
+    "Aún quedan muchos hombres y mujeres con vida que sobrevivieron a su estadía en este lugar y muchos más que tuvieron seres queridos a los que asesinaron o trabajaron allí hasta su muerte, tanto judíos como no judíos.",
+    "Se acoge a los niños en hogares de guarda por una amplia variedad de motivos, desde negligencia hasta abuso e, incluso, extorsión.",
+    "No arruine el lugar haciendo marcas ni haga grafitis en las estructuras.",
+    "Por tanto, es probable que la anotación haya sido agregada tan solo como un rótulo.",
+    "Si bien la estrategia, que involucró la interrupción de suministros militares y civiles vitales, fue exitosa, dicha medida violó el derecho internacional generalizadamente reconocido y contemplado en varios acuerdos internacionales de los dos últimos siglos.",
+    "En apenas dos semanas, las fuerzas norteamericanas y las de la Francia Libre habían logrado la liberación del sur de Francia y seguían rumbo a Alemania.",
+    "Nada puede verse más que el maravilloso cielo despejado y las numerosas montañas de los alrededores. Desde el interior de esta cueva, se puede ver u oír muy poco de este mundo.",
+    "Únicamente las mutaciones en células germinales se pueden transmitir a los niños, mientras que las que ocurren en otras partes pueden causar la muerte celular o cáncer.",
+    "El Mosasaurus fue el depredador alfa de su época, por tanto, a nada le temía, excepto a otros de su misma especie.",
+    "La calidad y el nivel de detalle de su labor son tan reconocidos que se ha vuelto uno de los pocos «nombres familiares» entre los filatelistas. Hay personas que se especializan en recopilar su obra.",
+    "El período histórico europeo en el que se sitúan estos acontecimientos se conoce habitualmente como Alta Edad Media, entre los siglos XI, XII y XIII (es decir, entre los años 1000 y 1300 d. C.).",
+    "Europa es un continente relativamente pequeño, pero con muchos países independientes. Bajo circunstancias normales, viajar por varios países significaría tener que gestionar solicitudes de visa y controles de pasaporte varias veces.",
+    "Rolando Mendoza abrió fuego con su M16 contra los visitantes extranjeros.",
+    "Según ha informado la agencia nuclear de Japón, se ha encontrado cesio y iodo radioactivos en la planta."
+   ],
+   "reference": {
+    "bleu": 24.00481597843227,
+    "chrf": 55.40009826470419,
+    "mean_mt_ms": 811.663759998919,
+    "hyps": [
+     "Los informes de televisión muestran humo blanco procedente de la planta.",
+     "Posteriormente fue trasladado al Hospital de Addenbrooke en Cambridge.",
+     "Cualquier persona que va a conducir a altas latitudes o a través de pases de montaña debe considerar la posibilidad de nieve, hielo o temperaturas de congelación.",
+     "MS es una enfermedad que afecta al sistema nervioso central, que está compuesto por el cerebro, la médula espinal y el nervio óptico.",
+     "El desfile de edificios que hacen el skyline de Hong Kong se ha parecido a un gráfico de barras brillantes que se hace evidente por la presencia de las aguas del puerto de Victoria.",
+     "Si usted ha visto la película Tesoro Nacional, usted puede pensar que un mapa del tesoro fue escrito en la parte posterior de la Declaración de la Independencia.",
+     "Con dos años del fin de la guerra, los antiguos aliados eran ahora enemigos y la Guerra Fría comenzó.",
+     "El anuncio fue hecho después de que Trump tuvo una conversación telefónica con el presidente turco Recep Tayip Erdoğan.",
+     "La propiedad masiva del coche también conduce a una mayor incidencia de accidentes en las carreteras, lo que conduce a la invención de nuevas técnicas en la atención médica para reparar los cuerpos dañados.",
+     "Esto se llama pH de un químico. Puede hacer un indicador usando jugo de repollo rojo.",
+     "Grandes áreas más al norte están bastante pobladas y algunas están casi deshabitadas.",
+     "En particular, se afirma que se puede detectar si una persona está mintiendo interpretando correctamente las microexpresiones.",
+     "Tienen pies con escamas y garras, ponen huevos, y caminan sobre sus dos patas traseras como un T-Rex.",
+     "El italiano es también el lenguaje cotidiano utilizado por la mayoría de los que trabajan en el estado mientras que el latín se utiliza a menudo en ceremonias religiosas.",
+     "En 1976, el 30% de Machu Picchu había sido restaurado y la restauración continúa hasta hoy.",
+     "Todos los sustantivos, junto a la palabra Sie para ti, siempre comienza con una carta de capital, incluso en medio de una frase.",
+     "Uno de los métodos más comunes utilizados para ilustrar la importancia de la socialización es aprovechar los pocos casos desafortunados de niños que, por negligencia, infortunio o abuso intencional, no socializados por adultos mientras crecían.",
+     "Los blogs también pueden ayudar a mejorar la escritura estudiantil. Mientras que los estudiantes a menudo comienzan su experiencia de blog con gramática y ortografía descuidada, la presencia de un público generalmente cambia eso.",
+     "En algunas rutas, las compañías más grandes tienen sus propios aviones, pero para otras rutas y pequeñas empresas hubo un problema.",
+     "Segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+     "El chocolate caliente depende de los estándares belgas. Los jugos de frutas son caros pero excelentes.",
+     "La oficina de gestión de emergencia de Marianas del Norte dijo que no había daños reportados en la nación.",
+     "La mayoría de los telescopios modernos de investigación son enormes instalaciones en áreas remotas con condiciones atmosféricas favorables.",
+     "El clima severo es el término genérico para cualquier fenómeno meteorológico peligroso con el potencial de causar daño, perturbación social grave o pérdida de la vida humana.",
+     "Elementos como calcio y potasio son considerados metales. Por supuesto, también hay metales como plata y oro.",
+     "Traffic Flow es el estudio del movimiento de conductores individuales y vehículos entre dos puntos y las interacciones que hacen entre sí.",
+     "Todavía hay muchos hombres y mujeres vivos que sobrevivieron a su tiempo aquí, y muchos más que tenían seres queridos que fueron asesinados o trabajaron hasta la muerte allí, judíos y no judíos por igual.",
+     "Los niños son colocados en hogares de acogida por una amplia variedad de razones que van desde el abandono, el abuso y hasta la extorsión.",
+     "No desvíe el sitio marcando o rascando graffiti en estructuras.",
+     "Por lo tanto, es probable que la notación se agregó simplemente como una etiqueta.",
+     "La estrategia resultó eficaz, cortando suministros militares y civiles vitales, aunque este bloqueo violó el derecho internacional generalmente aceptado codificado por varios acuerdos internacionales de los últimos dos siglos.",
+     "En sólo dos semanas los estadounidenses y las fuerzas francesas libres habían liberado al sur de Francia y se dirigían hacia Alemania.",
+     "Nada se puede ver más allá del claro y hermoso cielo por encima y las muchas montañas circundantes. Muy poco de este mundo se puede ver o escuchar desde dentro de la cueva.",
+     "Sólo las mutaciones en las células germen-line se pueden transmitir a los niños, mientras que las mutaciones en otros lugares pueden causar muerte celular o cáncer.",
+     "Mosasaurus era el apex depredador de su tiempo, por lo que no temía nada, excepto otros mosasaurs.",
+     "Su trabajo es de tal calidad y detalle reconocido que él es uno de los pocos \"nombres de casa\" entre los filatistas. Algunos se especializan en recoger su trabajo solo.",
+     "La época en que los acontecimientos tuvieron lugar se conoce comúnmente como la Alta Edad Media el período de la historia europea en los siglos XI, 12 y 13 (AD 1000-1300).",
+     "Europa es un continente relativamente pequeño pero con muchos países independientes. En circunstancias normales, viajar a través de varios países significaría tener que pasar a través de solicitudes de visado y control de pasaportes varias veces.",
+     "Rolando Mendoza disparó su rifle M16 contra los turistas.",
+     "Según la agencia nuclear de Japón, se ha identificado cesio radiactivo y yodo en la planta."
+    ]
+   },
+   "cascade": {
+    "bleu": 24.170026537631575,
+    "chrf": 54.84942538266739,
+    "mean_mt_ms": 805.0519499993243,
+    "hyps": [
+     "Los informes de televisión muestran humo blanco procedente de la planta.",
+     "Posteriormente fue trasladado al Hospital de Addenbrooke en Cambridge.",
+     "Cualquier persona que va a conducir a las luces calientes o a través de pases de montaña debe considerar la posibilidad de nieve, hielo o temperaturas de congelación.",
+     "MS es una enfermedad que afecta al sistema nervioso central, que está formado por el cerebro, la médula espinal y el nervio óptico.",
+     "El desfile de edificios que hacen el skyline de Hong Kong se ha parecido a un gráfico de barras brillantes que se hace evidente por la presencia de las aguas del puerto de Victoria.",
+     "Si usted ha visto la película Tesoro Nacional, usted puede pensar que un mapa del tesoro fue escrito en la parte posterior de la Declaración de la Independencia.",
+     "Con dos años del fin de la guerra, los antiguos aliados eran ahora enemigos y la Guerra Fría comenzó.",
+     "El anuncio fue hecho después de que Trump tuvo una conversación telefónica con el presidente turco Recep Tayipu Erdogan.",
+     "La propiedad masiva del coche también conduce a una mayor incidencia de accidentes en la carretera, lo que conduce a la invención de nuevas técnicas en la atención médica para reparar los cuerpos dañados.",
+     "Esto se llama pH químicos. Puede hacer un indicador usando jugo de repollo rojo.",
+     "Grandes áreas más al norte están bastante pobladas y algunas están casi deshabitadas.",
+     "En particular, se afirma que se puede detectar si una persona está mintiendo interpretando correctamente microexpresiones.",
+     "Tienen pies con escamas y garras, ponen huevos, y caminan sobre sus dos patas traseras como un T-Rex.",
+     "El italiano es también el lenguaje cotidiano utilizado por la mayoría de los que trabajan en el estado mientras que el latín se utiliza a menudo en ceremonias religiosas.",
+     "Para 1976, el 30% de Machu Picchu ha sido restaurado y la restauración continúa hasta hoy.",
+     "Todos los sustantivos junto a las palabras dicen que siempre comienzan con una letra mayúscula, incluso en medio de una frase.",
+     "Uno de los métodos más comunes utilizados para ilustrar la importancia de la socialización es aprovechar los desafortunados casos de niños que fueron a través del descuido, la desgracia o el abuso voluntario no socializado por adultos mientras estaban creciendo.",
+     "Los blogs también pueden ayudar a mejorar la escritura estudiantil. Mientras que los estudiantes a menudo comienzan su experiencia de blog con gramática y ortografía descuidada, la presencia de un público generalmente cambia eso.",
+     "En algunas rutas, las compañías más grandes tienen sus propios aviones, pero para otras rutas y pequeñas empresas, hubo un problema.",
+     "Segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+     "El chocolate caliente depende de los estándares belgas. Los jugos de frutas son caros pero excelentes.",
+     "The Northern Marianas Emergency Management Office said that there were no damages reported in the nation.",
+     "La mayoría de los telescopios modernos de investigación son enormes instalaciones en áreas remotas con condiciones atmosféricas favorables.",
+     "El clima severo es el término genérico para cualquier fenómeno meteorológico peligroso con el potencial de causar daño, perturbación social grave o pérdida de la vida humana.",
+     "Elementos como calcio y potasio son considerados metales. Por supuesto, también hay metales como plata y oro.",
+     "El flujo de tráfico es un estudio del movimiento de conductores individuales y vehículos entre dos puntos y las interacciones que hacen entre sí.",
+     "Todavía hay muchos hombres y mujeres vivos que sobrevivieron a su tiempo aquí y muchos más que tenían seres queridos que fueron asesinados o trabajaron hasta la muerte allí, judíos y no judíos por igual.",
+     "Los niños son colocados en hogares de guarda por una amplia variedad de razones que van desde el abandono hasta el abuso e incluso hasta la extorsión.",
+     "No desvíe el sitio marcando o rascando graffiti en estructuras.",
+     "Por lo tanto, es probable que la notación se agregó simplemente como una etiqueta.",
+     "La estrategia resultó eficaz para eliminar suministros militares y civiles vitales, aunque este bloqueo violó el derecho internacional generalmente aceptado codificado por varios acuerdos internacionales de los últimos dos siglos.",
+     "En sólo dos semanas, los estadounidenses y las Fuerzas Francesas Libres habían liberado al sur de Francia y se dirigían hacia Alemania.",
+     "No se puede ver nada más que el claro cielo hermoso por encima y las muchas montañas circundantes. Muy poco de este mundo se puede ver o escuchar desde dentro de la cueva.",
+     "Sólo las mutaciones en las células germinales se pueden transmitir a los niños, mientras que las mutaciones en otros lugares pueden causar muerte celular o cáncer.",
+     "Mosaseres era el depredador de ápice de su tiempo por lo que no temía nada excepto otros Mosaseres.",
+     "Su trabajo es de tal calidad y detalle reconocido que es uno de los pocos nombres de los hogares entre los filatistas. Algunos se especializan en recoger su trabajo solo.",
+     "La edad en la que tuvieron lugar los acontecimientos se conoce comúnmente como la Alta Edad Media, el período de la historia europea en los siglos XI, XII y XIII, AD 1000 a 1300.",
+     "Europa es un continente relativamente pequeño pero con muchos países independientes. En circunstancias normales, viajar a través de varios países significaría tener que pasar a través de solicitudes de visado y control de pasaportes varias veces.",
+     "Rolando Mendoza disparó su rifle M16 contra los turistas.",
+     "Según la agencia nuclear de Japón, se ha identificado el caso radiactivo y el yodo en la planta."
+    ]
+   }
+  },
+  "es-en": {
+   "n": 40,
+   "failures": 0,
+   "refs": [
+    "Television reports show white smoke coming from the plant.",
+    "He was subsequently relocated to Addenbrooke's Hospital in Cambridge.",
+    "Anyone who's going to drive at high latitudes or over mountain passes should consider the possibility of snow, ice, or freezing temperatures.",
+    "MS is a disease that affects the central nervous system, which is made up of the brain, the spinal cord and the optic nerve.",
+    "The parade of buildings that make the Hong Kong skyline has been likened to a glittering bar chart that is made apparent by the presence of the waters of Victoria Harbour.",
+    "If you have watched the movie National Treasure, you may think a treasure map was written on the back of the Declaration of Independence.",
+    "With two years of the end of the war, the former allies were now enemies and the Cold War began.",
+    "The announcement was made after Trump had a phone conversation with Turkish President Recep Tayyip Erdoğan.",
+    "Mass car ownership also leads to a higher incidence of accidents on the roads, which leads to the invention of new techniques in healthcare for repairing damaged bodies.",
+    "This is called a chemical's pH. You can make an indicator using red cabbage juice.",
+    "Large areas further north are quite sparsely populated and some is nearly uninhabited wilderness.",
+    "In particular, it is claimed that one can detect whether a person is lying by interpreting micro-expressions correctly.",
+    "They have feet with scales and claws, they lay eggs, and they walk on their two back legs like a T-Rex.",
+    "Italian is also the everyday language used by most of those who work in the state while Latin is often used in religious ceremonies.",
+    "By 1976, thirty percent of Machu Picchu had been restored and restoration continues till today.",
+    "All nouns, alongside the word Sie for you, always begin with a capital letter, even in the middle of a sentence.",
+    "One of the most common methods used to illustrate the importance of socialization is to draw upon the few unfortunate cases of children who were, through neglect, misfortune, or wilful abuse, not socialized by adults while they were growing up.",
+    "Blogs can also help improve student writing. While students often begin their blog experience with sloppy grammar and spelling, the presence of an audience generally changes that.",
+    "On some routes, the larger companies have their own planes, but for other routes and smaller firms there was a problem.",
+    "Segregation and recombination shuffle variation back and forth between the two pools with each generation.",
+    "The hot chocolate is up to Belgian standards. Fruit juices are pricey but excellent.",
+    "The Northern Marianas emergency management office said that there were no damages reported in the nation.",
+    "Most modern research telescopes are enormous facilities in remote areas with favorable atmospheric conditions.",
+    "Severe weather is the generic term for any dangerous weather phenomenon with the potential to cause damage, serious social disruption, or loss of human life.",
+    "Elements like calcium and potassium are considered metals. Of course, there are also metals like silver and gold.",
+    "Traffic Flow is the study of the movement of individual drivers and vehicles between two points and the interactions they make with one another.",
+    "There are still many men and women alive who survived their time here, and many more who had loved ones who were murdered or worked to death there, Jews and non-Jews alike.",
+    "Children are placed in Foster Care for a wide variety of reasons that range from neglect, to abuse, and even to extortion.",
+    "Do not deface the site by marking or scratching graffiti into structures.",
+    "So, it is likely that the notation was added simply as a label.",
+    "The strategy proved effective, cutting off vital military and civilian supplies, although this blockade violated generally accepted international law codified by several international agreements of the past two centuries.",
+    "In just two weeks the Americans and Free French forces had liberated southern France and were turning towards Germany.",
+    "Nothing can be seen other than the clear, beautiful sky above and the many surrounding mountains. Very little of this world can be seen or heard from inside the cave.",
+    "Only mutations in germ-line cells can be passed on to children, while mutations elsewhere can cause cell-death or cancer.",
+    "Mosasaurus was the apex predator of its time, so it feared nothing, except other mosasaurs.",
+    "His work is of such recognized quality and detail that he is one of the very few \"household names\" among philatelists. Some specialize in collecting his work alone.",
+    "The age where the events took place is commonly referred as the High Middle Ages the period of European history in the 11th, 12th, and 13th centuries (AD 1000–1300).",
+    "Europe is a continent that is relatively small but with many independent countries. Under normal circumstances, travelling through multiple countries would mean having to go through visa applications and passport control multiple times.",
+    "Rolando Mendoza fired his M16 rifle at the tourists.",
+    "According to Japan's nuclear agency, radioactive caesium and iodine has been identified at the plant."
+   ],
+   "reference": {
+    "bleu": 30.837514464177843,
+    "chrf": 61.741080396572436,
+    "mean_mt_ms": 885.9685674990033,
+    "hyps": [
+     "In television coverage you can see white smoke emanating from the plant.",
+     "He was then transferred to Addenbrooke Hospital in Cambridge.",
+     "Anyone who intends to drive at high latitudes or in mountain steps should provide for the possibility of snow, ice or low temperatures.",
+     "The central nervous system, binding the brain, spinal cord and optic nerve, is the object of attack of multiple sclerosis.",
+     "The deployment of buildings that delimit the Hong Kong horizon has been compared with a graph of bright bars that is demonstrated by the presence of the waters of Puerto Victoria.",
+     "If you have seen the film National Treasury, you may believe that a treasure map was drawn on the back of the Declaration of Independence.",
+     "Two years after the end of the war, those who were allies were now enemies and the Cold War began.",
+     "The announcement was made after Trump's phone conversation with Turkey's President Recep Tayyip Erdoğan.",
+     "The massive use of cars also leads to a higher incidence of traffic accidents, leading to the development of new techniques in the field of health to repair damaged bodies.",
+     "This is called the pH of a chemical. You can make a pH indicator using red cabbage juice.",
+     "The large areas further north are little populated and some are wild, almost uninhabited lands.",
+     "Specifically, it is argued that, through the proper reading of its microexpressions, it is possible to detect whether a person is lying.",
+     "They have squammed and claw limbs, lay eggs and move on their back legs like the T-Rex.",
+     "The language spoken daily by most of those working within the state is also Italian and the use of Latin is generally reserved for religious ceremonies.",
+     "By 1976, 30 per cent of the Machu Picchu had been restored and work is ongoing today.",
+     "All the nouns, as well as the Sie word to mean 'you', always carry their capital initial letter, even if they are located in the middle of prayer.",
+     "One of the most commonly used mechanisms to chart the importance of socializing is to analyse the few and lamentable cases of children who, due to negligence, misfortune or intentional abuse, were not socialized by adults during their growth.",
+     "Blogs can also help improve students' writing. Although students usually start their blog experience with a little-cared grammar and spelling, this usually changes in the presence of an audience.",
+     "Large companies have their own planes on some routes, but there was a problem for smaller companies and other routes.",
+     "The segregation and recombination cut the variation between one generation and another generation after generation.",
+     "Hot chocolate is up to Belgian standards. The fruit juices are expensive, but delicious.",
+     "The North Mariana emergency management agency indicated that there was no record of damage on the national territory.",
+     "Most of the current research telescopes consist of immense structures installed in remote areas with favourable atmospheric conditions.",
+     "The term severe climate generally refers to any risky climate phenomenon that is capable of causing damage, serious social changes or the death of people.",
+     "The elements such as calcium and potassium are considered metals. Since now, there are also metals of the kind of gold and silver.",
+     "The traffic flow is the study of the individual movement of drivers and vehicles between two points and the interactions between them.",
+     "There are still many living men and women who survived their stay in this place and many more who had loved ones who killed or worked there until their death, both Jews and non-Jews.",
+     "Children are taken into foster care for a wide range of reasons, from neglect to abuse and even extortion.",
+     "Do not ruin the place by making marks or graffiti in the structures.",
+     "Therefore, the annotation is likely to have been added only as a sign.",
+     "While the strategy, which involved the interruption of vital military and civilian supplies, was successful, it violated generally recognized international law and was covered by several international agreements of the past two centuries.",
+     "In just two weeks, American and Free France forces had achieved the liberation of southern France and were on their way to Germany.",
+     "Nothing can be seen more than the wonderful clear sky and the many surrounding mountains. From within this cave, you can see or hear very little of this world.",
+     "Only germ cell mutations can be transmitted to children, while those that occur elsewhere can cause cell death or cancer.",
+     "The Mosasaurus was the alpha predator of his time, so he feared nothing, except others of his own species.",
+     "The quality and level of detail of his work are so recognized that he has become one of the few \"family names\" among philatelists. There are people who specialize in collecting their work.",
+     "The European historical period in which these events are located is usually known as the Middle Ages, between the 11th, 12th and 13th centuries (i.e. between 1000 and 1300 d. C.).",
+     "Europe is a relatively small continent, but with many independent countries. Under normal circumstances, travel across several countries would mean having to manage visa applications and passport controls several times.",
+     "Rolando Mendoza opened fire with his M16 against foreign visitors.",
+     "According to the Japanese nuclear agency, radioactive caesium and iodine have been found at the plant."
+    ]
+   },
+   "cascade": {
+    "bleu": 28.990551229486123,
+    "chrf": 60.73894199044293,
+    "mean_mt_ms": 846.3947049993294,
+    "hyps": [
+     "In television coverage you can see white smoke emanating from the plant.",
+     "He was then transferred to Addenbrooke Hospital in Cambridge.",
+     "Anyone who intends to drive at high latitudes or in mountain steps should provide for the possibility of snow, ice or low temperatures.",
+     "The central nervous system, brain binding, spinal cord and optic nerve is the object of attack of multiple sclerosis.",
+     "The deployment of buildings that delimit the Hong Kong horizon has been compared with a graph of bright bars that is demonstrated by the presence of the waters of the Victoria port.",
+     "If you have seen the film National Treasury, you may believe that a treasure map was drawn on the back of the declaration of independence.",
+     "Two years after the end of the war, those who were allies were now enemies and the cold war began.",
+     "The announcement was made after Trump's phone conversation with Turkey's President Recep Tayyip Erdogan.",
+     "The massive use of cars also leads to a higher incidence of traffic accidents, leading to the development of new techniques in the field of health to repair damaged bodies.",
+     "This is called the pH of a chemical. You can make a pH indicator using red cabbage juice.",
+     "The large areas further north are little populated and some are wild lands, almost disabled.",
+     "It is specifically argued that, through the proper reading of its microexpressions, it is possible to detect whether a person is lying.",
+     "They have squammed limbs and claw eggs and move on their back legs like the T-Rex.",
+     "The language spoken daily by most of those working within the state is also Italian and the use of Latin is generally reserved for religious ceremonies.",
+     "By 1976, 30 per cent of Machu Picchu had already been restored and work is ongoing.",
+     "All the nouns, as well as the SIE word to mean You, always carry their capital initial letter, even if they are located in the middle of prayer.",
+     "One of the most commonly used mechanisms to chart the importance of socializing is to analyse the few and lamentable cases of children who, due to negligence, misfortune or intentional abuse, were not socialized by adults during their growth.",
+     "Blogs can also help improve students' writing. Although students usually start their blog experience with a little-cared grammar and spelling, this usually changes in the presence of an audience.",
+     "Large companies have their own planes on some routes, but there was a problem for smaller companies and other routes.",
+     "The segregation and recombination cut the variation between one generation and another generation after generation.",
+     "Hot chocolate is up to Belgian standards. The fruit juices are expensive but delicious.",
+     "The Northern Mariana Emergency Management Agency indicated that there was no record of damage on the national territory.",
+     "Most of the current research telescopes consist of immense structures installed in remote areas with favourable atmospheric conditions.",
+     "The term severe climate generally refers to any risky climate phenomenon that is capable of causing damage, serious social changes or the death of people.",
+     "The elements such as calcium and potassium are considered metals. Since now, there are also metals of the kind of gold and silver.",
+     "The traffic flow is the study of the individual movement of drivers and vehicles between two points and the interactions between them.",
+     "There are still many living men and women who survived their stay in this place and many more who had loved ones who killed or worked there until their death, both Jews and non-Jews.",
+     "Children are taken into foster care for a wide range of reasons, from neglect to abuse and even extortion.",
+     "Do not ruin the place by making marks or graffiti in the structures.",
+     "therefore it is likely that the notation has been added only as a sign.",
+     "While the strategy involving the interruption of vital military and civilian supplies was successful, this measure violated generally recognized international law and was covered by several international agreements of the past two centuries.",
+     "In just two weeks, the American forces and those of free France would have achieved the liberation of southern France and were on their way to Germany.",
+     "Nothing can be seen more than the wonderful clear sky and the many surrounding mountains. From within this cave you can see or hear very little of this world.",
+     "Only germ cell mutations can be transmitted to children, while those that occur elsewhere can cause cell death or cancer.",
+     "The Mosasaurus was the alpha predator of his time, so he feared nothing, except others of his own species.",
+     "The quality and level of detail of his work are so recognized that he has become one of the few family names among the philasteists. There are people who specialize in collecting their work.",
+     "The European historical period in which these events are located is usually known as the Middle Ages, between the 11th, 12th and 13th centuries, i.e. between the 1000 and 1300 AD.",
+     "Europe is a relatively small continent, but with many independent countries. Under normal circumstances, travel across several countries would mean having to manage visa applications and passport controls several times.",
+     "Rolando Mendoza opened fire with his M16 against foreign visitors.",
+     "According to the Japanese Nuclear Agency, radioactive caesium and iodine have been found at the plant."
+    ]
+   }
+  },
+  "hi-es": {
+   "n": 40,
+   "failures": 0,
+   "refs": [
+    "En las coberturas televisivas puede verse humo blanco emanando de la planta.",
+    "Luego lo trasladaron al Hospital Addenbrooke, en Cambridge.",
+    "Cualquier persona que se proponga conducir en latitudes altas o en pasos de montañas debe prever la posibilidad de que haya nieve, hielo o bajas temperaturas.",
+    "El sistema nervioso central, unión del cerebro, la médula espinal y el nervio óptico, es el objeto de ataque de la esclerosis múltiple.",
+    "Se ha comparado el despliegue de edificaciones que delimitan el horizonte de Hong Kong con un gráfico de barras luminoso que se evidencia por la presencia de las aguas del Puerto Victoria.",
+    "Si ha visto el filme Tesoro Nacional, quizás crea que un mapa del tesoro fue trazado en el dorso de la Declaración de la Independencia.",
+    "A dos años del final de la guerra, los que eran aliados ahora eran enemigos y la Guerra Fría comenzó.",
+    "El anuncio se hizo tras la conversación telefónica que Trump mantuvo con con el presidente de Turquía, Recep Tayyip Erdoğan.",
+    "El uso masivo de automóviles también genera una mayor incidencia en los accidentes de tránsito, lo que conduce al desarrollo de nuevas técnicas en el campo de la salud para reparar los cuerpos dañados.",
+    "Esto se denomina pH de una sustancia química. Usted puede elaborar un indicador de pH utilizando jugo de col roja.",
+    "Las grandes áreas más hacia el norte están poco pobladas y algunas son tierras silvestres, casi inhabitadas.",
+    "Concretamente, se sostiene que, mediante la adecuada lectura de sus microexpresiones, es posible detectar si una persona está mintiendo.",
+    "Tienen extremidades escamadas y con garras, ponen huevos y se desplazan sobre sus patas traseras al igual que el T-Rex.",
+    "La lengua que hablan a diario la mayoría de quienes trabajan dentro del estado es también el italiano y el uso del latín queda generalmente reservado para las ceremonias religiosas.",
+    "Hacia 1976 ya se había restaurado el treinta por ciento del Machu Picchu y los trabajos continúan en la actualidad.",
+    "Todos los sustantivos, así como el vocablo Sie para significar 'usted', llevan siempre su letra inicial mayúscula, aunque estén ubicados en el medio de la oración.",
+    "Uno de los mecanismos más comúnmente usados para graficar la importancia de sociabilizar es analizar los pocos y lamentables casos de niños que, por negligencia, desgracia o abuso intencional, no fueron socializados por adultos durante su crecimiento.",
+    "Los blogs también pueden contribuir a mejorar la redacción de los alumnos. Aun cuando los estudiantes suelen iniciar su experiencia de blog con una gramática y ortografía poco cuidadas, esto generalmente cambia ante la presencia de una audiencia.",
+    "Las compañías grandes tienen sus propios aviones en algunas rutas, pero hubo un problema para las empresas más pequeñas y otras rutas.",
+    "La segregación y la recombinación barajan la variación entre uno y otro generación tras generación.",
+    "El chocolate caliente está a la altura de los estándares belgas. Los jugos frutales son costosos, pero deliciosos.",
+    "La agencia de manejo de emergencias de las Marianas del Norte indicó que no hubo registro de daños en el territorio nacional.",
+    "La mayor parte de los telescopios de investigación actuales consisten en inmensas estructuras instaladas en áreas alejadas con condiciones atmosféricas propicias.",
+    "El término clima severo refiere, en general, a cualquier fenómeno climático riesgoso que sea capaz de provocar daños, alteraciones sociales graves o la muerte de personas.",
+    "Se consideran metales a los elementos como el calcio y el potasio. Desde ya, también existen metales del tipo del oro y la plata.",
+    "El flujo de tráfico es el estudio del movimiento individual de conductores y vehículos entre dos puntos y de las interacciones entre ellos.",
+    "Aún quedan muchos hombres y mujeres con vida que sobrevivieron a su estadía en este lugar y muchos más que tuvieron seres queridos a los que asesinaron o trabajaron allí hasta su muerte, tanto judíos como no judíos.",
+    "Se acoge a los niños en hogares de guarda por una amplia variedad de motivos, desde negligencia hasta abuso e, incluso, extorsión.",
+    "No arruine el lugar haciendo marcas ni haga grafitis en las estructuras.",
+    "Por tanto, es probable que la anotación haya sido agregada tan solo como un rótulo.",
+    "Si bien la estrategia, que involucró la interrupción de suministros militares y civiles vitales, fue exitosa, dicha medida violó el derecho internacional generalizadamente reconocido y contemplado en varios acuerdos internacionales de los dos últimos siglos.",
+    "En apenas dos semanas, las fuerzas norteamericanas y las de la Francia Libre habían logrado la liberación del sur de Francia y seguían rumbo a Alemania.",
+    "Nada puede verse más que el maravilloso cielo despejado y las numerosas montañas de los alrededores. Desde el interior de esta cueva, se puede ver u oír muy poco de este mundo.",
+    "Únicamente las mutaciones en células germinales se pueden transmitir a los niños, mientras que las que ocurren en otras partes pueden causar la muerte celular o cáncer.",
+    "El Mosasaurus fue el depredador alfa de su época, por tanto, a nada le temía, excepto a otros de su misma especie.",
+    "La calidad y el nivel de detalle de su labor son tan reconocidos que se ha vuelto uno de los pocos «nombres familiares» entre los filatelistas. Hay personas que se especializan en recopilar su obra.",
+    "El período histórico europeo en el que se sitúan estos acontecimientos se conoce habitualmente como Alta Edad Media, entre los siglos XI, XII y XIII (es decir, entre los años 1000 y 1300 d. C.).",
+    "Europa es un continente relativamente pequeño, pero con muchos países independientes. Bajo circunstancias normales, viajar por varios países significaría tener que gestionar solicitudes de visa y controles de pasaporte varias veces.",
+    "Rolando Mendoza abrió fuego con su M16 contra los visitantes extranjeros.",
+    "Según ha informado la agencia nuclear de Japón, se ha encontrado cesio y iodo radioactivos en la planta."
+   ],
+   "reference": {
+    "bleu": 11.034217425541973,
+    "chrf": 41.37499790091694,
+    "mean_mt_ms": 1549.3757875003212,
+    "hyps": [
+     "El humo blanco de la planta se ha mostrado en informes de televisión",
+     "Más tarde fueron trasladados al hospital de Adenbrook en Cambridge.",
+     "Sea cual sea la altura o la montaña va a conducir, debe tenerse en cuenta la idea de la posibilidad de nieve, nieve o temperaturas frías",
+     "MS, LA ENFERMEDAD AFECTA AL SISTEMA NERVIOSO CENTRAL, INCLUYENDO CEREBRO, MÉDULA ESPINAL Y NERVIO ÓPTICO.",
+     "El desfile de edificios que han hecho que el skaline de Hong Kong parezca un gráfico de barras, ha hecho que valga la pena ver el lugar de agua de Victoria Harbor.",
+     "Si usted ha visto el Tesoro Nacional de Cine, usted notará que un mapa del tesoro fue escrito detrás de la declaración de la libertad.",
+     "En los últimos dos años de batalla, los primeros compañeros ahora se convirtieron en el enemigo y la Guerra Fría había comenzado.",
+     "El teléfono de Trump con el presidente turco Roz Taiyab Irdugan fue anunciado después de la discusión.",
+     "Hay mucha propiedad de automóviles debido a un mayor accidente en las carreteras, lo que promueve la invención de nuevas tecnologías en la salud para mejorar la degradación del cuerpo.",
+     "Se llama PH de Química. Puede hacer un indicador usando jugo de repollo rojo.",
+     "La población es muy baja en la gran zona del norte y en algunas zonas casi no hay población humana.",
+     "En particular, se afirma que al interpretar correctamente las manifestaciones sutiles de una persona puede explicar si está mintiendo o no",
+     "Ponen huevos, y caminan sobre sus dos patas traseras como un T-Rex.",
+     "El italiano es también un lenguaje utilizado diariamente que la mayoría de las personas que trabajan en el estado hacen uso, mientras que el latín se utiliza en rituales religiosos.",
+     "El 30% del Mach Pitchu fue proliferado hasta 1976 y el trabajo del genitourinario continúa hasta la fecha",
+     "Así como todas las palabras anunciadas comienzan siempre con una gran carta de inglés, incluso si no están en medio de la frase.",
+     "Algunos de los métodos más comunes utilizados para aclarar la importancia de la socialización son atraer los casos desafortunados de niños, no descuidados por adultos durante grandes, sino por negligencia, desgracia o abuso",
+     "El blog también puede ayudar a mejorar la escritura del estudiante. Mientras los estudiantes comienzan su experiencia de blog a menudo con gramática y ortografía aleatoria, la presencia del público generalmente cambia.",
+     "En raíz selectiva, las grandes empresas tienen sus propios planos, pero en otras raíces y para pequeñas empresas es un problema.",
+     "La variación de la aislamiento y la recombinación se complementan entre dos piscinas con cada generación",
+     "El chocolate caliente está hecho en los estándares de Bélgica. El jugo de frutas es caro pero muy bueno.",
+     "En nombre de la sala de trabajo de Manejo de Emergencias de Marians del Norte, se señaló que no había aviso de pérdida en la nación.",
+     "La mayoría de los telescopios de investigación modernos tienen muchas características para trabajar en áreas remotas con condiciones atmosféricas favorables.",
+     "El tiempo severo es un término elegante para cualquier evento estacional peligroso que pueda dañar, perturbación social grave o pérdida de la vida humana",
+     "Elementos como calcio y potasio se consideran metal. Por supuesto, también hay metales como plata y oro",
+     "La deriva del tráfico es un estudio de la actividad de conductores individuales y vehículos entre dos puntos y la acción interpersonal que se toman entre sí",
+     "Como los judíos y los gentiles, todavía hay muchos hombres y mujeres que han tenido éxito en escapar y muchos cuyos seres queridos fueron asesinados o trabajaron con ellos hasta sus muertes.",
+     "Los niños se mantienen en hogares de guarda por muchas razones, como ignorar, quemar desagradable e incluso extorsión.",
+     "No hagas nada en las cosas o rascarlo.",
+     "Por lo tanto, se cree que la notación fue agregada como una etiqueta.",
+     "La estrategia resultó ser eficaz al reducir el suministro militar y civil crítico, sin embargo este bloqueo violó el derecho internacional comúnmente sancionado por muchos acuerdos internacionales de los dos siglos anteriores",
+     "Las fuerzas estadounidenses y francesas libres en tan solo dos semanas habían liberado al sur de Francia y se dirigían hacia Alemania.",
+     "Ambientes claros arriba, rascacielos hermosos y muchas montañas alrededor no ven nada más. Por lo tanto, la parte más pequeña del mundo puede ser vista o escuchada desde el interior de este fuego.",
+     "El aumento de las células germinativas sólo puede llegar a los niños mientras que otros pueden destruir las células o provocar cáncer.",
+     "Mosasores era el cazador más grande de su tiempo, así que no tenía miedo de nadie más que Mosasores",
+     "Su trabajo es uno de los pocos “nombres de casa” entre los coleccionistas que han identificado tal calidad y detalle. Algunos dominan su trabajo solo.",
+     "LA ÉPOCA EN LA QUE OCURRIERON LOS ACONTECIMIENTOS SE DESCRIBE NORMALMENTE COMO UN PERÍODO DE ALTA EDAD MEDIA DE LA HISTORIA EUROPEA EN EL SIGLO XI, 12 Y 13 (AD 1000-1300) EN LA HISTORIA DE EUROPA.",
+     "Europa es un continente relativamente pequeño pero tiene muchos países independientes. Viajar a muchos países en circunstancias normales significa múltiples solicitudes de visado y procedimiento de control de pasaportes.",
+     "ROLANDO MENDOZA DISPARÓ A TURISTAS DE SU M16 RIFLE",
+     "Según la agencia nuclear de Japón, el cesio radiactivo y el yodo han sido identificados en la planta."
+    ]
+   },
+   "cascade": {
+    "bleu": 9.041448870443423,
+    "chrf": 40.61584909906863,
+    "mean_mt_ms": 1572.7180050009338,
+    "hyps": [
+     "Los reportes de televisión han mostrado leche blanca de la planta.",
+     "Más tarde fueron trasladados al hospital del formulario adne en la cámara.",
+     "La idea de la posibilidad de hielo de nieve o temperatura fría que va a conducir en la altura o la ladera debe tenerse en cuenta.",
+     "La enfermedad de ms afecta al sistema nervioso central que incluye códigos del cerebro y nervios ópticos",
+     "El desfile de edificios que han hecho que la línea Sky de Hong Kong parezca como el gráfico de barras de chamfer ha hecho que vale la pena ver la presencia del agua de Victoria Harbor.",
+     "Si usted mira el Tesoro Nacional del Cine, usted notará que un mapa del tesoro fue escrito detrás de la carta de declaración de libertad",
+     "En los últimos dos años de la batalla, los primeros y ahora se formaron los enemigos y se inició la Guerra Fría.",
+     "El teléfono de Trump con el presidente turco Roz Taiyag Urdu fue anunciado después de ser discutido.",
+     "Hay un montón de autos, la onership causada por mucho accidente en las carreteras para promover la invención de nuevas tecnologías en la salud para mejorar la ruptura del cuerpo.",
+     "Se llama PH del químico. Puede hacer un indicador usando jugo de repollo rojo",
+     "La población en la gran zona del norte es muy baja y en algunas zonas no hay población de casi ningún ser humano.",
+     "Especialmente se afirma que al interpretar correctamente las manifestaciones sutiles de las cuales la persona puede explicar si está mintiendo o no",
+     "Sus pies tienen costras y patas, ponen huevos y se mueven en sus dos patas traseras como un terxo.",
+     "El italiano es también un lenguaje utilizado diariamente que la mayoría de las personas que trabajan en el estado hacen uso mientras latín se utiliza en rituales religiosos",
+     "A partir de 1976, el 30% del campo medio fue cronizado y el trabajo de la base va a continuar hasta la fecha.",
+     "Todas las palabras anunciadas con Sai comienzan siempre con una gran carta de inglés aunque no estén en medio de la frase.",
+     "Algunos de los métodos más comunes utilizados para aclarar la importancia de la socialización son atraer los asuntos desafortunados de los niños que no son descuidados por los adultos durante el aborto grande pero descuidado",
+     "El bloque también puede ayudar a mejorar la escritura de estudiantes donde los estudiantes comienzan su experiencia de bloqueo a menudo con gramática y ortografía aleatoria mientras la presencia del público generalmente cambia",
+     "Las compañías de hombres tienen su propio avión en el Chininda Root pero es un problema para otra raíz y forma pequeña",
+     "Las variaciones de aislamiento y recombinación están más atrasadas entre dos puentes con cada PT",
+     "El chocolate caliente está hecho en los estándares de Bélgica. El jugo de frutas es caro pero muy bueno",
+     "En nombre de la Oficina de Gestión de Emergencias de Marianas del Norte declaró que no se habían recibido daños en la nación.",
+     "La mayoría de los telescopios de investigación modernos tienen muchas características para trabajar en áreas remotas con condiciones de aire sistémicas favorables.",
+     "El tiempo severo es un término de clase para cualquier evento estacional peligroso en el que la pérdida pueda provocar graves perturbaciones sociales o pérdida de vidas humanas",
+     "Como el elemento es considerado como elementos de plata y oro",
+     "La parte de tráfico es el estudio de la actividad de conductores individuales y vehículos entre dos puntos y la acción interpersonal que se toman entre sí",
+     "Muchos hombres y mujeres siguen viviendo como los judíos y los no judíos que tuvieron éxito en el tiempo de la fuga y muchos cuyos seres queridos fueron asesinados o trabajaron con ellos hasta sus muertes.",
+     "Los niños reciben cuidados rápidos por muchas razones, como la ceguera, la desorganización completa e incluso la recuperación de coacción.",
+     "No dañar este lugar haciendo algo en las cosas o deshacerse de las cosas",
+     "Por lo tanto, la notación se acaba de agregar como un nivel que se está considerando.",
+     "La estrategia resultó ser eficaz al reducir el suministro militar y civil crítico, sin embargo este bloqueo ha violado el derecho internacional comúnmente sancionado por muchos de los últimos dos siglos",
+     "En sólo dos semanas, las fuerzas americanas y francesas libres habían liberado al sur de Francia y se avergonzaron",
+     "El entorno limpio arriba no es visible además del hermoso cielo y muchos alrededores Así que la pequeña parte del mundo se puede ver o escuchar desde el interior de esta cueva.",
+     "Sólo el aumento de los pacificadores de la línea germinal fue salvado por el aumento de los más elevados aparte de la MS del pacificador o la Fin será capaz de entender",
+     "Mausa Sarus fue el cazador más grande de su tiempo, así que no tenía miedo de nadie más que Mausa Sarus.",
+     "Su trabajo ha identificado una calidad y un detalle que es uno de los pocos nombres bajos en el hogar entre los coleccionistas de entradas. Algunos se especializan en filtrar su trabajo solo",
+     "La edad en que ocurrieron los acontecimientos se describe normalmente como un período de la alta Edad Media de la historia europea en el siglo XI, 12 y 13 en la historia de Europa.",
+     "Europa es un continente pequeño, pero tiene muchos países independientes, bajo circunstancias normales, muchos países tienen que viajar a través del proceso de solicitud de visados y control de pasaportes.",
+     "Abrir las siguientes cinco Seis Fecha para el examen",
+     "Radio Dharmis, CGM e Iodine han sido identificados en la planta según la Agencia Nuclear del Japón."
+    ]
+   }
+  },
+  "es-hi": {
+   "n": 40,
+   "failures": 0,
+   "refs": [
+    "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआँ दिखाया गया है।",
+    "बाद में उन्हें कैम्ब्रिज में एडेनब्रुक के अस्पताल में स्थानांतरित कर दिया गया.",
+    "जो भी ऊँचाई या पहाड़ी दर्रे पर गाड़ी चलाने जा रहा है, उसे हिम, बर्फ या ठंड के तापमान की संभावना के विचार को मन में रखना चाहिए।",
+    "MS, बीमारी केंद्रीय तंत्रिका तंत्र पर असर करती है, जिसमें दिमाग, स्पाइनल कॉर्ड और ऑप्टिक नर्व शामिल हैं.",
+    "भवनों की परेड जिसने हाँगकाँग की स्कायलाइन को चमचमाते बार चार्ट की तरह बनाया है, उसने विक्टोरिया हार्बर के पानी की मौज़ूदगी को देखने लायक बनाया है.",
+    "अगर आपने फ़िल्म नेशनल ट्रेज़र देखी है, तो आपको लगेगा कि स्वतंत्रता के घोषणा-पत्र के पीछे एक ख़ज़ाने का नक्शा लिखा गया था.",
+    "लड़ाई के आख़िरी दो सालों में, पहले के साथी अब दुश्मन बन गए थे और शीत युद्ध की शुरुआत हो चुकी थी.",
+    "तुर्की के राष्ट्रपति रजब तैयब इरदुगान के साथ ट्रंप की फ़ोन पर चर्चा होने के बाद घोषणा की गई थी.",
+    "सड़कों पर ज़्यादा दुर्घटना की वजह बहुत ज़्यादा कार ओनरशिप है, जिससे शरीर में हुई टूट-फूट को सुधारने के लिए हेल्थकेयर में नई तकनीकों के आविष्कार को बढ़ावा मिला है.",
+    "इसे केमिकल का pH कहा जाता है. आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं.",
+    "उत्तर की ओर के बड़े क्षेत्र में आबादी बहुत ही कम है और कुछ इलाकों में तो लगभग कोई इंसानी आबादी नहीं है.",
+    "विशेष रूप से, यह दावा किया जाता है कि किसी व्यक्ति की सूक्ष्म अभिव्यक्तियों की सही व्याख्या करके यह समझा सकता है कि वह झूठ बोल रहा है या नहीं।",
+    "उनके पैरों में पपड़ियाँ और पंजे हैं, वे अंडे देते हैं, और वे किसी टी-रेक्स की तरह अपने दो पीछे वाले पैरों पर चलते हैं.",
+    "इटैलियन भी रोज़ाना इस्तेमाल होने वाली भाषा है जिसे राज्य में काम करने वाले अधिकांश लोग उपयोग में लाते हैं, जबकि लेटिन का धार्मिक रस्मों में इस्तेमाल किया जाता है.",
+    "सन 1976 तक माचू पिचू के तीस प्रतिशत हिस्से का जीर्णोद्धार कर दिया गया था और जीर्णोद्धार का कार्य आज तक जारी है।",
+    "साई के साथ-साथ सभी संज्ञा शब्द हमेशा अंग्रेज़ी के बड़े अक्षर से ही शुरू होते हैं, भले ही वे वाक्य के बीच में ही क्यों न हों.",
+    "समाजीकरण के महत्व को स्पष्ट करने के लिए इस्तेमाल किए जाने वाले सबसे आम तरीकों में से कुछ बच्चों के दुर्भाग्यपूर्ण मामलों को आकर्षित करना है, जो बड़े होने के दौरान वयस्कों द्वारा उपेक्षित नहीं, बल्कि उपेक्षा, दुर्भाग्य या दुर्व्यवहार के माध्यम से होते थे।",
+    "ब्लॉग से छात्र लेखन में सुधार करने में भी मदद मिल सकती है. जहां छात्र अपने ब्लॉग अनुभव की शुरुआत अक्सर बेतरतीब व्याकरण और वर्तनी के साथ करते हैं, वहीं दर्शकों की मौजूदगी से इसमें आम तौर पर बदलाव आता है.",
+    "चुनिंदा रूट पर, बड़ी कंपनियों के खुद के विमान हैं, लेकिन अन्य रूट पर और छोटी फ़र्म के लिए यह एक समस्या है.",
+    "अलगाव और पुनर्संयोजन भिन्नता प्रत्येक पीढ़ी के साथ दो पूलों के बीच आगे-पीछे होती रहती है।",
+    "हॉट चॉकलेट बेल्जियम के मानकों पर बनी है. फलों का जूस महंगा है लेकिन बहुत अच्छा है.",
+    "उत्तरी मैरिएनस इमरजेंसी प्रबंधन कार्यलय की ओर से कहा गया कि राष्ट्र में नुकसान की कोई सूचना प्राप्त नहीं हुई थी.",
+    "अधिकांश आधुनिक अनुसंधान दूरबीनों में अनुकूल वायुमंडलीय परिस्थितियों के साथ दूरदराज के क्षेत्रों में काम करने के लिए बहुत सुविधाएँ हैं.",
+    "गंभीर मौसम किसी भी खतरनाक मौसमी घटना के लिए वर्गीय शब्द है जिसमें नुकसान, गंभीर सामाजिक व्यवधान, या मानव जीवन की हानि की संभावना है।",
+    "कैल्शियम और पोटैशियम जैसे तत्वों को धातु माना जाता है। बेशक, चांदी और सोने जैसी धातुएं भी हैं।",
+    "यातायात बहाव दो बिंदुओं के बीच व्यक्तिगत चालकों और वाहनों की गतिविधि और एक दूसरे के साथ की जाने वाली पारस्परिक क्रिया का अध्ययन है।",
+    "यहूदी और गैर-यहूदी की तरह, अभी भी ऐसे कई पुरुष और महिलाएं जीवित हैं जो उस समय बचने में सफल रहे और कई जिनके प्रियजनों को मार दिया गया या उनके मरने तक उनसे काम करवाया गया.",
+    "बच्चों को कई वजहों से फ़ॉस्टर केयर में रखा जाता है, जिनमें अनदेखी करना, बुरा बर्ताव करना, और यहां तक कि ज़बरदस्ती वसूली करना भी शामिल है.",
+    "चीज़ों पर कुछ बनाकर या खरोंच कर इस जगह को नुक़सान न पहुँचाएँ.",
+    "इसलिए, यह माना जा रहा है कि नोटेशन को सिर्फ़ एक लेबल के रूप में जोड़ा गया था.",
+    "रणनीति महत्वपूर्ण सैन्य और असैन्य आपूर्ति को काटते हुए प्रभावी साबित हुई, हालाँकि इस नाकाबंदी ने पिछले दो शताब्दियों के कई अंतरराष्ट्रीय समझौतों द्वारा आमतौर पर स्वीकृत अंतर्राष्ट्रीय कानून का उल्लंघन किया।",
+    "केवल दो हफ़्तों में अमेरिकियों और फ़्री फ़्रेंच बलों ने दक्षिणी फ़्रांस को मुक्त कर दिया था और जर्मनी की ओर बढ़ रहे थे.",
+    "ऊपर साफ़ वातावरण, सुंदर आसमान और आस-पास के कई पहाड़ों के अलावा और कुछ भी नहीं नज़र आता है. इसलिए इस गुफ़ा के अंदर से दुनिया का छोटा सा हिस्सा ही देखा या सुना जा सकता है.",
+    "केवल जर्म-लाइन कोशिकाओं में वृद्धि बच्चों तक पहुँच सकती है जबकि अन्य कहीं होने वाली वृद्धि से कोशिकाएँ नष्ट हो सकती हैं या कैंसर हो सकता है.",
+    "मोसासौरस अपने समय का सबसे बड़ा शिकारी था, इसलिए उसे अन्य मोसासौरस के अलावा किसी का भय नहीं था।",
+    "उनका काम ऐसी गुणवत्ता और विस्तार के पहचान का है कि वह टिकट संग्रहकर्ताओं के बीच बहुत कम “घरेलू नामों” में से एक है. कुछ उनके काम को अकेले बटोरने में माहिर हैं.",
+    "जिस समय घटनाएँ हुई उसके युग को सामान्य रूप से यूरोप के इतिहास में 11वीं, 12वीं और 13वीं सदी (AD 1000-1300) में यूरोपियन इतिहास के उच्च मध्य युग की अवधि के रूप में बताया जाता है.",
+    "यूरोप एक ऐसा महाद्वीप है जो अपेक्षाकृत छोटा है लेकिन इसमें कई स्वतंत्र देश हैं. सामान्य परिस्थिति में कई देशों की यात्रा करने का मतलब कई बार वीज़ा आवेदन और पासपोर्ट कंट्रोल की प्रक्रिया से गुज़रना है.",
+    "रोलैंडो मेंडोज़ा ने अपनी M16 राइफल से पर्यटकों के ऊपर फायर किया।",
+    "जापान की परमाणु एजेंसी के अनुसार, प्लांट में रेडियोधर्मी सीज़ियम और आयोडीन की पहचान की गई है."
+   ],
+   "reference": {
+    "bleu": 12.85708599704894,
+    "chrf": 41.05165715277221,
+    "mean_mt_ms": 1647.3409175010602,
+    "hyps": [
+     "टेलीविजन कवरेज में आप पौधे से निकलने वाले सफ़ेद धुएं को देख सकते हैं।",
+     "फिर उन्हें कैम्ब्रिज में एडेनब्रुक अस्पताल में स्थानांतरित कर दिया गया।",
+     "जो कोई भी उच्च अक्षांश पर ड्राइव करने का इरादा रखता है या पहाड़ के चरणों में बर्फ, बर्फ या कम तापमान की संभावना प्रदान करनी चाहिए।",
+     "केंद्रीय तंत्रिका तंत्र, मस्तिष्क, रीढ़ की हड्डी और ऑप्टिक तंत्रिका को बाइंडिंग, एकाधिक स्क्लेरोसिस के हमले का उद्देश्य है।",
+     "हांगकांग क्षितिज को सीमित करने वाली इमारतों की तैनाती की तुलना उज्ज्वल सलाखों के एक ग्राफ के साथ की गई है जो प्यूर्टो विक्टोरिया के पानी की उपस्थिति से प्रदर्शित होती है।",
+     "यदि आपने फिल्म नेशनल ट्रेजरी को देखा है, तो आप मान सकते हैं कि स्वतंत्रता की घोषणा के पीछे एक खजाना मानचित्र तैयार किया गया था।",
+     "युद्ध के अंत के दो साल बाद, जो लोग सहयोगी थे वे अब दुश्मन थे और शीत युद्ध शुरू हुआ।",
+     "यह घोषणा तुर्की के राष्ट्रपति रीसेप ताय्यीप एर्दोगन के साथ ट्रम्प की फोन बातचीत के बाद की गई थी।",
+     "कारों का व्यापक उपयोग यातायात दुर्घटनाओं की एक उच्च घटना की ओर जाता है, जिससे क्षतिग्रस्त शरीर की मरम्मत के लिए स्वास्थ्य के क्षेत्र में नई तकनीकों का विकास होता है।",
+     "इसे रासायनिक पीएच कहा जाता है। आप लाल गोभी के रस का उपयोग करके एक pH सूचक बना सकते हैं।",
+     "उत्तर में बड़े क्षेत्र कम आबादी वाले होते हैं और कुछ जंगली, लगभग अनिवासी भूमि हैं।",
+     "विशेष रूप से, यह तर्क दिया जाता है कि, इसकी सूक्ष्म अभिव्यक्ति की उचित रीडिंग के माध्यम से, यह पता लगाना संभव है कि कोई व्यक्ति झूठ बोल रहा है या नहीं।",
+     "उनके पास दस्ते और पंजे के अंग हैं, अंडे देते हैं और टी-रेक्स जैसे अपने पीछे के पैरों पर चलते हैं।",
+     "राज्य के भीतर काम करने वालों द्वारा दैनिक रूप से बोली जाने वाली भाषा इतालवी भी है और लैटिन का उपयोग आम तौर पर धार्मिक समारोहों के लिए आरक्षित है।",
+     "1976 तक, मचू पिचू का 30 प्रतिशत बहाल किया गया था और आज काम चल रहा है।",
+     "सभी nouns, साथ ही Sie शब्द का अर्थ 'आप' है, हमेशा अपनी राजधानी प्रारंभिक अक्षर ले जाते हैं, भले ही वे प्रार्थना के मध्य में स्थित हों।",
+     "समाजीकरण के महत्व को चार्ट करने के लिए सबसे अधिक इस्तेमाल किए जाने वाले तंत्रों में से एक उन बच्चों के कुछ और लामेंटेबल मामलों का विश्लेषण करना है जो लापरवाही, दुर्भाग्यपूर्ण या जानबूझकर दुर्व्यवहार के कारण, वयस्कों द्वारा उनकी वृद्धि के दौरान समाजीकरण नहीं किया गया था।",
+     "ब्लॉग भी छात्रों के लेखन में सुधार करने में मदद कर सकते हैं। हालांकि छात्र आमतौर पर अपने ब्लॉग अनुभव को एक छोटे से नक्काशीदार व्याकरण और वर्तनी के साथ शुरू करते हैं, यह आमतौर पर दर्शकों की उपस्थिति में बदल जाता है।",
+     "बड़ी कंपनियों के पास कुछ मार्गों पर अपना खुद का विमान है, लेकिन छोटी कंपनियों और अन्य मार्गों के लिए एक समस्या थी।",
+     "अलगाव और पुनर्संयोजन ने पीढ़ी के बाद एक पीढ़ी और दूसरी पीढ़ी के बीच भिन्नता को काट दिया।",
+     "हॉट चॉकलेट बेल्जियम मानकों तक है। फलों का रस महंगा है, लेकिन स्वादिष्ट है।",
+     "उत्तरी मारियाना आपातकालीन प्रबंधन एजेंसी ने संकेत दिया कि राष्ट्रीय क्षेत्र पर कोई नुकसान नहीं हुआ है।",
+     "मौजूदा अनुसंधान दूरबीनों में से अधिकांश में सुखद वायुमंडलीय स्थितियों के साथ दूरदराज के क्षेत्रों में स्थापित विशाल संरचनाएं शामिल हैं।",
+     "गंभीर जलवायु शब्द आम तौर पर किसी भी जोखिमपूर्ण जलवायु घटना को संदर्भित करता है जो क्षति, गंभीर सामाजिक परिवर्तन या लोगों की मौत के कारण होने में सक्षम है।",
+     "कैल्शियम और पोटेशियम जैसे तत्वों को धातुओं पर विचार किया जाता है। अब के बाद से वहाँ भी सोने और चांदी की तरह धातुओं रहे हैं।",
+     "यातायात प्रवाह दो बिंदुओं और उनके बीच बातचीत के बीच ड्राइवरों और वाहनों के व्यक्तिगत आंदोलन का अध्ययन है।",
+     "अभी भी कई जीवित पुरुष और महिलाएं हैं जो इस स्थान पर अपने प्रवास से बच गए थे और कई और जिन्होंने उन लोगों से प्यार किया था जिन्होंने अपनी मृत्यु तक मार डाला या काम किया था, दोनों यहूदी और गैर यहूदी।",
+     "बच्चों को कारणों की एक विस्तृत श्रृंखला के लिए फोस्टर देखभाल में लिया जाता है, उपेक्षा से दुर्व्यवहार और यहां तक कि बहिष्कार तक।",
+     "संरचनाओं में निशान या भित्तिचित्र बनाकर जगह को बर्बाद न करें।",
+     "इसलिए, घोषणा केवल एक संकेत के रूप में जोड़ा गया है।",
+     "जबकि रणनीति, जिसमें महत्वपूर्ण सैन्य और नागरिक आपूर्ति की रुकावट शामिल थी, सफल रही थी, यह आम तौर पर अंतरराष्ट्रीय कानून को मान्यता देता था और पिछले दो शतकों के कई अंतरराष्ट्रीय समझौतों से ढका हुआ था।",
+     "सिर्फ दो सप्ताह में, अमेरिकी और फ्री फ्रांस बलों ने दक्षिणी फ्रांस की मुक्ति हासिल की थी और जर्मनी के रास्ते में थे।",
+     "कुछ भी अद्भुत स्पष्ट आकाश और आसपास के पहाड़ों से अधिक नहीं देखा जा सकता है। इस गुफा के भीतर, आप इस दुनिया में बहुत कम देख सकते हैं या सुन सकते हैं।",
+     "केवल रोगाणु कोशिका उत्परिवर्तन बच्चों को प्रेषित किया जा सकता है, जबकि अन्य लोग कोशिका मृत्यु या कैंसर का कारण बन सकते हैं।",
+     "मोसासोरस अपने समय के अल्फा शिकारी थे, इसलिए उन्होंने अपनी खुद की प्रजातियों के अलावा कुछ भी डराया।",
+     "उनके काम के विस्तार की गुणवत्ता और स्तर को इतनी मान्यता दी गई है कि वह कुछ \"परिवार के नाम\" में से एक बन गया है। वे लोग हैं जो अपने काम को इकट्ठा करने में विशेषज्ञ हैं।",
+     "यूरोपीय ऐतिहासिक अवधि जिसमें ये घटनाएं आमतौर पर मध्य युग के रूप में जानी जाती हैं, 11 वीं, 12 वीं और 13 वीं शताब्दी के बीच (यानी 1000 और 1300 के बीच)।",
+     "यूरोप एक अपेक्षाकृत छोटा महाद्वीप है, लेकिन कई स्वतंत्र देशों के साथ। सामान्य परिस्थितियों में, कई देशों में यात्रा का मतलब कई बार वीज़ा एप्लीकेशन और पासपोर्ट नियंत्रण का प्रबंधन करना होगा।",
+     "Rolando Mendoza विदेशी आगंतुकों के खिलाफ अपने M16 के साथ आग खोला।",
+     "जापानी परमाणु एजेंसी के अनुसार, रेडियोधर्मी कैसियम और आयोडीन संयंत्र में पाए गए हैं।"
+    ]
+   },
+   "cascade": {
+    "bleu": 12.230898581836207,
+    "chrf": 40.49839064751321,
+    "mean_mt_ms": 1670.2225724995515,
+    "hyps": [
+     "टेलीविजन कवरेज में आप पौधे से निकलने वाले सफ़ेद धुएं को देख सकते हैं।",
+     "फिर उन्हें कैम्ब्रिज में एडेनब्रुक अस्पताल में स्थानांतरित कर दिया गया।",
+     "जो कोई भी उच्च अक्षांश पर ड्राइव करने का इरादा रखता है या पहाड़ के चरणों में बर्फ, बर्फ या कम तापमान की संभावना प्रदान करनी चाहिए।",
+     "केंद्रीय तंत्रिका तंत्र, मस्तिष्क बंधन, रीढ़ की हड्डी और ऑप्टिक तंत्रिका एकाधिक स्क्लेरोसिस के हमले का उद्देश्य है।",
+     "हांगकांग क्षितिज को सीमित करने वाली इमारतों की तैनाती की तुलना उज्ज्वल सलाखों के एक ग्राफ के साथ की गई है जो विक्टोरिया बंदरगाह के पानी की उपस्थिति से प्रदर्शित होती है।",
+     "यदि आपने फिल्म नेशनल ट्रेजरी को देखा है, तो आप मान सकते हैं कि स्वतंत्रता की घोषणा के पीछे एक खजाना मानचित्र तैयार किया गया था।",
+     "युद्ध के अंत के दो साल बाद, जो लोग सहयोगी थे वे अब दुश्मन थे और शीत युद्ध शुरू हुआ।",
+     "यह घोषणा तुर्की के राष्ट्रपति रीसेप ताय्यीप एर्दोगन के साथ ट्रम्प की फोन बातचीत के बाद की गई थी।",
+     "कारों का व्यापक उपयोग यातायात दुर्घटनाओं की एक उच्च घटना की ओर जाता है, जिससे क्षतिग्रस्त शरीर की मरम्मत के लिए स्वास्थ्य के क्षेत्र में नई तकनीकों का विकास होता है।",
+     "इसे रासायनिक पीएच कहा जाता है। आप लाल गोभी के रस का उपयोग करके एक pH सूचक बना सकते हैं।",
+     "उत्तर में बड़े क्षेत्र कम आबादी वाले हैं और कुछ जंगली भूमि हैं, लगभग विकलांग हैं।",
+     "यह विशेष रूप से तर्क दिया जाता है कि इसके सूक्ष्म अभिव्यक्तियों की उचित रीडिंग के माध्यम से यह पता लगाना संभव है कि कोई व्यक्ति झूठ बोल रहा है या नहीं।",
+     "उनके पास दस्तेदार अंग और पंजा अंडे हैं और टी-रेक्स जैसे अपने पीछे के पैरों पर चलते हैं।",
+     "राज्य के भीतर काम करने वालों द्वारा दैनिक रूप से बोली जाने वाली भाषा इतालवी भी है और लैटिन का उपयोग आम तौर पर धार्मिक समारोहों के लिए आरक्षित है।",
+     "1976 तक, मचू पिचू का 30 प्रतिशत पहले ही बहाल हो चुका था और काम चल रहा है।",
+     "सभी nouns, साथ ही SIE शब्द का मतलब है आप हमेशा अपनी राजधानी प्रारंभिक पत्र लेते हैं, भले ही वे प्रार्थना के मध्य में स्थित हों।",
+     "समाजीकरण के महत्व को चार्ट करने के लिए सबसे अधिक इस्तेमाल किए जाने वाले तंत्रों में से एक उन बच्चों के कुछ और लामेंटेबल मामलों का विश्लेषण करना है जो लापरवाही, दुर्भाग्यपूर्ण या जानबूझकर दुर्व्यवहार के कारण, वयस्कों द्वारा उनकी वृद्धि के दौरान समाजीकरण नहीं किया गया था।",
+     "ब्लॉग भी छात्रों के लेखन में सुधार करने में मदद कर सकते हैं। हालांकि छात्र आमतौर पर अपने ब्लॉग अनुभव को एक छोटे से नक्काशीदार व्याकरण और वर्तनी के साथ शुरू करते हैं, यह आमतौर पर दर्शकों की उपस्थिति में बदल जाता है।",
+     "बड़ी कंपनियों के पास कुछ मार्गों पर अपना खुद का विमान है, लेकिन छोटी कंपनियों और अन्य मार्गों के लिए एक समस्या थी।",
+     "अलगाव और पुनर्संयोजन ने पीढ़ी के बाद एक पीढ़ी और दूसरी पीढ़ी के बीच भिन्नता को काट दिया।",
+     "हॉट चॉकलेट बेल्जियम मानकों तक है। फलों का रस महंगा लेकिन स्वादिष्ट है।",
+     "उत्तरी मारियाना आपातकालीन प्रबंधन एजेंसी ने संकेत दिया कि राष्ट्रीय क्षेत्र में क्षति का कोई रिकॉर्ड नहीं था।",
+     "मौजूदा अनुसंधान दूरबीनों में से अधिकांश में सुखद वायुमंडलीय स्थितियों के साथ दूरदराज के क्षेत्रों में स्थापित विशाल संरचनाएं शामिल हैं।",
+     "गंभीर जलवायु शब्द आम तौर पर किसी भी जोखिमपूर्ण जलवायु घटना को संदर्भित करता है जो क्षति, गंभीर सामाजिक परिवर्तन या लोगों की मौत के कारण होने में सक्षम है।",
+     "कैल्शियम और पोटेशियम जैसे तत्वों को धातुओं पर विचार किया जाता है। अब के बाद से वहाँ भी सोने और चांदी की तरह धातुओं रहे हैं।",
+     "यातायात प्रवाह दो बिंदुओं और उनके बीच बातचीत के बीच ड्राइवरों और वाहनों के व्यक्तिगत आंदोलन का अध्ययन है।",
+     "अभी भी कई जीवित पुरुष और महिलाएं हैं जो इस स्थान पर अपने प्रवास से बच गए थे और कई और जिन्होंने उन लोगों से प्यार किया था जिन्होंने अपनी मृत्यु तक मार डाला या काम किया था, दोनों यहूदी और गैर यहूदी।",
+     "बच्चों को कारणों की एक विस्तृत श्रृंखला के लिए फोस्टर देखभाल में लिया जाता है, उपेक्षा से दुर्व्यवहार और यहां तक कि बहिष्कार तक।",
+     "संरचनाओं में निशान या भित्तिचित्र बनाकर जगह को बर्बाद न करें।",
+     "इसलिए यह संभावना है कि ध्यान केवल एक संकेत के रूप में जोड़ा गया है।",
+     "जबकि महत्वपूर्ण सैन्य और नागरिक आपूर्ति के रुकावट को शामिल करने की रणनीति सफल रही थी, इस उपाय ने आम तौर पर अंतरराष्ट्रीय कानून को मान्यता दी और पिछले दो शतकों के कई अंतरराष्ट्रीय समझौतों को कवर किया गया।",
+     "सिर्फ दो सप्ताह में, अमेरिकी बलों और मुक्त फ्रांस के उन लोगों ने दक्षिणी फ्रांस की मुक्ति हासिल की थी और जर्मनी के रास्ते पर थे।",
+     "कुछ भी अद्भुत स्पष्ट आकाश और आसपास के पहाड़ों से अधिक नहीं देखा जा सकता है। इस गुफा के भीतर से आप इस दुनिया में बहुत कम देख सकते हैं या सुन सकते हैं।",
+     "केवल रोगाणु कोशिका उत्परिवर्तन बच्चों को प्रेषित किया जा सकता है, जबकि अन्य लोग कोशिका मृत्यु या कैंसर का कारण बन सकते हैं।",
+     "मोसासोरस अपने समय के अल्फा शिकारी थे, इसलिए उन्होंने अपनी खुद की प्रजातियों के अलावा कुछ भी डराया।",
+     "उनके काम के विस्तार की गुणवत्ता और स्तर को इतनी मान्यता दी गई है कि वह धर्मार्थियों के बीच कुछ पारिवारिक नामों में से एक बन गया है। वे लोग हैं जो अपने काम को इकट्ठा करने में विशेषज्ञ हैं।",
+     "यूरोपीय ऐतिहासिक अवधि जिसमें ये घटनाएं आमतौर पर मध्य युग के रूप में जानी जाती हैं, 11 वीं, 12 वीं और 13 वीं शताब्दी के बीच, यानी 1000 और 1300 ईस्वी के बीच।",
+     "यूरोप एक अपेक्षाकृत छोटा महाद्वीप है, लेकिन कई स्वतंत्र देशों के साथ। सामान्य परिस्थितियों में, कई देशों में यात्रा का मतलब कई बार वीज़ा एप्लीकेशन और पासपोर्ट नियंत्रण का प्रबंधन करना होगा।",
+     "Rolando Mendoza विदेशी आगंतुकों के खिलाफ अपने M16 के साथ आग खोला।",
+     "जापानी न्यूक्लियर एजेंसी के अनुसार, रेडियोधर्मी कैसियम और आयोडीन संयंत्र में पाए गए हैं।"
+    ]
+   }
+  }
+ }
+}

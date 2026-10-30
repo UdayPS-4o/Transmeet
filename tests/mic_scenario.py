@@ -36,6 +36,13 @@ SENTENCES = {
         "क्या आप कल शाम को लाइब्रेरी में मिल सकते हैं?",
         "यह ऐप मेरी बात को आपकी भाषा में अनुवाद करता है।",
     ],
+    "es": [
+        "Hola, ¿me escuchas bien?",
+        "Me llamo Lucía y estudio ingeniería en Madrid.",
+        "Hoy vamos a hablar de nuestro proyecto.",
+        "¿Podemos vernos mañana a las cinco en la biblioteca?",
+        "Esta aplicación traduce lo que digo a tu idioma.",
+    ],
 }
 
 rng = np.random.default_rng(7)

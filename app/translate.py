@@ -73,3 +73,11 @@ class Translator:
 
     async def close(self) -> None:
         await self.client.aclose()
+
+
+def make_translator():
+    """The translation engine chosen by MT_ENGINE (both have the same interface)."""
+    if config.MT_ENGINE == "nllb":
+        from .nllb import NLLBTranslator
+        return NLLBTranslator()
+    return Translator()
