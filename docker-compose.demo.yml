@@ -1,0 +1,67 @@
+# Two-laptop demo on a gaming laptop with an NVIDIA GPU (tuned on an MSI Katana 15:
+# i5-13420H, 16 GB RAM, RTX 3050 6 GB). Everything runs in one container on the GPU:
+#   Whisper large-v3-turbo (English, Spanish, other languages, language detection)
+#   Whisper small fine-tuned on Indian Hindi (IIT Madras SPRING Lab)
+#   NLLB-200 translation on the CPU (200 languages, incl. Tamil, Telugu, Bengali, Marathi)
+#   Piper voices for the translated speech (CPU)
+#
+#   docker compose -f docker-compose.demo.yml up --build
+#
+# Laptop A (this one) opens http://localhost:8000 (no certificate warning). Laptop B, on
+# the same Wi-Fi, opens https://<laptop A's IP>:8443 (run `ipconfig` on A to find it) and
+# accepts the self-signed certificate warning once (Advanced -> Proceed), or enables the
+# Chrome flag in the README and uses http://<A's IP>:8000. Allow ports 8000/8443 through
+# the Windows firewall on laptop A if B cannot connect. Needs Docker Desktop with the
+# WSL 2 backend and a current NVIDIA driver (`docker run --rm --gpus all ubuntu nvidia-smi`).
+name: transmeet-demo
+services:
+  transmeet:
+    build:
+      context: .
+      args:
+        GPU: "true"
+        WHISPER_PRELOAD: "large-v3-turbo small songzewu/vasista22-whisper-hindi-small-ct2"
+        MT_PRELOAD: "JustFrederik/nllb-200-distilled-600M-ct2-int8"
+        TTS_PRELOAD: >-
+          en_US-lessac-medium en_US-ryan-medium hi_IN-priyamvada-medium hi_IN-rohan-medium
+          es_ES-davefx-medium es_MX-claude-high fr_FR-siwis-medium de_DE-thorsten-medium
+          te_IN-padmavathi-medium te_IN-venkatesh-medium mr_IN-google-medium bn_BD-google-medium
+    restart: unless-stopped
+    ports:
+      - "8000:8000"                                 # http://localhost:8000 on this laptop
+      - "8443:8443"                                 # https://<this laptop's Wi-Fi IP>:8443 for the other one
+    environment:
+      HTTPS: "true"
+      HTTPS_HOSTS: ${HTTPS_HOSTS:-}                 # this laptop's Wi-Fi IP, e.g. IP:192.168.1.20
+      WHISPER_DEVICE: cuda
+      WHISPER_COMPUTE: int8_float16                 # fastest on the RTX 3050, ~same accuracy as fp16
+      # most accurate; if the GPU runs hot and captions lag, WHISPER_MODEL=small is ~4x faster
+      WHISPER_MODEL: ${WHISPER_MODEL:-large-v3-turbo}
+      WHISPER_MODEL_BY_LANG: ${WHISPER_MODEL_BY_LANG-hi=songzewu/vasista22-whisper-hindi-small-ct2}
+      ASR_WORKERS: "2"
+      WHISPER_THREADS: "4"
+      INTERIM_MS: "1000"                            # live caption refresh; lower costs GPU time
+      INTERIM_BUDGET_MS: "900"
+      MT_ENGINE: nllb
+      MT_MODEL: JustFrederik/nllb-200-distilled-600M-ct2-int8
+      MT_DEVICE: cpu                                # leaves the GPU to Whisper; ~0.3-0.7 s per sentence
+      MT_THREADS: "4"
+      LANGUAGES: ${LANGUAGES:-en,hi,es,fr,de,bn,ta,te,mr}
+      TTS_THREADS: "4"
+      # Works with no internet: every model and voice is baked into the image, and these
+      # stop the server from looking for updates or STUN servers. Only building the image
+      # needs the internet.
+      HF_HUB_OFFLINE: ${HF_HUB_OFFLINE:-1}
+      STUN_URLS: ${STUN_URLS-}                      # same Wi-Fi: direct connection, no STUN needed
+    volumes:
+      - demo-models:/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  demo-models:

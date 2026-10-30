@@ -1,0 +1,268 @@
+{
+ "model": "base",
+ "settings": {
+  "device": "cuda",
+  "mt": "libretranslate",
+  "mt_model": "JustFrederik/nllb-200-distilled-600M-ct2-int8",
+  "compute": "int8_float16",
+  "beam": 1,
+  "cpus": 12,
+  "by_lang": {},
+  "normalize": true,
+  "gain_db": 0.0,
+  "threads": 12,
+  "lt_url": "http://127.0.0.1:9"
+ },
+ "asr": {
+  "es": {
+   "n": 40,
+   "wer": 0.11169102296450939,
+   "mean_asr_s": 0.21915674000083527,
+   "mean_audio_s": 11.664000000000001,
+   "rtf": 0.01878915809335007,
+   "utterances": [
+    {
+     "id": "1778",
+     "ref": "En las coberturas televisivas puede verse humo blanco emanando de la planta.",
+     "hyp": "En las coberturas deleccidas puede verse un blanco emanando de la planta.",
+     "asr_s": 0.436
+    },
+    {
+     "id": "1953",
+     "ref": "Luego lo trasladaron al Hospital Addenbrooke, en Cambridge.",
+     "hyp": "Luego lo trasladaron a la hospital Adembrook in Cambridge.",
+     "asr_s": 0.115
+    },
+    {
+     "id": "1952",
+     "ref": "Cualquier persona que se proponga conducir en latitudes altas o en pasos de montañas debe prever la posibilidad de que haya nieve, hielo o bajas temperaturas.",
+     "hyp": "cualquier persona que se proponga conducir en latitudes altas o en pasos de montañas debe prever la posibilidad de que haya nieve y en lo o bajas temperaturas.",
+     "asr_s": 0.214
+    },
+    {
+     "id": "1955",
+     "ref": "El sistema nervioso central, unión del cerebro, la médula espinal y el nervio óptico, es el objeto de ataque de la esclerosis múltiple.",
+     "hyp": "El sistema nervioso central, unión del cerebro, la médula espinán y el nervio óptico es el objeto de ataque de la esplirosis múltiples.",
+     "asr_s": 0.213
+    },
+    {
+     "id": "1801",
+     "ref": "Se ha comparado el despliegue de edificaciones que delimitan el horizonte de Hong Kong con un gráfico de barras luminoso que se evidencia por la presencia de las aguas del Puerto Victoria.",
+     "hyp": "Se ha comparado el desplieger edificaciones que delimitan el oricente de Hong Kong con un gráfico de barras luminosos que se evidencia por la presencia de las aguas del puerto victoria.",
+     "asr_s": 0.258
+    },
+    {
+     "id": "1849",
+     "ref": "Si ha visto el filme Tesoro Nacional, quizás crea que un mapa del tesoro fue trazado en el dorso de la Declaración de la Independencia.",
+     "hyp": "Si ha visto el filme Tesoro Nacional, quizás crea que un mapa del Tesoro fue trazado en el dorso de la declaración de la independencia.",
+     "asr_s": 0.188
+    },
+    {
+     "id": "1808",
+     "ref": "A dos años del final de la guerra, los que eran aliados ahora eran enemigos y la Guerra Fría comenzó.",
+     "hyp": "A dos años del final de la guerra, los que eran aliados ahora eran enemigos y la guerra fría comenzó.",
+     "asr_s": 0.155
+    },
+    {
+     "id": "1779",
+     "ref": "El anuncio se hizo tras la conversación telefónica que Trump mantuvo con con el presidente de Turquía, Recep Tayyip Erdoğan.",
+     "hyp": "El anuncio se hizo tras la conversación telefónica que Trump mantuvo con el presidente de Turquía. Recepta a Chip Erdogan.",
+     "asr_s": 0.195
+    },
+    {
+     "id": "1984",
+     "ref": "El uso masivo de automóviles también genera una mayor incidencia en los accidentes de tránsito, lo que conduce al desarrollo de nuevas técnicas en el campo de la salud para reparar los cuerpos dañados.",
+     "hyp": "El uso masivo de automóviles también genera una mayor incidencia en los apiantes de tránsito lo que conduce al desarrollo nuevas técnicas en el campo de la salud para repararlos por los pocos dañados.",
+     "asr_s": 0.272
+    },
+    {
+     "id": "1792",
+     "ref": "Esto se denomina pH de una sustancia química. Usted puede elaborar un indicador de pH utilizando jugo de col roja.",
+     "hyp": "Esto se denomina PH de una sustancia química. Usted puede elaborar un indicador de PH utilizando jugo de col roja.",
+     "asr_s": 0.229
+    },
+    {
+     "id": "1741",
+     "ref": "Las grandes áreas más hacia el norte están poco pobladas y algunas son tierras silvestres, casi inhabitadas.",
+     "hyp": "Las grandes áreas más hacia el norte están poco pobladas y algunas son tierras silvestres, casi inabilitadas.",
+     "asr_s": 0.163
+    },
+    {
+     "id": "1884",
+     "ref": "Concretamente, se sostiene que, mediante la adecuada lectura de sus microexpresiones, es posible detectar si una persona está mintiendo.",
+     "hyp": "Concretamente, se sostiene que mediante la adecuada lectura de sus microexpressiones, es posible detectarse a una persona que está mintiendo.",
+     "asr_s": 0.193
+    },
+    {
+     "id": "1998",
+     "ref": "Tienen extremidades escamadas y con garras, ponen huevos y se desplazan sobre sus patas traseras al igual que el T-Rex.",
+     "hyp": "tienen extremidades escamadas y con garras ponen huevos y se desplazan sobre sus patas traseras al igual que el T-Rex",
+     "asr_s": 0.204
+    },
+    {
+     "id": "1807",
+     "ref": "La lengua que hablan a diario la mayoría de quienes trabajan dentro del estado es también el italiano y el uso del latín queda generalmente reservado para las ceremonias religiosas.",
+     "hyp": "La lengua que habla en adiario la mayoría de quienes trabajan dentro del estado, es también el italiano y el uso del latín queda generalmente reservado para las ceremonias religiosas.",
+     "asr_s": 0.226
+    },
+    {
+     "id": "1928",
+     "ref": "Hacia 1976 ya se había restaurado el treinta por ciento del Machu Picchu y los trabajos continúan en la actualidad.",
+     "hyp": "Hace a 1976 ya se había restaurado el 30% del machupichu y los trabajos continúan en la actualidad.",
+     "asr_s": 0.236
+    },
+    {
+     "id": "1675",
+     "ref": "Todos los sustantivos, así como el vocablo Sie para significar 'usted', llevan siempre su letra inicial mayúscula, aunque estén ubicados en el medio de la oración.",
+     "hyp": "Todos los sustantivos, así como el vocablo Ciel para significar usted, llevan siempre su letra inicia a Nueva Escuela, aunque estén ubicados en el medio de la oración.",
+     "asr_s": 0.267
+    },
+    {
+     "id": "1961",
+     "ref": "Uno de los mecanismos más comúnmente usados para graficar la importancia de sociabilizar es analizar los pocos y lamentables casos de niños que, por negligencia, desgracia o abuso intencional, no fueron socializados por adultos durante su crecimiento.",
+     "hyp": "Uno de los mecanismos más comúnmente usados para graficar la importancia de socializar es analizar los pocos y lamentables casos de niños que, por negligencia de gracia o abuso intencional, no fueron socializados por adultos durante su crecimiento.",
+     "asr_s": 0.301
+    },
+    {
+     "id": "1990",
+     "ref": "Los blogs también pueden contribuir a mejorar la redacción de los alumnos. Aun cuando los estudiantes suelen iniciar su experiencia de blog con una gramática y ortografía poco cuidadas, esto generalmente cambia ante la presencia de una audiencia.",
+     "hyp": "Los blogs también pueden contribuir a mejorar la redacción de los alumnos. Aún cuando los estudiantes suelen iniciar su experiencia de blog con una gramática fotografía poco cuidadas, esto generalmente cambia ante la presencia de una audiencia.",
+     "asr_s": 0.269
+    },
+    {
+     "id": "1691",
+     "ref": "Las compañías grandes tienen sus propios aviones en algunas rutas, pero hubo un problema para las empresas más pequeñas y otras rutas.",
+     "hyp": "Las compañías grandes tienen sus propios aviones en algunas rutas, pero hubo un problema para las empresas más pequeñas y otras rutas.",
+     "asr_s": 0.177
+    },
+    {
+     "id": "1687",
+     "ref": "La segregación y la recombinación barajan la variación entre uno y otro generación tras generación.",
+     "hyp": "La segregación y la recomendación varan la variación entre uno y otro generación tras generación.",
+     "asr_s": 0.136
+    },
+    {
+     "id": "1720",
+     "ref": "El chocolate caliente está a la altura de los estándares belgas. Los jugos frutales son costosos, pero deliciosos.",
+     "hyp": "El chocolate caliente está la altura de los estándares velgas, los jugos frutales son costosos pero deliciosos.",
+     "asr_s": 0.164
+    },
+    {
+     "id": "1876",
+     "ref": "La agencia de manejo de emergencias de las Marianas del Norte indicó que no hubo registro de daños en el territorio nacional.",
+     "hyp": "La agencia de emergencias de las varianas del norte indicó que no hubo registro de daños en el territorio nacional.",
+     "asr_s": 0.17
+    },
+    {
+     "id": "1890",
+     "ref": "La mayor parte de los telescopios de investigación actuales consisten en inmensas estructuras instaladas en áreas alejadas con condiciones atmosféricas propicias.",
+     "hyp": "La mayor parte de los telescopios de investigación actuales consiste en imesas de estructuras instaladas en áreas alejadas con condiciones amoeóféricas propicias.",
+     "asr_s": 0.199
+    },
+    {
+     "id": "1719",
+     "ref": "El término clima severo refiere, en general, a cualquier fenómeno climático riesgoso que sea capaz de provocar daños, alteraciones sociales graves o la muerte de personas.",
+     "hyp": "El término clima severo refiere en general a cualquier fenómeno climático riesgoso que sea capaz de provocar daños, alteraciones sociales graves o la muerte de personas.",
+     "asr_s": 0.228
+    },
+    {
+     "id": "2006",
+     "ref": "Se consideran metales a los elementos como el calcio y el potasio. Desde ya, también existen metales del tipo del oro y la plata.",
+     "hyp": "Se consideran metales a los elementos como el calcio y el potasio, desde ya también existen metales del tipo de loro y la plata.",
+     "asr_s": 0.184
+    },
+    {
+     "id": "1823",
+     "ref": "El flujo de tráfico es el estudio del movimiento individual de conductores y vehículos entre dos puntos y de las interacciones entre ellos.",
+     "hyp": "El flujo de tráfico es el estudio del movimiento individual de conductores y vehículos entre dos puntos y de las interacciones entre ellos.",
+     "asr_s": 0.187
+    },
+    {
+     "id": "1683",
+     "ref": "Aún quedan muchos hombres y mujeres con vida que sobrevivieron a su estadía en este lugar y muchos más que tuvieron seres queridos a los que asesinaron o trabajaron allí hasta su muerte, tanto judíos como no judíos.",
+     "hyp": "Aunque eran muchos hombres y mujeres con vida que sobrevivieron a su estadía en este lugar y muchos más que tuvieron seres queridos en los que asesinaron o trabajaron allí hasta su muerte, tanto judíos como unos judíos.",
+     "asr_s": 0.257
+    },
+    {
+     "id": "1694",
+     "ref": "Se acoge a los niños en hogares de guarda por una amplia variedad de motivos, desde negligencia hasta abuso e, incluso, extorsión.",
+     "hyp": "Se acoja los niños en hogares de guarda por una ampla variada de motivos desde negligencia hasta uso e incluso extorsión.",
+     "asr_s": 0.175
+    },
+    {
+     "id": "1791",
+     "ref": "No arruine el lugar haciendo marcas ni haga grafitis en las estructuras.",
+     "hyp": "No arruinen lugar haciendo marcas ni grafitas en las estructuras.",
+     "asr_s": 0.118
+    },
+    {
+     "id": "1772",
+     "ref": "Por tanto, es probable que la anotación haya sido agregada tan solo como un rótulo.",
+     "hyp": "Por tanto, es probable que la notación haya sido agregada tan solo como un ratulo.",
+     "asr_s": 0.141
+    },
+    {
+     "id": "1923",
+     "ref": "Si bien la estrategia, que involucró la interrupción de suministros militares y civiles vitales, fue exitosa, dicha medida violó el derecho internacional generalizadamente reconocido y contemplado en varios acuerdos internacionales de los dos últimos siglos.",
+     "hyp": "Si bien la estrategia que involucró la interrupción de suministros militares y civiles, vitales, fue exitosa, dicha medida violó el derecho internacional generalizadamente reconocido y contemplado en varios recuerdos internacionales de los dos últimos siglos.",
+     "asr_s": 0.367
+    },
+    {
+     "id": "1702",
+     "ref": "En apenas dos semanas, las fuerzas norteamericanas y las de la Francia Libre habían logrado la liberación del sur de Francia y seguían rumbo a Alemania.",
+     "hyp": "En apenas dos semanas, las fuerzas norteamericanas y las de la Francia libre habrían logrado la liberación del Sur de Francia y seguían rumbo a Alemania.",
+     "asr_s": 0.294
+    },
+    {
+     "id": "1841",
+     "ref": "Nada puede verse más que el maravilloso cielo despejado y las numerosas montañas de los alrededores. Desde el interior de esta cueva, se puede ver u oír muy poco de este mundo.",
+     "hyp": "Nada puede verse más que el maravilloso cielo despejado y las numerosas montañas de los arredores. Desde la interior de esta cueva se puede ver cuyo ir muy poco de este mundo.",
+     "asr_s": 0.252
+    },
+    {
+     "id": "1757",
+     "ref": "Únicamente las mutaciones en células germinales se pueden transmitir a los niños, mientras que las que ocurren en otras partes pueden causar la muerte celular o cáncer.",
+     "hyp": "Unicamente las mutaciones en células germinales se pueden transmitir a los niños, mientras que las que ocurren en otras partes pueden causar la muerte celular o cáncer.",
+     "asr_s": 0.22
+    },
+    {
+     "id": "1760",
+     "ref": "El Mosasaurus fue el depredador alfa de su época, por tanto, a nada le temía, excepto a otros de su misma especie.",
+     "hyp": "El emoza Saúrus fue el depredador alfa de su época, por tanto a nada la etemia, excepto a otros de su misma especie.",
+     "asr_s": 0.191
+    },
+    {
+     "id": "1790",
+     "ref": "La calidad y el nivel de detalle de su labor son tan reconocidos que se ha vuelto uno de los pocos «nombres familiares» entre los filatelistas. Hay personas que se especializan en recopilar su obra.",
+     "hyp": "La calidad y el nivel de detalle de su labor son tan reconocidos que se abuelta uno de los pocos nombres familiares entre los filateístas. Hay personas que se especializan el recopilar su obra.",
+     "asr_s": 0.281
+    },
+    {
+     "id": "1732",
+     "ref": "El período histórico europeo en el que se sitúan estos acontecimientos se conoce habitualmente como Alta Edad Media, entre los siglos XI, XII y XIII (es decir, entre los años 1000 y 1300 d. C.).",
+     "hyp": "El periodo histórico europeo en el que se situó estos acontecimientos se conoce habitualmente como alta e da media entre los siglos 11, 12 y 13, es decir, entre los años 1000 y 1300 de C.",
+     "asr_s": 0.315
+    },
+    {
+     "id": "1689",
+     "ref": "Europa es un continente relativamente pequeño, pero con muchos países independientes. Bajo circunstancias normales, viajar por varios países significaría tener que gestionar solicitudes de visa y controles de pasaporte varias veces.",
+     "hyp": "Europa es un continente relativamente pequeño, pero con muchos países independientes, bajo circunstancias normales, viajar por varios países significaría tener que gestionar solicitudes de visa y controles de pasaporte varias veces.",
+     "asr_s": 0.267
+    },
+    {
+     "id": "1736",
+     "ref": "Rolando Mendoza abrió fuego con su M16 contra los visitantes extranjeros.",
+     "hyp": "Rolando Mendoza abrió fuego con su M16 contra los visitantes extranjeros.",
+     "asr_s": 0.141
+    },
+    {
+     "id": "1692",
+     "ref": "Según ha informado la agencia nuclear de Japón, se ha encontrado cesio y iodo radioactivos en la planta.",
+     "hyp": "Según hay informado la agencia nuclear de Japón, se ha encontrado sesio y hodo reactivos en la planta.",
+     "asr_s": 0.171
+    }
+   ]
+  }
+ },
+ "mt": {}
+}

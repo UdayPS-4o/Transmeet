@@ -60,6 +60,11 @@
             <select id="captionLang"></select>
           </label>
         </div>
+        <label class="check">
+          <input type="checkbox" id="voiceLobby">
+          <span class="switch" aria-hidden="true"></span>
+          <span>Speak translations aloud<small id="voiceLobbyNote">The other person's words are read out in your caption language, like an interpreter.</small></span>
+        </label>
 
         <button id="joinBtn" class="join" type="submit">
           Join room
@@ -120,24 +125,75 @@
         <footer class="controls">
           <button id="micBtn" class="round on" title="Mute / unmute" aria-label="Microphone"></button>
           <button id="camBtn" class="round on" title="Camera on / off" aria-label="Camera"></button>
-          <button id="ccBtn" class="round on cc" title="Show / hide captions" aria-label="Captions">CC</button>
+          <button id="ccBtn" class="round on cc" title="Show / hide captions (C)" aria-label="Captions">CC</button>
+          <button id="voiceBtn" class="round voice" title="Speak translations aloud (S)" aria-label="Translated voice"></button>
           <div class="lang-pill">
             <select id="langCall" aria-label="I speak"></select>
             <span class="pair-arrow" aria-hidden="true">→</span>
             <select id="captionLangCall" aria-label="Captions in"></select>
           </div>
-          <button id="sideBtn" class="round on side-toggle" title="Show / hide transcript" aria-label="Transcript"></button>
+          <button id="shareBtn" class="round on share" title="Share your screen" aria-label="Share screen"></button>
+          <button id="settingsBtn" class="round on" title="Caption and voice settings" aria-label="Settings" aria-expanded="false"></button>
+          <button id="sideBtn" class="round on side-toggle" title="Show / hide transcript (T)" aria-label="Transcript"></button>
           <button id="leaveBtn" class="leave" title="Leave call">Leave</button>
         </footer>
+
+        <div id="settings" class="settings hidden" role="dialog" aria-label="Settings">
+          <h3>Translated voice</h3>
+          <label class="row">Voice
+            <select id="voiceSelect"></select>
+          </label>
+          <label class="row">Speed <output id="rateOut">1.0×</output>
+            <input type="range" id="voiceRate" min="0.75" max="1.5" step="0.05" value="1">
+          </label>
+          <label class="row">Their real voice while it plays <output id="duckOut">20%</output>
+            <input type="range" id="duck" min="0" max="1" step="0.05" value="0.2">
+          </label>
+          <label class="check small">
+            <input type="checkbox" id="pauseMic">
+            <span class="switch" aria-hidden="true"></span>
+            <span>Pause my mic while the voice plays<small>Only needed if your own captions pick up the translated voice (some browsers on loudspeakers).</small></span>
+          </label>
+          <h3>Captions</h3>
+          <div class="row">Size
+            <span class="seg" id="capSize" role="radiogroup">
+              <button type="button" data-v="s">S</button><button type="button" data-v="m">M</button><button type="button" data-v="l">L</button>
+            </span>
+          </div>
+          <label class="check small">
+            <input type="checkbox" id="showOrig" checked>
+            <span class="switch" aria-hidden="true"></span>
+            <span>Show the original under the translation</span>
+          </label>
+          <label class="check small">
+            <input type="checkbox" id="romanize">
+            <span class="switch" aria-hidden="true"></span>
+            <span>Hindi in Roman letters<small>नमस्ते → namaste, for readers who prefer Hinglish.</small></span>
+          </label>
+          <h3>Room vocabulary</h3>
+          <form id="vocabForm" class="vocab">
+            <input id="vocab" maxlength="300" placeholder="Names and terms, e.g. Priya, IIT Bombay, Transmeet">
+            <button class="pill-btn" type="submit">Save</button>
+          </form>
+          <p class="hint">Helps the recogniser spell names and jargon. Shared with everyone in the room.</p>
+          <p class="hint mono">Keys: M mic · V camera · C captions · S voice · T transcript</p>
+        </div>
       </div>
 
       <aside id="sidebar" class="sidebar">
         <div class="side-head">
           <h2>Transcript</h2>
-          <button id="download" class="link-btn underline" title="Download transcript">Export .txt</button>
+          <span class="exports">
+            <button id="download" class="link-btn underline" title="Download transcript as text">.txt</button>
+            <button id="downloadSrt" class="link-btn underline" title="Download subtitles (SRT) with call timings">.srt</button>
+          </span>
         </div>
         <div class="legend mono"><span class="k pause"></span>Pause<span class="k asr"></span>ASR<span class="k mt"></span>MT</div>
         <ol id="transcript" class="transcript"></ol>
+        <form id="chatForm" class="chat" autocomplete="off">
+          <input id="chatInput" maxlength="500" placeholder="Type a message, it's translated for them" aria-label="Message">
+          <button id="chatSend" type="submit" title="Send" aria-label="Send"></button>
+        </form>
       </aside>
     </section>
   </div>

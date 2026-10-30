@@ -5,6 +5,8 @@
 //
 //   node tests/e2e.cjs http://localhost:8000 mic_en.wav mic_hi.wav
 //   AUTO=1 node tests/e2e.cjs ...      (both people use "I speak: Auto-detect")
+//   VOICE=1 node tests/e2e.cjs ...     (both turn on the translated voice; checks /api/tts)
+//   URL_B=https://192.168.1.20:8443 node tests/e2e.cjs http://localhost:8000 ...  (Bob uses another address)
 //
 // If a .json file sits next to a .wav (written by tests/mic_scenario.py), the test
 // also checks that the captions match the sentences that were really spoken.
@@ -38,7 +40,7 @@ function wer(ref, hyp) {
   return d[r.length][h.length] / Math.max(1, r.length);
 }
 
-async function person(name, lang, captionLang, wav) {
+async function person(name, lang, captionLang, wav, base = url) {
   const browser = await chromium.launch({
     args: [
       "--use-fake-ui-for-media-stream",
@@ -47,12 +49,22 @@ async function person(name, lang, captionLang, wav) {
       "--autoplay-policy=no-user-gesture-required",
     ],
   });
-  const page = await browser.newPage({ viewport: { width: 1280, height: 760 } });
+  // ignoreHTTPSErrors: the demo server (HTTPS=true) uses a self-signed certificate
+  const page = await browser.newPage({ viewport: { width: 1280, height: 760 }, ignoreHTTPSErrors: true });
   page.on("pageerror", (e) => console.log(`[${name}] page error:`, e.message));
-  await page.goto(`${url}/?room=${room}`);
+  await page.goto(`${base}/?room=${room}`);
   await page.fill("#name", name);
   await page.selectOption("#lang", process.env.AUTO ? "auto" : lang);   // AUTO=1: let the server detect it
   await page.selectOption("#captionLang", captionLang);
+  const tts = [];       // status of every translated-voice request, and how long it took
+  page.on("requestfinished", async (req) => {
+    if (!req.url().endsWith("/api/tts")) return;
+    const res = await req.response();
+    tts.push({ status: res.status(), ms: Number(res.headers()["x-tts-ms"] || 0), total: req.timing().responseEnd });
+  });
+  if (process.env.VOICE) {
+    await page.evaluate(() => { const c = document.querySelector("#voiceLobby"); c.checked = true; c.dispatchEvent(new Event("change")); });
+  }
   await page.click("#joinBtn:not([disabled])");
   await page.waitForSelector("#call:not(.hidden)");
   // remember whether the "hearing you…" indicator ever lit up
@@ -61,11 +73,11 @@ async function person(name, lang, captionLang, wav) {
     new MutationObserver(() => { if (!document.querySelector("#hearing").classList.contains("hidden")) window.__heard = true; })
       .observe(document.querySelector("#hearing"), { attributes: true });
   });
-  return { browser, page, name };
+  return { browser, page, name, tts };
 }
 
 async function transcriptOf(p) {
-  return p.page.$$eval("#transcript li:not(.interim)", (lis) => lis.map((li) => ({
+  return p.page.$$eval("#transcript li:not(.interim)", (lis) => lis.filter((li) => !li.querySelector(".typed")).map((li) => ({
     who: li.querySelector("b").textContent,
     shown: li.querySelector(".t").textContent,
     orig: li.querySelector(".o")?.textContent || li.querySelector(".t").textContent,
@@ -78,15 +90,24 @@ async function transcriptOf(p) {
   const langA = sA?.lang || "en", langB = sB?.lang || "hi";
   const t0 = Date.now();
   const alice = await person("Alice", langA, langA, wavA);
-  const bob = await person("Bob", langB, langB, wavB);
+  // URL_B: Bob joins through another address, e.g. Alice on http://localhost:8000 and Bob
+  // on https://<Wi-Fi IP>:8443 like the second laptop in the demo
+  const bob = await person("Bob", langB, langB, wavB, process.env.URL_B || url);
   let ok = true;
   try {
     for (const p of [alice, bob]) {
       await p.page.waitForFunction(() => document.querySelector("#remoteVideo").videoWidth > 0, null, { timeout: 30000 });
       console.log(`✓ ${p.name}: peer-to-peer video playing (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
     }
+    // a typed message must arrive translated
+    await alice.page.fill("#chatInput", "Can you send me the slides tonight?");
+    await alice.page.press("#chatInput", "Enter");
     console.log(`  listening for ${LISTEN_S}s…`);
     await bob.page.waitForTimeout(LISTEN_S * 1000);
+    const chat = await bob.page.$$eval("#transcript li", (lis) => lis.filter((li) => li.querySelector(".typed"))
+      .map((li) => li.querySelector(".t").textContent));
+    console.log(`${chat.length ? "✓" : "✗"} Bob got Alice's typed message: ${chat[0] || "(nothing)"}`);
+    if (!chat.length) ok = false;
 
     for (const [viewer, speaker, sc] of [[bob, "Alice", sA], [alice, "Bob", sB]]) {
       const rows = (await transcriptOf(viewer)).filter((r) => r.who.startsWith(speaker));
@@ -107,6 +128,19 @@ async function transcriptOf(p) {
         const need = sc.lang === "hi" ? 3 : 4;
         console.log(`${matched.size}/${sc.sentences.length} spoken sentences captioned correctly (need ${need})`);
         if (matched.size < need) ok = false;
+      }
+    }
+    if (process.env.VOICE) {
+      for (const p of [alice, bob]) {
+        const good = p.tts.filter((t) => t.status === 200);
+        const avg = (k) => good.length ? Math.round(good.reduce((a, t) => a + t[k], 0) / good.length) : 0;
+        console.log(`${good.length ? "✓" : "✗"} ${p.name}: ${good.length}/${p.tts.length} translations spoken by the server voice` +
+          (good.length ? ` (synthesis ${avg("ms")} ms, request ${avg("total")} ms on average)` : ""));
+        if (!good.length) ok = false;
+        // the voice goes through a WebRTC loopback so the echo canceller can remove it
+        const loop = await p.page.evaluate(() => state.speech.loopback?.b.connectionState || "none");
+        console.log(`${loop === "connected" ? "✓" : "✗"} ${p.name}: echo-safe voice loopback ${loop}`);
+        if (loop !== "connected") ok = false;
       }
     }
     for (const p of [alice, bob]) {

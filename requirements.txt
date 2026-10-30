@@ -3,3 +3,5 @@ fastapi==0.115.12
 uvicorn[standard]==0.34.2
 httpx==0.28.1
 numpy>=1.26,<3
+piper-tts==1.8.0
+sentencepiece==0.2.1

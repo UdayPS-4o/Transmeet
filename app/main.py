@@ -9,7 +9,8 @@ One process serves everything on a single port (and so a single domain):
 Video and audio between the two callers flow peer-to-peer over WebRTC. Only a
 16 kHz mono copy of each microphone reaches the server, where it goes through
 VAD -> Whisper -> LibreTranslate. The resulting captions are pushed back to
-every participant in the language that participant asked for.
+every participant in the language that participant asked for, and listeners who
+turned on the translated voice fetch it from /api/tts (Piper, also on this server).
 """
 import asyncio
 import contextlib
@@ -24,12 +25,14 @@ from pathlib import Path
 
 import numpy as np
 from fastapi import FastAPI, WebSocket
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 
 from . import config
 from .asr import Transcriber
-from .translate import Translator
+from .translate import Translator, make_translator
+from .tts import Speaker
 from .vad import SAMPLE_RATE, Segmenter, Utterance
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -37,6 +40,7 @@ log = logging.getLogger("transmeet")
 
 asr: Transcriber
 mt: Translator
+tts: Speaker
 STATS: deque[dict] = deque(maxlen=1000)
 
 
@@ -56,12 +60,17 @@ async def _wait_for_translator() -> None:
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    global asr, mt
-    mt = Translator()
+    global asr, mt, tts
+    mt = make_translator()
+    tts = Speaker()
     asr = await asyncio.to_thread(Transcriber)
     task = asyncio.create_task(_wait_for_translator())
+    # loads (and on first start downloads) one voice per language; captions do not wait for it
+    voices = asyncio.create_task(asyncio.to_thread(tts.warm_up)) if tts.enabled else None
     yield
     task.cancel()
+    if voices:
+        voices.cancel()
     await mt.close()
 
 
@@ -85,6 +94,7 @@ class Peer:
         self.speaking = False                # VAD state last reported to the room
         self.auto_lang: str | None = None     # last detected language when lang == "auto"
         self.lang_checks = 0                 # spoken-language checks done so far
+        self.chats = 0                       # typed messages sent
 
     def info(self) -> dict:
         return {"id": self.id, "name": self.name, "lang": self.lang, "captionLang": self.caption_lang}
@@ -99,6 +109,7 @@ class Room:
     def __init__(self, rid: str):
         self.id = rid
         self.peers: dict[str, Peer] = {}
+        self.vocab = ""                      # names / terms both people expect, fed to Whisper
 
     async def broadcast(self, msg: dict, exclude: str | None = None) -> None:
         await asyncio.gather(*(p.send(msg) for p in list(self.peers.values()) if p.id != exclude))
@@ -148,7 +159,7 @@ def maybe_interim(peer: Peer) -> None:
 
 async def process_interim(peer: Peer, n: int, audio: np.ndarray, src: str) -> None:
     try:
-        text, _ = await asr.transcribe(audio, src, final=False)
+        text, _ = await asr.transcribe(audio, src, final=False, hotwords=peer.room.vocab)
         if not text or peer.finalized >= n:
             return      # the final caption for this utterance already went out
         translations = await translate_for_room(peer, text, src)
@@ -172,7 +183,7 @@ async def process_final(peer: Peer, n: int, utt: Utterance) -> None:
                 src = peer.auto_lang
             peer.auto_lang = src
             detect_s = time.monotonic() - t
-        text, asr_s = await asr.transcribe(utt.audio, src, final=True)
+        text, asr_s = await asr.transcribe(utt.audio, src, final=True, hotwords=peer.room.vocab)
         asr_s += detect_s
         t_asr = time.monotonic()
         translations = await translate_for_room(peer, text, src) if text else {}
@@ -214,6 +225,20 @@ async def check_language(peer: Peer, audio: np.ndarray) -> None:
         peer.lang_checks = 99                # one hint is enough
         await peer.send({"type": "lang-hint", "selected": peer.lang, "detected": detected,
                          "probability": round(prob, 2)})
+
+
+async def process_chat(peer: Peer, text: str) -> None:
+    """A typed message, translated like a caption. With Auto-detect the speaker's last
+    spoken language is the best guess; before they have spoken, their caption language."""
+    src = peer.lang if peer.lang != "auto" else (peer.auto_lang or peer.caption_lang)
+    translations = await translate_for_room(peer, text, src)
+    peer.chats += 1
+    base = {"type": "chat", "seg": f"{peer.id}-c{peer.chats}", "speaker": peer.id,
+            "name": peer.name, "src": src, "text": text}
+    await asyncio.gather(*(p.send({**base, "tgt": p.caption_lang,
+                                   "translated": None if p.caption_lang == src
+                                   else translations.get(p.caption_lang)})
+                           for p in list(peer.room.peers.values())))
 
 
 async def translate_for_room(speaker: Peer, text: str, src: str) -> dict[str, str | None]:
@@ -275,7 +300,8 @@ async def ws_endpoint(ws: WebSocket, room_id: str):
                             lang_ok(data.get("captionLang", lang)))
                 others = [p.info() for p in room.peers.values()]
                 room.peers[peer.id] = peer
-                await peer.send({"type": "joined", "id": peer.id, "room": rid, "peers": others})
+                await peer.send({"type": "joined", "id": peer.id, "room": rid, "peers": others,
+                                 "vocab": room.vocab})
                 await room.broadcast({"type": "peer-joined", "peer": peer.info()}, exclude=peer.id)
 
             elif kind == "signal" and peer:
@@ -290,6 +316,16 @@ async def ws_endpoint(ws: WebSocket, room_id: str):
                 if "captionLang" in data:
                     peer.caption_lang = lang_ok(data["captionLang"])
                 await peer.room.broadcast({"type": "peer-updated", "peer": peer.info()})
+
+            elif kind == "vocab" and peer:
+                # comma separated names and terms, e.g. "Priya, Transmeet, IIT Bombay"
+                peer.room.vocab = " ".join(str(data.get("text", "")).split())[:300]
+                await peer.room.broadcast({"type": "vocab", "text": peer.room.vocab, "by": peer.name})
+
+            elif kind == "chat" and peer:
+                text = " ".join(str(data.get("text", "")).split())[:500]
+                if text:
+                    asyncio.create_task(process_chat(peer, text))
 
             elif kind == "flush" and peer:
                 for utt in peer.seg.flush():
@@ -319,15 +355,18 @@ async def get_config():
         "iceServers": config.ice_servers(),
         "languages": mt.languages(),
         "translator": mt.online,
+        "mt": "NLLB-200" if config.MT_ENGINE == "nllb" else "LibreTranslate",
         "model": config.WHISPER_MODEL,
         "modelByLang": config.WHISPER_MODEL_BY_LANG,
         "maxPeers": config.MAX_PEERS,
+        "tts": tts.catalog(),      # {lang: [{id, label}]}: languages the server can speak
     }
 
 
 @app.get("/api/health")
 async def health():
     return {"ok": True, "asr": config.WHISPER_MODEL, "translator": mt.online,
+            "tts": sorted(tts.catalog()),
             "rooms": len(ROOMS), "peers": sum(len(r.peers) for r in ROOMS.values())}
 
 
@@ -346,6 +385,27 @@ async def stats():
         rtf = [r["asrMs"] / max(r["audioMs"], 1) for r in rows]
         out["asrRealTimeFactor"] = round(float(np.mean(rtf)), 3)
     return JSONResponse(out)
+
+
+class SpeakRequest(BaseModel):
+    text: str
+    lang: str
+    voice: str | None = None
+    rate: float = 1.0
+
+
+@app.post("/api/tts")
+async def speak(req: SpeakRequest):
+    """The translated sentence read aloud (WAV). 204 when this server has no voice for
+    the language, so the browser can fall back to its own speech synthesis."""
+    if req.lang not in config.LANGUAGES or not req.text.strip():
+        return Response(status_code=204)
+    out = await tts.speak(req.text[:600], req.lang, req.voice, req.rate)
+    if out is None:
+        return Response(status_code=204)
+    wav, took = out
+    return Response(wav, media_type="audio/wav",
+                    headers={"X-TTS-Ms": str(round(took * 1000)), "Cache-Control": "no-store"})
 
 
 app.mount("/", StaticFiles(directory=Path(__file__).parent / "static", html=True), name="static")
